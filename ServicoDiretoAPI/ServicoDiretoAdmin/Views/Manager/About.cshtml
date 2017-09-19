@@ -1,0 +1,69 @@
+﻿@model SpongeSolutions.Core.Helpers.AssemblyInfoHelper
+@{
+    ViewBag.Title = SpongeSolutions.ServicoDireto.Internationalization.Label.Home_About_Title;
+}
+<script language="javascript" type="text/javascript">
+    $(function () {
+        NBN.Helper.ApplyMask();
+        $("#tabs").tabs();
+    });
+</script>
+<div class="container">
+    <div class="form-header process">
+        <h3>@SpongeSolutions.ServicoDireto.Internationalization.Label.Home_About_Title</h3>
+        <p>@SpongeSolutions.ServicoDireto.Internationalization.Label.Home_About_Help</p>
+    </div>
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">@SpongeSolutions.ServicoDireto.Internationalization.Label.General</a></li>
+        </ul>
+        <div id="tabs-1">
+            <fieldset>
+                <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.Home_About_Title</legend>
+                <div>
+                    @Html.Label("Version"):&nbsp; @Html.Raw(this.Model.AssemblyVersion)
+                </div>
+                <div>
+                    @Html.Label("Title"):&nbsp; @Html.Raw(this.Model.Title)
+                </div>
+                <div>
+                    @Html.Label("Product"):&nbsp; @Html.Raw(this.Model.Product)
+                </div>
+                <div>
+                    @Html.Label("Company"):&nbsp; @Html.Raw(this.Model.Company)
+                </div>
+                <div>
+                    @Html.Label("Copyright"):&nbsp; @Html.Raw(this.Model.Copyright)
+                </div>
+                <div>
+                    @Html.Label("Description"):&nbsp; @Html.Raw(this.Model.Description)
+                </div>
+                <div>
+                    @Html.Label("FileName"):&nbsp; @Html.Raw(this.Model.FileName)
+                </div>
+                <div>
+                    @Html.Label("FilePath"):&nbsp; @Html.Raw(this.Model.FilePath)
+                </div>
+                <div>
+                    @Html.Label("FileVersion"):&nbsp; @Html.Raw(this.Model.FileVersion)
+                </div>
+                <div>
+                    @Html.Label("Guid"):&nbsp; @Html.Raw(this.Model.Guid)
+                </div>
+                <div>
+                    @Html.Label("Trademark"):&nbsp; @Html.Raw(this.Model.Trademark)
+                </div>
+                <div>
+                    @Html.Label("ReleaseNotes"):
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="toolbar span-20">
+        <ul>
+            <li>
+                <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Back" class="back" onclick="location.href='@Url.Action("index", "home")'"/>
+            </li>
+        </ul>
+    </div>
+</div>

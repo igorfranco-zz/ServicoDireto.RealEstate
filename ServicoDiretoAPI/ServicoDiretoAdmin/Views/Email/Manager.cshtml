@@ -1,0 +1,170 @@
+﻿@model IList<SpongeSolutions.ServicoDireto.Model.EmailExtended>
+@{
+    ViewBag.Title = SpongeSolutions.ServicoDireto.Internationalization.Label.Mail_Index_Title;
+    Layout = (this.ViewBag.WindowMode) ? "~/Views/Shared/_LayoutBasic.cshtml" : "~/Views/Shared/_LayoutFull.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+        $("#tabs").tabs({
+            select: function (event, ui) {
+                if (ui.index == 0) {
+                    UpdateInbox();
+                }
+                else if (ui.index == 1) {
+                    UpdateSent();
+                }
+            }
+        });
+    });
+
+    function UpdateInbox() {
+        NBN.REST.Execute("/email.aspx/inbox", {}, function (data) {
+            $("#tabs-1").html(data);
+            ShowHideToolbar(true);
+        }, "GET");
+    }
+
+    function UpdateSent() {
+        NBN.REST.Execute("/email.aspx/sent", {}, function (data) {
+            $("#tabs-2").html(data);
+            ShowHideToolbar(true);
+        }, "GET");
+    }
+
+    function ShowHideToolbar(show) {
+        if (show) {
+            $("#email_box_mark_as_read").show();
+            $("#email_box_delete").show();
+        }
+        else {
+            $("#email_box_mark_as_read").hide();
+            $("#email_box_delete").hide();
+        }
+    }
+
+    function CancelCreateEmail() {
+        UpdateInbox();
+        UpdateSent();
+        ShowHideToolbar(true);
+    }
+
+    function LoadElements() {
+        NBN.REST.Execute("/element.aspx/listbycustomer", { IDCustomer: $("#IDCustomerTo").val() }, function (data) {
+            data = JSON.parse(data);
+            if (data.ResponseData.Status == 200) //Sucesso
+                NBN.Helper.FillDropDown("IDElement", data, { Text: "@Html.Raw(SpongeSolutions.ServicoDireto.Internationalization.Label.Select_Element)", Value: "" })
+            else
+                NBN.Helper.ShowModalWindowJqueryUI(data.ResponseData.Details, "@SpongeSolutions.ServicoDireto.Internationalization.Message.Error", { width: 300, heigth: 200 }, false, true);
+        }, "POST");
+    }
+
+    function ShowEmail(_idEmail) {
+        $("#tabs").tabs("select", 0);
+        NBN.REST.Execute("/email.aspx/create", { idEmail: _idEmail }, function (data) {
+            $("#tabs-1").html(data);
+            NBN.Helper.LoadAutoComplete("IDCustomerTo", "IDCustomerToName", '@Url.Action("autocomplete", "customer")', function () { LoadElements() });
+            ShowHideToolbar(false);
+            var options = {
+                // pre-submit callback 
+                beforeSubmit: function (formData, jqForm, options) {
+                },
+                // post-submit callback 
+                success: function (responseText, statusText, xhr, $form) {
+                    UpdateInbox();
+                    UpdateSent();
+                    $("#success-message").text('@SpongeSolutions.ServicoDireto.Internationalization.Message.Email_Has_Been_Sent_Successfully');
+                }
+            };
+            // bind form using 'ajaxForm' 
+            $('#emailCreateForm').ajaxForm(options);
+        }, "GET");
+    }
+
+    function DeleteSelectedEmails() {
+        if (confirm("@Html.Raw(SpongeSolutions.ServicoDireto.Internationalization.Message.Confirm_Deactivation)")) {
+            Manager.Services.DeactivateEmail({ ids: NBN.Helper.GetSelectedValuesAsArray('chkIDEmail') }, function (data) {
+                data = JSON.parse(data);
+                if (data.ResponseData.Status == 200) //Sucesso
+                {
+                    var result = data.ResponseData.Result[0];
+                    if (result.Deleted) {
+                        //                        window.location.reload(true);
+                        UpdateInbox();
+                        UpdateSent();
+                    }
+                }
+                else {
+                    NBN.Helper.ShowModalWindowJqueryUI(data.ResponseData.Details, "@SpongeSolutions.ServicoDireto.Internationalization.Message.Error_Deactivation", { width: 300, heigth: 200 });
+                }
+            });
+        }
+    }
+
+    function MarkAsUnread() {
+        Manager.Services.MarkAsUnread({ ids: NBN.Helper.GetSelectedValuesAsArray('chkIDEmail') }, function (data) {
+            data = JSON.parse(data);
+            if (data.ResponseData.Status == 200) //Sucesso
+            {
+                var result = data.ResponseData.Result[0];
+                if (result.MarkedAsUnread) {
+                    //                        window.location.reload(true);
+                    UpdateInbox();
+                    UpdateSent();
+                }
+            }
+            else {
+                NBN.Helper.ShowModalWindowJqueryUI(data.ResponseData.Details, "@SpongeSolutions.ServicoDireto.Internationalization.Message.Error_Deactivation", { width: 300, heigth: 200 });
+            }
+        });
+    }
+
+</script>
+<div class="container">
+    @if (!this.ViewBag.WindowMode)
+    {
+        <div class="form-header recipe">
+            <h3>@SpongeSolutions.ServicoDireto.Internationalization.Label.Mail_Index_Title</h3>
+            <p>@SpongeSolutions.ServicoDireto.Internationalization.Label.Mail_Index_Help</p>
+        </div>
+    }
+@*    @if (this.ViewBag.Message != null)
+    {
+        <div>@this.ViewBag.Message</div>
+    }*@
+    <div class="success" id="success-message">@this.TempData["Message"]</div>
+    <fieldset>
+        <div id="tabs" style="background-color: White !important;">
+            <ul>
+                <li><a href="#tabs-1"><span class="context_icon email_box">@SpongeSolutions.ServicoDireto.Internationalization.Label.Mail_Box</span></a></li>
+                <li><a href="#tabs-2"><span class="context_icon email_box_sent">@SpongeSolutions.ServicoDireto.Internationalization.Label.Sent_Items</span></a></li>
+                @*<li><a href="#tabs-3"><span class="context_icon email_box_alert">@SpongeSolutions.ServicoDireto.Internationalization.Label.Alerts</span></a></li>*@
+            </ul>
+            <div class="email-toolbar">
+                <ul>
+                    <li><a href="javascript:ShowEmail();"><span class="context_icon email_box_add">@SpongeSolutions.ServicoDireto.Internationalization.Label.New_Email</span></a></li>
+                    <li id="email_box_delete"><a href="javascript:DeleteSelectedEmails();"><span class="context_icon email_box_delete">@SpongeSolutions.ServicoDireto.Internationalization.Label.Delete_Selected</span></a></li>
+                    <li id="email_box_mark_as_read"><a href="javascript:MarkAsUnread();"><span class="context_icon email_box">@SpongeSolutions.ServicoDireto.Internationalization.Label.Mark_As_Not_Read</span></a></li>
+                </ul>
+                <hr />
+            </div>
+            <div class="email-sub-toolbar">
+                <ul>
+                    <li><a href="javascript:NBN.Helper.CheckAll(true, 'IDEmail');"><span>@SpongeSolutions.ServicoDireto.Internationalization.Label.All</span></a></li>
+                    @*<li><a href="#"><span>@SpongeSolutions.ServicoDireto.Internationalization.Label.Only_Read</span></a></li>*@
+                    <li><a href="javascript:NBN.Helper.CheckAll(false, 'IDEmail');"><span>@SpongeSolutions.ServicoDireto.Internationalization.Label.None</span></a></li>
+                </ul>
+                <hr />
+            </div>
+            <div id="tabs-1">
+                @{
+                    Html.RenderAction("inbox", "email");
+                }
+            </div>
+            <div id="tabs-2">
+            </div>
+            @*            <div id="tabs-3">
+            </div>
+*@
+        </div>
+    </fieldset>
+</div>

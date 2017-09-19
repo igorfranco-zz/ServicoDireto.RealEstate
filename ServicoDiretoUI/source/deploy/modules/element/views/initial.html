@@ -1,0 +1,152 @@
+ <script type="text/ng-template" id="select-address-template.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Foram encontrados mais de um local para o endereço informado!</h3>
+    </div>
+    <div class="modal-body">               
+        <ul>
+            <li ng-repeat="address in addresses"><a href="#" ng-click="select(address)">{{address.formatted_address}}</a></li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-danger large" type="button" ng-click="cancel()">Cancelar</button>
+    </div>
+</script>
+
+<section id="search" class="block zoner-search-box">
+    <div class="container">
+        <div class="row" >
+            <div class="col-lg-7 col-lg-offset-3 text-center zoner-search-box-container">
+                <div>
+                    <uib-tabset active="active">
+                        <uib-tab index="{{purpose.idPurpose}}" heading="{{purpose.description}}" select="changeFilterPurpose(purpose.idPurpose)" ng-repeat="purpose in purposes"></uib-tab>
+                    </uib-tabset>
+                </div>
+                <div>
+                    <div class="input-group input-group-lg">
+                        <input type="text" class="form-control" placeholder="Endereço, Bairro, Cidade, Estado, CEP..." ng-model="filter.BaseAddress">                        
+                        <div class="input-group-btn">
+                            <button class="btn btn-warning" type="button" ng-click="doFilterListing(1);" popover-trigger="mouseenter" uib-popover="{{'Listagem'}}">
+                                <i class="glyphicon glyphicon-th-list"></i> 
+                            </button>
+                            <button class="btn btn-danger" type="button" ng-click="doFilterListing(2);" popover-trigger="mouseenter" uib-popover="{{'Mapa'}}">
+                                <i class="glyphicon glyphicon-map-marker"></i> 
+                            </button>
+                            
+                            <!--button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                              <li>
+                                 <button class="btn btn-danger" type="button" ng-click="doFilterListing();">
+                                    <i class="glyphicon glyphicon-map"></i> 
+                                </button>
+                               </li>
+                                <li>
+                                 <button class="btn btn-danger" type="button" ng-click="doFilterListing();">
+                                    <i class="glyphicon glyphicon-search"></i> 
+                                </button>
+                               </li>                              
+                            </ul-->                            
+                      </div><!-- /btn-group -->                        
+                    </div><!-- /input-group -->
+                </div>
+            </div>                        
+        </div>        
+    </div>  
+</section>
+
+<section id="our-services" class="block" ng-hide="'true'">
+    <div class="container">
+        <header class="section-title"><h2>Nossos Serviços</h2></header>
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <div class="feature-box equal-height">
+                    <figure class="icon"><i class="fa fa-folder"></i></figure>
+                    <aside class="description">
+                        <header><h3>Variedades de Imóveis</h3></header>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                        <a href="properties-listing.html" class="link-arrow">Read More</a>
+                    </aside>
+                </div><!-- /.feature-box -->
+            </div><!-- /.col-md-4 -->
+            <div class="col-md-4 col-sm-4">
+                <div class="feature-box equal-height">
+                    <figure class="icon"><i class="fa fa-users"></i></figure>
+                    <aside class="description">
+                        <header><h3>Contato direto com o anunciante</h3></header>
+                        <p>Aliquam gravida magna et fringilla convallis. Pellentesque habitant morbi </p>
+                        <a href="agents-listing.html" class="link-arrow">Read More</a>
+                    </aside>
+                </div><!-- /.feature-box -->
+            </div><!-- /.col-md-4 -->
+            <div class="col-md-4 col-sm-4">
+                <div class="feature-box equal-height">
+                    <figure class="icon"><i class="fa fa-money"></i></figure>
+                    <aside class="description">
+                        <header><h3>Serviço Gratuito!</h3></header>
+                        <p>Phasellus non viverra tortor, id auctor leo. Suspendisse id nibh placerat</p>
+                        <a href="#" class="link-arrow">Read More</a>
+                    </aside>
+                </div><!-- /.feature-box -->
+            </div><!-- /.col-md-4 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</section><!-- /#our-services -->
+
+<section id="new-properties" class="block" ng-init="listTopViewed()">
+    <div class="container">
+        <header class="section-title">
+            <h2>Imóveis mais visualizados</h2>
+        </header>           
+        <div class="row" ng-repeat="items in listTopViewed"> 
+            <div class="col-md-3 col-sm-6" ng-repeat="tv in items">
+                <div class="property">
+                    <figure class="tag status">{{ tv.purposeName }}</figure>
+                    <figure class="type" title=""><img src="{{ tv.iconPath }}"></figure>
+                    <a href="#/property-detail/{{ tv.idElement }}" ui-sref="property-detail({ idElement: tv.idElement })">
+                        <div class="property-image">
+                            <img alt="" src="{{ config.adminSite + tv.defaultPicturePath }}">
+                        </div>
+                        <div class="overlay">
+                            <div class="info">
+                                <div class="tag price">{{ tv.price }}</div>
+                                <h3>{{ tv.name }}</h3>
+                                <figure>{{ tv.cityName + ', ' + tv.stateProvinceName + ', ' + tv.countryName }}</figure>
+                            </div>
+                            <ul class="additional-info">
+                                <li>
+                                    <header>Área Total:</header>
+                                    <figure>{{ tv.totalArea }}m<sup>2</sup></figure>
+                                </li>
+                                <li>
+                                    <header>Quartos:</header>
+                                    <figure>{{ tv.beds }}</figure>
+                                </li>
+                                <li>
+                                    <header>Banheiros:</header>
+                                    <figure>{{ tv.bathrooms }}</figure>
+                                </li>
+                                <li>
+                                    <header>Garagens:</header>
+                                    <figure>{{ tv.garages }}</figure>
+                                </li>
+                            </ul>                                
+                        </div>
+                    </a>
+                </div><!-- /.property -->
+            </div><!-- /.col-md-3 -->
+        </div><!-- /.row-->            
+
+    </div><!-- /.container-->
+</section><!-- /#new-properties-->
+
+<section id="partners" class="block" ng-hide="'true'" >
+    <div class="container">
+        <header class="section-title"><h2>Nossos Parceiros</h2></header>
+        <div class="logos">
+            <div class="logo"><a href=""><img src="assets/img/logo-partner-01.png" alt=""></a></div>
+            <div class="logo"><a href=""><img src="assets/img/logo-partner-02.png" alt=""></a></div>
+            <div class="logo"><a href=""><img src="assets/img/logo-partner-03.png" alt=""></a></div>
+            <div class="logo"><a href=""><img src="assets/img/logo-partner-04.png" alt=""></a></div>
+            <div class="logo"><a href=""><img src="assets/img/logo-partner-05.png" alt=""></a></div>
+        </div>
+    </div><!-- /.container -->
+</section><!-- /#partners -->   

@@ -1,0 +1,56 @@
+﻿@model IList<SpongeSolutions.ServicoDireto.Model.ElementExtended>
+@using SpongeSolutions.Core.Helpers;
+@{
+    ViewBag.Title = "Similar";
+    Layout = null;
+}
+<style>
+    .similar-item{margin-top: 10px;}
+</style>
+@if (Model != null && Model.Count > 0)
+{
+    <div class="span-5">@SpongeSolutions.ServicoDireto.Internationalization.Label.Private_Similar</div>
+    foreach (var item in Model)
+    {
+        if (item.Url == null)
+        {
+            <a href="javascript:location.href='@Url.Action("details", "element", new { id = item.IDElement })'">        
+                <div class="similar-item span-5 border-top">
+                    <div class="span-5">
+                        <span><b>@item.HierarchyPath</b></span></div>
+                    <div class="span-5">
+                        <img  src="@item.DefaultPicturePath"  alt="@item.Name"/>
+                    </div>
+                    <div class="span-5">
+                    @{
+                        <label>@SpongeSolutions.ServicoDireto.Internationalization.Label.Price: </label>
+                        var attr = item.BasicAttributes.Where(p => p.Acronym == "PRC").FirstOrDefault();
+                        @String.Format(attr.DisplayMask, attr.Value.Replace(".", "").AsFloat())            
+                     }
+                    </div>
+                    <div class="span-5">
+                    @{
+                        <label>@SpongeSolutions.ServicoDireto.Internationalization.Label.Rooms: </label>
+                        @item.BasicAttributes.Where(p => p.Acronym == "ROO").FirstOrDefault().Value
+                     }
+                    </div>
+                </div>
+            </a>
+        }
+        else
+        {
+    <a href="@item.Url" target="_blank">
+        <div class="similar-item span-5 border-top">
+            <div class="span-5">
+                <span><b>@item.HierarchyPath</b></span></div>
+            <div class="span-5">
+                <img  src="@item.DefaultPicturePath"  alt="@item.Name"/>
+            </div>
+            <div class="span-5">
+                @item.CountryName - @item.CityName - @item.StateProvinceName
+            </div>
+        </div>
+    </a>
+        }
+    }
+}

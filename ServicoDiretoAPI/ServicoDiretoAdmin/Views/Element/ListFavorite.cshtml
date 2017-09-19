@@ -1,0 +1,30 @@
+﻿@using SpongeSolutions.Core.Helpers;
+@using SpongeSolutions.ServicoDireto.Model;
+@model IList<SpongeSolutions.ServicoDireto.Model.ElementExtended>
+@{
+    Layout = (this.ViewBag.WindowMode) ? "~/Views/Shared/_LayoutBasic.cshtml" : "~/Views/Shared/_LayoutFull.cshtml";
+    ViewBag.Title = SpongeSolutions.ServicoDireto.Internationalization.Label.Element_Favorite_Title;
+}
+<script type="text/javascript">
+    function AddSelected(id, value) {
+        location.href = '@Url.Action("details", "element")/' + id;
+    }
+</script>
+<div class="container">
+    @if (!this.ViewBag.WindowMode)
+    {
+        <div class="form-header recipe">
+            <h3>@SpongeSolutions.ServicoDireto.Internationalization.Label.Element_Favorite_Title</h3>
+            <p>@SpongeSolutions.ServicoDireto.Internationalization.Label.Element_Favorite_Help</p>
+        </div>
+    }
+    @if (this.ViewBag.Message != null)
+    {
+        <div>@this.ViewBag.Message</div>
+    }
+    <fieldset>
+        <div id="gridResult" class="span-25" style="background-color: White !important;">
+            @Html.Grid(Model, "IDElement", SpongeSolutions.ServicoDireto.Internationalization.Label.Element_Favorite, isWindowMode: true)
+        </div>
+    </fieldset>
+</div>

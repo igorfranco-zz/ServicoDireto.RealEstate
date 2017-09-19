@@ -1,0 +1,37 @@
+--colocar o error retornado no rootscope
+--fazer um broadcast para exibir a mensagem de erro
+--colocar interval para buscar os de mais visualizados
+--criar imagem de tamanho intermediario
+--fazer  funcionar o position
+--colocar uma ancora no cabecalho para ir quando o usuario clicar no imovel
+--colocar esse como segunda opcao de consulta:
+--file:///D:/_LOCAL/Projects/ServicoDireto/ServicoDiretoUI/trunk/builds/development/layout_base/index-slider-search-box.html 
+--file:///D:/_LOCAL/Projects/ServicoDireto/ServicoDiretoUI/trunk/builds/development/layout_base/index-slider-horizontal-search-box-floated.html
+***--modificar para trazer apenas campos utilizados e com atributos defaults
+--multilanguage -- esconder os icones
+***na listagem de imoveis retornados poderia recolar o filtro para trabalhar em cima do resultado atraves dos filtros
+--colocar as estruturas hierarquicas em cache
+--identificar partial que podem ser unificados
+--colocar o map no detalhes do imóvel mostrando pontos de interesse, como academias, padarias, etc
+*** ao mudar de view colocar um loading no centro da tela
+*** no detalhe do imovel fazer funcionar o lance da visualizaca das imagens 
+--colocar as imagens como atributo
+--efetuar valiadação server-side em geral
+--criar paginaçao de resultado final
+
+--criar no repositorio metodos asincronos para alguns momentos 
+tomar como base ?: http://bitoftech.net/2014/06/01/token-based-authentication-asp-net-web-api-2-owin-asp-net-identity/
+--habilitar https na parte de autenticacao
+--rever todos os repositorios, ha problemas nas queries, colocar o maximo possivel assincrono
+--quando abrir algo no teu autenticado verificar se é realmente do usuario em questão pelo token
+--colocar change password sob https.
+--criar breadcrumb como componente
+
+-- ADMINISTRATIVO 
+	-Na listagem de imóveis colocar filtro
+	-Ao criar atributo ja vincular a um tipo
+	-quando salvando elemento o valor de ispromoted esta ficando false em todos verificar
+
+--quando adicionar o imovel setar a primeira imagem como principal
+--no componente de filtro colocar o codigo do filtro dentro dele
+--no filtro ao inves de colocar os id colocar o apelido

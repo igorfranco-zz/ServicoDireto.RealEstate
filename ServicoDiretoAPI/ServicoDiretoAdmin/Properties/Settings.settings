@@ -1,0 +1,30 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SpongeSolutions.ServicoDireto.Admin.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MaximumRows" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">50</Value>
+    </Setting>
+    <Setting Name="LayoutPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://localhost:8989</Value>
+    </Setting>
+    <Setting Name="DefaultCountry" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">BR</Value>
+    </Setting>
+    <Setting Name="UploadPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">/Uploads</Value>
+    </Setting>
+    <Setting Name="SitePath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://localhost:8000</Value>
+    </Setting>
+    <Setting Name="SiteName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Serviço Direto</Value>
+    </Setting>
+    <Setting Name="MaximumImages" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="SiteEmail" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">igorfranco@gmail.com</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

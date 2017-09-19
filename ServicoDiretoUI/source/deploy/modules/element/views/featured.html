@@ -1,0 +1,71 @@
+
+
+<section id="featured-properties" class="featured-properties block background-color-grey-light carousel-full-width" ng-controller="ElementController" ng-init="listFeatured()">
+    <div class="container">
+        <header class="section-title"><h2>Imóveis em Destaque</h2></header>
+    </div><!-- /.container -->
+
+    <div class="owl-carousel featured-properties-carousel" 
+        rtl='false'
+        items='3'
+        pagination='true'
+        owl-carousel="elementFeatured"            
+        margin='0'
+        responsiveClass='true'
+        responsiveBaseElement=".featured-properties-carousel"
+        dots='false'
+        autoHeight='false'
+        responsive='{
+                0:{
+                    items:1
+                },
+                768:{
+                    items:3
+                },
+                980:{
+                    items:4
+                },
+                1200:{
+                    items:4
+                },
+                1700:{
+                    items:5
+                }
+            }'
+        >
+        <div class="property big" >
+            <a href="#/property-detail/{{ item.idElement }}" ui-sref="property-detail({ idElement: item.idElement })">
+            <!--a href="#" ng-click="changeView('property-detail')"-->
+                <div class="property-image">
+                    <img alt="" src="{{ config.adminSite + item.defaultPicturePath }}">
+                </div>
+                <div class="overlay">
+                    <div class="info">
+                        <div class="tag price">{{ (item.basicAttributes.length >= 8 ? item.basicAttributes[8].value.replace('.','') : 0) | currency }}</div>
+                        <h3>{{ item.Name }}</h3>
+                        <figure>{{ item.cityName + ', ' + item.stateProvinceName + ', ' + item.countryName }}</figure>
+                    </div>
+                    <ul class="additional-info">
+                        <li>
+                            <header>Área Total:</header>
+                            <figure>{{element.totalArea }}m<sup>2</sup></figure>
+                        </li>
+                        <li>
+                            <header>Quartos:</header>
+                            <figure>{{element.beds}}</figure>
+                        </li>
+                        <li>
+                            <header>Banheiros:</header>
+                            <figure>{{element.bathrooms}}</figure>
+                        </li>
+                        <li>
+                            <header>Garagens:</header>
+                            <figure>{{element.garages}}</figure>
+                        </li>
+                    </ul>                    
+                </div>
+            </a>
+
+        </div><!-- /.property -->                
+    </div>
+</section><!-- /#featured-properties -->

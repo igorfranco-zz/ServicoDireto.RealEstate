@@ -1,0 +1,5 @@
+D:\Avantika\Projects\_Servico_\Database\ServicoDiretoDB\bin\Debug\ServicoDiretoDB.dacpac
+D:\Avantika\Projects\_Servico_\Database\ServicoDiretoDB\obj\Debug\ServicoDiretoDB.dll
+D:\Avantika\Projects\_Servico_\Database\ServicoDiretoDB\obj\Debug\ServicoDiretoDB.pdb
+D:\Avantika\Projects\_Servico_\Database\ServicoDiretoDB\bin\Debug\ServicoDiretoDB.dll
+D:\Avantika\Projects\_Servico_\Database\ServicoDiretoDB\bin\Debug\ServicoDiretoDB.pdb

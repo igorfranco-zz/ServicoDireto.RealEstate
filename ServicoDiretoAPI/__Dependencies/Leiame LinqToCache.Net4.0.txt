@@ -1,0 +1,15 @@
+http://code.google.com/p/linqtocache/
+exemplo de notificacao de evento
+
+    //return query.AsCached(Context.CacheKey.ProductKey, new CachedQueryOptions()
+                //{
+                //    OnInvalidated = (sender, args) =>
+                //    {
+                //        // This code here is invoked when the query result is invalidated
+                //        // Always check the args parameter to understand the type of invalidation that occured
+                //        if (SqlNotificationSource.Data == args.NotificationEventArgs.Source && SqlNotificationType.Change == args.NotificationEventArgs.Type)
+                //        {
+                //            // This is a data change notificaiton, the result set has changed
+                //        }
+                //    }
+                //}).ToList<dynamic>();

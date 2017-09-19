@@ -1,0 +1,44 @@
+﻿@model IList<SpongeSolutions.ServicoDireto.Model.EmailExtended>
+@{
+    ViewBag.Title = "Email";
+    Layout=null;
+    List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+    parameters.Add(new KeyValuePair<string, object>("idCustomerTo", this.ViewBag.IDCustomerTo));
+    parameters.Add(new KeyValuePair<string, object>("idCustomerFrom", this.ViewBag.IDCustomerFrom));
+    parameters.Add(new KeyValuePair<string, object>("status", this.ViewBag.Status));
+}
+
+@if (this.ViewBag.RowCount > 0)
+{
+    <div id="gridResult">
+        @{
+            var grid = new WebGrid(Model, canPage: false, canSort: false, rowsPerPage: SpongeSolutions.ServicoDireto.Admin.SiteContext.MaximumRows, defaultSort: "CreateDate");
+            WebGridColumn[] gridColumns;
+            <span>Total de Registros: @this.ViewBag.RowCount</span>
+            gridColumns = grid.Columns(
+                    grid.Column(columnName: "IDEmail", header: "", format: @<input type="checkbox" id="chkIDEmail" name="chkIDEmail" value="@item.IDEmail"/>, canSort: false, style: "span-1"),
+                    grid.Column(null, format: (item) =>
+                    {
+                        if(item.Read)
+                            return new HtmlString(String.Format("<a href='javascript:ShowEmail({0})'><img title='{1}' src='{2}'></a>", item.IDEmail, item.Subject, String.Concat(SpongeSolutions.ServicoDireto.Admin.SiteContext.LayoutPath, "/_images/icons/email_open.png")));
+                        else
+                            return new HtmlString(String.Format("<a href='javascript:ShowEmail({0})'><img title='{1}' src='{2}'></a>", item.IDEmail, item.Subject, String.Concat(SpongeSolutions.ServicoDireto.Admin.SiteContext.LayoutPath, "/_images/icons/email.png")));
+                            
+                    },style: "span-1"),
+                    grid.Column("IDCustomerFromName", SpongeSolutions.ServicoDireto.Internationalization.Label.IDCustomerFrom),
+                    grid.Column("IDCustomerToName", SpongeSolutions.ServicoDireto.Internationalization.Label.IDCustomerToName),                    
+                    grid.Column("Subject", SpongeSolutions.ServicoDireto.Internationalization.Label.Subject),
+                    grid.Column("CreateDate", SpongeSolutions.ServicoDireto.Internationalization.Label.Sent_Date, style: "span-5"));
+        }
+        @grid.GetHtml(
+            tableStyle: "grid",
+            alternatingRowStyle: "alternating",
+            caption: null,
+            htmlAttributes: new { id = "grid" },
+            columns: gridColumns)
+    </div>
+}
+else
+{
+    <span class="context_icon msg_box alert">@SpongeSolutions.ServicoDireto.Internationalization.Label.Email_Not_Found</span>
+}

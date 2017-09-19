@@ -1,0 +1,73 @@
+﻿@using SpongeSolutions.Core.Helpers;
+@model IEnumerable<SpongeSolutions.ServicoDireto.Model.AccountSystem.RegisterModel>
+@{
+    ViewBag.Title = SpongeSolutions.ServicoDireto.Internationalization.Message.Account_Manager_Title;
+    Layout = "~/Views/Shared/_LayoutFull.cshtml";
+}
+<script type="text/javascript">
+    function InactiveRecords() {
+        if (confirm("@Html.Raw(SpongeSolutions.ServicoDireto.Internationalization.Message.General_Confirm_Deactivation)")) {
+            NBN.Services.DeleteUserAccount({ userName: NBN.Helper.GetSelectedValuesAsArray('chkUserName') }, function (data) {
+                data = JSON.parse(data);
+                if (data.ResponseData.Status == 200) //Sucesso
+                {
+                    var result = data.ResponseData.Result[0];
+                    if (result.Deleted)
+                        window.location.reload(true);
+                }
+                else {
+                    NBN.Helper.ShowModalWindowJqueryUI(data.ResponseData.Details, "@SpongeSolutions.ServicoDireto.Internationalization.Message.General_Error_Deactivation", { width: 300, heigth: 200 });
+                }
+            });
+        }
+    }
+</script>
+<div class="container">
+    <div class="form-header recipe">
+        <h3>@SpongeSolutions.ServicoDireto.Internationalization.Message.Account_Manager_Title</h3>
+        <p>@SpongeSolutions.ServicoDireto.Internationalization.Message.Account_Manager_Help</p>
+    </div>
+    @if (this.ViewBag.Message != null)
+    {
+        <div>@this.ViewBag.Message</div>
+    }
+    <fieldset>
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true, SpongeSolutions.ServicoDireto.Internationalization.Message.General_ValidationSummary)
+       var grid = new WebGrid(Model, canPage: true, canSort: false, rowsPerPage: SpongeSolutions.ServicoDireto.Admin.SiteContext.MaximumRows, defaultSort: "Nome");
+       grid.Pager(WebGridPagerModes.NextPrevious);
+            <span>@SpongeSolutions.ServicoDireto.Internationalization.Message.General_Total_Record: @grid.TotalRowCount</span>
+            @grid.GetHtml(
+                tableStyle: "grid",
+                alternatingRowStyle: "alternating",
+                caption: SpongeSolutions.ServicoDireto.Internationalization.Message.Account_Manager_Caption,
+                htmlAttributes: new { id = "grid" },
+                columns: grid.Columns(
+                         grid.Column(columnName: "UserName", header: "", format: (item) =>
+                         {
+                             if (item.UserName != "nbn")
+                                 return new HtmlString(String.Format("<input type=\"checkbox\" id=\"chkUserName\" name=\"chkUserName\" value=\"{0}\"/>", item.UserName));
+                             else
+                                 return "";
+                         }, style: "span-1", canSort: false),
+                         grid.Column(format: @<a href="@Url.Action("Create", "Account", new { id = item.UserName })"><img src="@Url.Content("~/_images/icons/pencil_go.png")" title="@SpongeSolutions.ServicoDireto.Internationalization.Label.Label_Editar"/></a>, style: "span-1"),
+                         grid.Column("UserName"),
+                         grid.Column("CreationDate"),
+                         grid.Column("LastLoginDate")));
+            <div class="span-22 toolbar">
+                <ul>
+                    <li>
+                        <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Message.General_New" class="add" onclick="location.href='@Url.Action("create")'" />
+                    </li>
+                    <li>
+                        <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Message.General_Inactivate" class="delete" onclick="javascript:InactiveRecords();" />
+                    </li>
+                    <li>
+                        <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Message.General_Cancel" class="cancel" onclick="location.href='@Url.Action("/index")'" />
+                    </li>
+                </ul>
+            </div>
+        }
+    </fieldset>
+</div>

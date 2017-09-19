@@ -1,0 +1,110 @@
+   <div id="page-content">
+        <!-- Breadcrumb -->
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active">Contato</li>
+            </ol>
+        </div>
+        <!-- end Breadcrumb -->
+
+        <div class="container">
+            <div class="row">
+                <!-- Contact -->
+                <div class="col-md-9 col-sm-9">
+                    <section id="agent-detail">
+                        <header><h1>Contate-nos</h1></header>
+                        <section id="contact-information">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-5">
+                                    <section id="address">
+                                        <header><h3>{{config.address1}}</h3></header>
+                                        <address>
+                                            <strong>{{config.companyName}}</strong><br>{{config.address2}}<br>
+                                        </address>
+                                        {{config.phone}}<br>
+                                        <a href="mailto:{{config.email}}">{{config.email}}</a><br>
+                                        <strong>skype: </strong>{{config.skype}}
+                                    </section><!-- /#address -->
+                                    <!--section id="social">
+                                        <header><h3>Mídias Sociais</h3></header>
+                                        <div class="agent-social">
+                                            <a href="#" class="fa fa-twitter btn btn-grey-dark"></a>
+                                            <a href="#" class="fa fa-facebook btn btn-grey-dark"></a>
+                                            <a href="#" class="fa fa-linkedin btn btn-grey-dark"></a>
+                                        </div>
+                                    </section>--<!-- /#social -->
+                                </div><!-- /.col-md-4 -->
+                                <div class="col-md-8 col-sm-7">
+                                    <section id="form">
+                                        <header><h3>Envie-nos uma mensagem</h3></header>
+                                        <div class="agent-form">
+                                            <form role="form" id="form-contact-agent" method="post"  class="clearfix" novalidate="novalidate" ng-submit="sendEmail();">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="name">Seu Nome<em>*</em></label>
+                                                            <input 
+                                                                type="text" 
+                                                                class="form-control" 
+                                                                id="name" 
+                                                                name="name" 
+                                                                ng-model="contact.name"
+                                                                ng-maxlength="300"
+                                                                required>
+                                                        </div>                                            
+                                                    </div><!-- /.col-md-6 -->
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="email">Seu e-mail<em>*</em></label>
+                                                            <input 
+                                                                type="email" 
+                                                                class="form-control" 
+                                                                id="email" 
+                                                                name="email" 
+                                                                ng-model="contact.email"
+                                                                ng-maxlength="400"                                                                
+                                                                required>
+                                                        </div><!-- /.form-group -->                                            
+                                                    </div><!-- /.col-md-6 -->
+                                                </div><!-- /.row -->
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="form-contact-agent-message">Mensagem<em>*</em></label>
+                                                            <textarea 
+                                                                class="form-control" 
+                                                                id="message" 
+                                                                name="message"
+                                                                ng-minlength="6"
+                                                                ng-maxlength="400"
+                                                                ng-model="contact.message"
+                                                                rows="2" 
+                                                                required>
+                                                            </textarea>
+                                                        </div><!-- /.form-group -->                                            
+                                                    </div><!-- /.col-md-12 -->
+                                                </div><!-- /.row -->
+                                                <div class="form-group clearfix">
+                                                    <button type="submit" class="btn pull-right btn-default" id="form-contact-agent-submit">Enviar Mensagem</button>
+                                                </div><!-- /.form-group -->                                    
+                                            </form><!-- /#form-contact -->
+                                        </div><!-- /.rating-form -->                      
+                                    </section>                                    
+                                </div><!-- /.col-md-8 -->
+                            </div><!-- /.row -->
+                        </section><!-- /#agent-info -->
+                        <hr class="thick">
+                        
+                    </section><!-- /#agent-detail -->
+                </div><!-- /.col-md-9 -->
+                <!-- end Contact -->
+
+                <!-- sidebar -->
+                <div class="col-md-3 col-sm-3">
+                    <side-bar config='config'> </side-bar>                    
+                </div><!-- /.col-md-3 -->
+                <!-- end Sidebar -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </div>

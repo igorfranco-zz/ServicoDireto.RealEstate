@@ -1,0 +1,36 @@
+--------------------------------------------------
+Residencial
+--------------------------------------------------
+Apartamento Padrão
+Casa de Condomínio
+Casa de Vila
+Casa Padrão
+Cobertura
+Flat
+Kitchenette/Conjugados
+Loft
+Loteamento/Condomínio
+Studio
+Terreno Padrão
+--------------------------------------------------
+Comercial
+--------------------------------------------------
+Box/Garagem
+Casa Comercial
+Conjunto Comercial/Sala
+Galpão/Depósito/Armazém
+Hotel
+Indústria
+Loja Shopping/ Ct Comercial
+Loja/Salão
+Motel
+Pousada/Chalé
+Prédio Inteiro
+Studio
+--------------------------------------------------
+Rural
+--------------------------------------------------
+Chácara
+Fazenda
+Haras
+Sítio

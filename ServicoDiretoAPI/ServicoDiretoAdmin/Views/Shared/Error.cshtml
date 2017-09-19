@@ -1,0 +1,22 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+@{
+    ViewBag.Title = SpongeSolutions.ServicoDireto.Internationalization.Label.Home_Error_Title;
+    Layout = "~/Views/Shared/_LayoutFull.cshtml";
+}
+<div class="container">
+    <div class="form-header1 error1">
+        <h3>@SpongeSolutions.ServicoDireto.Internationalization.Label.Home_Error_Title</h3>
+    </div>
+    <hr />
+    <div class="span-21 ">
+        <p><b>Controller/Action: @this.Model.ControllerName - @this.Model.ActionName</b></p>
+        <p>@this.Model.Exception.ToString()</p>
+    </div>
+    <div class="span-21 toolbar">
+        <ul>
+            <li>
+                <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Back" class="back" onclick="location.href='@Url.Action("/index", "home")'" />
+            </li>
+        </ul>
+    </div>
+</div>

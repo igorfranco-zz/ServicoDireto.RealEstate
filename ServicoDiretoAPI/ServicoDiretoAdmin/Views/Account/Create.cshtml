@@ -1,0 +1,85 @@
+﻿@model SpongeSolutions.ServicoDireto.Model.AccountSystem.RegisterModel
+@{
+    ViewBag.Title = @SpongeSolutions.ServicoDireto.Internationalization.Label.Account_Manage_Title;
+    Layout = "~/Views/Shared/_LayoutFull.cshtml";
+}
+<script language="javascript" type="text/javascript">
+
+    function CheckOrUncheckChildren(item, attribute) {
+        $("input[" + attribute + "='" + $(item).val() + "']").each(function () {
+            this.checked = item.checked;
+        });
+    }
+</script>
+<div class="container">
+    <div class="form-header process">
+        <h3>@SpongeSolutions.ServicoDireto.Internationalization.Label.Account_Manage_Title</h3>
+        <p>@SpongeSolutions.ServicoDireto.Internationalization.Label.Account_Manage_Help</p>
+    </div>
+    @if (this.TempData["Message"] != null)
+    {
+        <div class="success">@this.TempData["Message"]</div>
+    }
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true, SpongeSolutions.ServicoDireto.Internationalization.Label.General_ValidationSummary)
+        <fieldset>
+            <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.Account_Manage_Header</legend>
+            <div>
+                @Html.LabelFor(model => model.UserName)<br />
+                @Html.TextBoxFor(model => model.UserName)
+                @Html.ValidationMessageFor(model => model.UserName)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.Password)<br />
+                @Html.PasswordFor(m => m.Password, new { value = ((this.Model != null && this.Model.Password.Length > 0) ? this.Model.Password : "") })
+                @Html.ValidationMessageFor(m => m.Password)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.ConfirmPassword)<br />
+                @Html.PasswordFor(m => m.ConfirmPassword, new { value = ((this.Model != null && this.Model.ConfirmPassword.Length > 0) ? this.Model.ConfirmPassword : "") })
+                @Html.ValidationMessageFor(m => m.ConfirmPassword)
+            </div>
+            @Html.HiddenFor(m => m.OldPassword)
+            <div>
+                @Html.LabelFor(model => model.Email)<br />
+                @Html.TextBoxFor(model => model.Email, new { @class = "xbig" })
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+            @if (this.Model != null && this.Model.UserName != "")
+            {
+                <div class="info-container span-22">
+                    <div>
+                        @Html.LabelFor(model => model.LastLoginDate)<br />
+                        @Html.DisplayFor(model => model.LastLoginDate)
+                    </div>
+                    <div>
+                        @Html.LabelFor(model => model.LastActivityDate)<br />
+                        @Html.DisplayFor(model => model.LastActivityDate)
+                    </div>
+                    <div>
+                        @Html.LabelFor(model => model.LastLockoutDate)<br />
+                        @Html.DisplayFor(model => model.LastLockoutDate)
+                    </div>
+                    <div>
+                        @Html.LabelFor(model => model.LastPasswordChangedDate)<br />
+                        @Html.DisplayFor(model => model.LastPasswordChangedDate)
+                    </div>
+                </div>
+            }
+        </fieldset>
+        <div class="toolbar span-20">
+            <ul>
+                @if (this.Model == null)
+                {
+                    <li>
+                        <input type="submit" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Save" class="save" />
+                    </li>
+                }
+                <li>
+                    <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Cancel" class="cancel" onclick="location.href='@Url.Action("/index", "home")'"/>
+                </li>
+            </ul>
+        </div>
+    }
+</div>

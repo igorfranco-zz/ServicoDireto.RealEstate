@@ -1,0 +1,1162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Account_Logon_Account_Information" xml:space="preserve">
+    <value>Informações da Conta</value>
+  </data>
+  <data name="Account_Logon_Help" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Account_Logon_Title" xml:space="preserve">
+    <value>Autenticação</value>
+  </data>
+  <data name="ActivateKey" xml:space="preserve">
+    <value>Chave de Ativação</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Endereço</value>
+  </data>
+  <data name="AddressComplement" xml:space="preserve">
+    <value>Complemento</value>
+  </data>
+  <data name="AddressNumber" xml:space="preserve">
+    <value>Número</value>
+  </data>
+  <data name="AttributeID" xml:space="preserve">
+    <value>ID do Atributo</value>
+  </data>
+  <data name="AttributeTypeID" xml:space="preserve">
+    <value>ID do Tipo de Atributo</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="CellPhone" xml:space="preserve">
+    <value>Celular</value>
+  </data>
+  <data name="ChangedBy" xml:space="preserve">
+    <value>Alterado Por</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Comentário</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Comentários</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirmar Senha</value>
+  </data>
+  <data name="CPF_CNPJ" xml:space="preserve">
+    <value>CPF/CNPJ</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>Data de Criação</value>
+  </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Criado Por</value>
+  </data>
+  <data name="CreationDate" xml:space="preserve">
+    <value>Data de Criação</value>
+  </data>
+  <data name="CRECI" xml:space="preserve">
+    <value>CRECI</value>
+  </data>
+  <data name="IDCulture" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
+  <data name="IDCustomer" xml:space="preserve">
+    <value>ID do Cliente</value>
+  </data>
+  <data name="IDCustomerParent" xml:space="preserve">
+    <value>ID do Cliente Pai</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descrição</value>
+  </data>
+  <data name="DetailView" xml:space="preserve">
+    <value>Cliques</value>
+  </data>
+  <data name="DisplayMask" xml:space="preserve">
+    <value>Máscara de Exibição</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="EditMask" xml:space="preserve">
+    <value>Máscara de Edição</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>Geral</value>
+  </data>
+  <data name="Hidden" xml:space="preserve">
+    <value>Escondido</value>
+  </data>
+  <data name="HierarchyStructureID" xml:space="preserve">
+    <value>ID do Item Hierarquico</value>
+  </data>
+  <data name="HierarchyStructureParentID" xml:space="preserve">
+    <value>ID do Pai do Item Hierarquico</value>
+  </data>
+  <data name="Icon" xml:space="preserve">
+    <value>Ícone</value>
+  </data>
+  <data name="IDIcon" xml:space="preserve">
+    <value> Ícone</value>
+  </data>
+  <data name="IDItemSite" xml:space="preserve">
+    <value>ID no Site Referenciado</value>
+  </data>
+  <data name="Inactivate" xml:space="preserve">
+    <value>Inativar</value>
+  </data>
+  <data name="IsApproved" xml:space="preserve">
+    <value>Aprovado</value>
+  </data>
+  <data name="IsLockedOut" xml:space="preserve">
+    <value>Bloqueado</value>
+  </data>
+  <data name="IsOnline" xml:space="preserve">
+    <value>Conectado</value>
+  </data>
+  <data name="IsPromoted" xml:space="preserve">
+    <value>Promovido</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
+  <data name="LastActivityDate" xml:space="preserve">
+    <value>Data da Última Atividade</value>
+  </data>
+  <data name="LastLockoutDate" xml:space="preserve">
+    <value>Data do Último Bloqueio</value>
+  </data>
+  <data name="LastLoginDate" xml:space="preserve">
+    <value>Data do Último Login</value>
+  </data>
+  <data name="LastPasswordChangedDate" xml:space="preserve">
+    <value>Data da Última Alteração de Senha</value>
+  </data>
+  <data name="Latitude" xml:space="preserve">
+    <value>Latitude</value>
+  </data>
+  <data name="Logo" xml:space="preserve">
+    <value>Logotipo</value>
+  </data>
+  <data name="LogOff" xml:space="preserve">
+    <value>Sair</value>
+  </data>
+  <data name="Logon" xml:space="preserve">
+    <value>Entrar</value>
+  </data>
+  <data name="Longitude" xml:space="preserve">
+    <value>Longitude</value>
+  </data>
+  <data name="ModifiedBy" xml:space="preserve">
+    <value>Modificado Por</value>
+  </data>
+  <data name="ModifyDate" xml:space="preserve">
+    <value>Data de Modificação</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Novo</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Nova Senha</value>
+  </data>
+  <data name="IDElementAttribute" xml:space="preserve">
+    <value>ID do Vínculo do Objeto ao Atributo</value>
+  </data>
+  <data name="IDElement" xml:space="preserve">
+    <value>Imóvel</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Senha Anterior</value>
+  </data>
+  <data name="PageView" xml:space="preserve">
+    <value>Visualizações</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Senha</value>
+  </data>
+  <data name="Path" xml:space="preserve">
+    <value>Caminho</value>
+  </data>
+  <data name="Phone1" xml:space="preserve">
+    <value>Telefone 1</value>
+  </data>
+  <data name="Phone2" xml:space="preserve">
+    <value>Telefone 2</value>
+  </data>
+  <data name="PostalCode" xml:space="preserve">
+    <value>Código Postal</value>
+  </data>
+  <data name="IDPurpose" xml:space="preserve">
+    <value>Propósito</value>
+  </data>
+  <data name="Purpose_Index_Grid_Caption" xml:space="preserve">
+    <value>Listagem de Propósitos</value>
+  </data>
+  <data name="Purpose_Index_Help" xml:space="preserve">
+    <value>Ajuda da Listagen de Propósitos</value>
+  </data>
+  <data name="Purpose_Index_Title" xml:space="preserve">
+    <value>Listagem de Propósitos</value>
+  </data>
+  <data name="Purpose_Manage_Help" xml:space="preserve">
+    <value>Ajuda do gerenciamento de propósitos</value>
+  </data>
+  <data name="Purpose_Manage_Title" xml:space="preserve">
+    <value>Gerenciamento de Propósitos</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Lembrar</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Todos</value>
+  </data>
+  <data name="Select_Status" xml:space="preserve">
+    <value>[Selecione o Status]</value>
+  </data>
+  <data name="ShowAddress" xml:space="preserve">
+    <value>Exibir Endereço</value>
+  </data>
+  <data name="SiteName" xml:space="preserve">
+    <value>Nome do Site</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="Total_Records" xml:space="preserve">
+    <value>Total de Registros</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="Url" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Nome do Usuário</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Valor</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Bem-vindo</value>
+  </data>
+  <data name="IDZone" xml:space="preserve">
+    <value>ID da Zona</value>
+  </data>
+  <data name="IDZoneType" xml:space="preserve">
+    <value>ID do Tipo da Zona</value>
+  </data>
+  <data name="Icon_Index_Grid_Caption" xml:space="preserve">
+    <value>Listagem de Ícones</value>
+  </data>
+  <data name="Icon_Index_Help" xml:space="preserve">
+    <value>Ajuda da Listagem de Ícones</value>
+  </data>
+  <data name="Icon_Index_Title" xml:space="preserve">
+    <value>Listagem de Ícones</value>
+  </data>
+  <data name="Icon_Manage_Help" xml:space="preserve">
+    <value>Ajuda do Gerenciamento dos Ícones</value>
+  </data>
+  <data name="Icon_Manage_Title" xml:space="preserve">
+    <value>Gerenciamento de  Ícones</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Voltar</value>
+  </data>
+  <data name="Culture_Manage_Help" xml:space="preserve">
+    <value>Ajuda do Gerenciamento de Idiomas</value>
+  </data>
+  <data name="Culture_Manage_Title" xml:space="preserve">
+    <value>Gerenciamento de Idiomas</value>
+  </data>
+  <data name="Culture_Index_Help" xml:space="preserve">
+    <value>Ajuda da Listagem de Idiomas</value>
+  </data>
+  <data name="Culture_Index_Title" xml:space="preserve">
+    <value>Listagem de Idiomas</value>
+  </data>
+  <data name="Icon_Search_Title" xml:space="preserve">
+    <value>Procura de Ícones</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Selecionar</value>
+  </data>
+  <data name="Home_About_Help" xml:space="preserve">
+    <value>Ajuda do Sobre</value>
+  </data>
+  <data name="Home_About_Title" xml:space="preserve">
+    <value>Sobre</value>
+  </data>
+  <data name="Country_Index_Help" xml:space="preserve">
+    <value>Ajuda da Listagem de Países</value>
+  </data>
+  <data name="Country_Index_Title" xml:space="preserve">
+    <value>Listagem de Países</value>
+  </data>
+  <data name="Country_Manage_Help" xml:space="preserve">
+    <value>Ajuda do Gerenciamento de País</value>
+  </data>
+  <data name="Country_Manage_Title" xml:space="preserve">
+    <value>Gerenciamento de País</value>
+  </data>
+  <data name="IDCountry" xml:space="preserve">
+    <value>País</value>
+  </data>
+  <data name="StateProvince_Manage_Help" xml:space="preserve">
+    <value>Ajuda no Gerenciamento de Estados</value>
+  </data>
+  <data name="StateProvince_Manage_Title" xml:space="preserve">
+    <value>Gerenciamento de Estados</value>
+  </data>
+  <data name="Country_Search_Title" xml:space="preserve">
+    <value>Procura de Países</value>
+  </data>
+  <data name="IDStateProvince" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="StateProvince_Index_Help" xml:space="preserve">
+    <value>Ajuda da Listagem de Estados</value>
+  </data>
+  <data name="StateProvince_Index_Title" xml:space="preserve">
+    <value>Listagem de Estados</value>
+  </data>
+  <data name="Acronym" xml:space="preserve">
+    <value>Sigla</value>
+  </data>
+  <data name="City_Index_Help" xml:space="preserve">
+    <value>Ajuda da Listagem das Cidades</value>
+  </data>
+  <data name="City_Index_Title" xml:space="preserve">
+    <value>Listagem das Cidades</value>
+  </data>
+  <data name="IDCity" xml:space="preserve">
+    <value>Cidade</value>
+  </data>
+  <data name="City_Manage_Help" xml:space="preserve">
+    <value>Ajuda do Gerenciamento das Cidades</value>
+  </data>
+  <data name="City_Manage_Title" xml:space="preserve">
+    <value>Gerenciamento das Cidades</value>
+  </data>
+  <data name="Select_Country" xml:space="preserve">
+    <value>[Selecione o País]</value>
+  </data>
+  <data name="Select_StateProvince" xml:space="preserve">
+    <value>[Selecione o Estado]</value>
+  </data>
+  <data name="Attribute_Manage_Help" xml:space="preserve">
+    <value>Ajuda no Gerenciamento de Atributo</value>
+  </data>
+  <data name="Attribute_Manage_Title" xml:space="preserve">
+    <value>Gerenciamento de Atributo</value>
+  </data>
+  <data name="Attribute_Index_Help" xml:space="preserve">
+    <value>Ajuda da Listagem de Atributos</value>
+  </data>
+  <data name="Attribute_Index_Title" xml:space="preserve">
+    <value>Listagem de Atributos</value>
+  </data>
+  <data name="IDAttribute" xml:space="preserve">
+    <value>Atributo</value>
+  </data>
+  <data name="AttributeType_Manage_Help" xml:space="preserve">
+    <value>Ajuda do Gerenciamento de Tipo de Atributos</value>
+  </data>
+  <data name="AttributeType_Manage_Title" xml:space="preserve">
+    <value>Gerenciamento de Tipo de Atributos</value>
+  </data>
+  <data name="AttributeType_Index_Help" xml:space="preserve">
+    <value>Ajuda da Listagem de Tipos de Atributos</value>
+  </data>
+  <data name="AttributeType_Index_Title" xml:space="preserve">
+    <value>Listagem de Tipos de Atributos</value>
+  </data>
+  <data name="IDAttributeType" xml:space="preserve">
+    <value>Tipo de Atributo</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Imagem</value>
+  </data>
+  <data name="AttributeType_Manage_Attribute_Vinculation" xml:space="preserve">
+    <value>Vinculção de Atributos</value>
+  </data>
+  <data name="AttributeType_Manage_Available_Attributes" xml:space="preserve">
+    <value>Atributos Disponíveis</value>
+  </data>
+  <data name="AttributeType_Manage_Vinculated_Attributes" xml:space="preserve">
+    <value>Atributos Relacionados</value>
+  </data>
+  <data name="IDHierarchyStructure" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="IDHierarchyStructureParent" xml:space="preserve">
+    <value>Categoria</value>
+  </data>
+  <data name="HierarchyStructure_Manage_Help" xml:space="preserve">
+    <value>Ajuda no Gerenciamento de Estruturas</value>
+  </data>
+  <data name="HierarchyStructure_Manage_Title" xml:space="preserve">
+    <value>Gerenciamento de Estruturas</value>
+  </data>
+  <data name="Select_Type" xml:space="preserve">
+    <value>[Selecione o Tipo]</value>
+  </data>
+  <data name="HierarchyStructure_Index_Help" xml:space="preserve">
+    <value>Ajuda da Listagem de Estruturas</value>
+  </data>
+  <data name="HierarchyStructure_Index_Title" xml:space="preserve">
+    <value>Listagem de Estruturas</value>
+  </data>
+  <data name="HierarchyStructure_Available" xml:space="preserve">
+    <value>Itens Disponíveis</value>
+  </data>
+  <data name="HierarchyStructure_Manage_Vinculation" xml:space="preserve">
+    <value>Vinculo entre Estruturas</value>
+  </data>
+  <data name="HierarchyStructure_Vinculated" xml:space="preserve">
+    <value>Itens Vinculados</value>
+  </data>
+  <data name="Customer_Manage_Help" xml:space="preserve">
+    <value>Ajuda do Gerenciamento de Cliente</value>
+  </data>
+  <data name="Customer_Manage_Title" xml:space="preserve">
+    <value>Gerenciamento de Cliente</value>
+  </data>
+  <data name="Customer_Index_Help" xml:space="preserve">
+    <value>Ajuda da Listagem de Clientes</value>
+  </data>
+  <data name="Customer_Index_Title" xml:space="preserve">
+    <value>Listagem de Clientes</value>
+  </data>
+  <data name="NotifyBy" xml:space="preserve">
+    <value>Notificar Por</value>
+  </data>
+  <data name="Select_City" xml:space="preserve">
+    <value>[Selecione a Cidade]</value>
+  </data>
+  <data name="AllowShowAddress" xml:space="preserve">
+    <value>Permitir exibição do endereços.</value>
+  </data>
+  <data name="FavoriteObject" xml:space="preserve">
+    <value>Imóveis Favoritos</value>
+  </data>
+  <data name="Radius" xml:space="preserve">
+    <value>Raio</value>
+  </data>
+  <data name="ShowRadiusCircle" xml:space="preserve">
+    <value>Exibir o Círculo do Raio</value>
+  </data>
+  <data name="Company_Description" xml:space="preserve">
+    <value>Digite uma descrição breve da empresa.</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contato</value>
+  </data>
+  <data name="Customer_Choose_Address" xml:space="preserve">
+    <value>Escolha o endereço(URL) que será usado para acessar o seu site</value>
+  </data>
+  <data name="Customer_Only_Words" xml:space="preserve">
+    <value>Utilize apenas apenas letras &lt;b&gt;sem acento&lt;/b&gt;</value>
+  </data>
+  <data name="Customer_Site_Name_Title" xml:space="preserve">
+    <value>Como quer chamar o seu site(domínio)?</value>
+  </data>
+  <data name="Identification" xml:space="preserve">
+    <value>Identificação</value>
+  </data>
+  <data name="Preferences" xml:space="preserve">
+    <value>Preferências</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Perfil</value>
+  </data>
+  <data name="AddLogo" xml:space="preserve">
+    <value>Adicionar Logotipo</value>
+  </data>
+  <data name="CountryName" xml:space="preserve">
+    <value>País</value>
+  </data>
+  <data name="StateProvinceName" xml:space="preserve">
+    <value>Estado/Província</value>
+  </data>
+  <data name="Element_Manage_Help" xml:space="preserve">
+    <value>Ajuda do Gerenciamento de Imóveis</value>
+  </data>
+  <data name="Element_Manage_Title" xml:space="preserve">
+    <value>Gerenciamento de Imóveis</value>
+  </data>
+  <data name="CultureName" xml:space="preserve">
+    <value>Cultura</value>
+  </data>
+  <data name="IconPath" xml:space="preserve">
+    <value>Caminho Ícone</value>
+  </data>
+  <data name="Element_Index_Help" xml:space="preserve">
+    <value>Ajuda da Listagem dos Imóveis</value>
+  </data>
+  <data name="Element_Index_Title" xml:space="preserve">
+    <value>Listagem de Imóveis</value>
+  </data>
+  <data name="CityName" xml:space="preserve">
+    <value>Cidade</value>
+  </data>
+  <data name="CustomerName" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="HierarchyName" xml:space="preserve">
+    <value>Categoria/Tipo</value>
+  </data>
+  <data name="PurposeName" xml:space="preserve">
+    <value>Propósito</value>
+  </data>
+  <data name="Select_Purpose" xml:space="preserve">
+    <value>[Selecione o Propósito]</value>
+  </data>
+  <data name="Select_Category" xml:space="preserve">
+    <value>[Selecione a Categoria]</value>
+  </data>
+  <data name="Purpose_Manage_Available_HierachyStructure" xml:space="preserve">
+    <value>Categorias Disponíveis</value>
+  </data>
+  <data name="Purpose_Manage_Vinculated_HierachyStructure" xml:space="preserve">
+    <value>Categorias Vinculadas</value>
+  </data>
+  <data name="Purpose_Manage_HierachyStructure_Vinculation" xml:space="preserve">
+    <value>Vinculação de Categorias</value>
+  </data>
+  <data name="Element_Information" xml:space="preserve">
+    <value>Informações do Imóvel</value>
+  </data>
+  <data name="Images" xml:space="preserve">
+    <value>Imagens</value>
+  </data>
+  <data name="POI" xml:space="preserve">
+    <value>Pontos de Interesse</value>
+  </data>
+  <data name="Attributes" xml:space="preserve">
+    <value>Atributos</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Relatórios</value>
+  </data>
+  <data name="Availability" xml:space="preserve">
+    <value>Disponibilidade</value>
+  </data>
+  <data name="Checked" xml:space="preserve">
+    <value>Selecionado</value>
+  </data>
+  <data name="Account_Manage_Header" xml:space="preserve">
+    <value>Cadastro de Clientes</value>
+  </data>
+  <data name="Account_Manage_Title" xml:space="preserve">
+    <value>Cadastro de Clientes</value>
+  </data>
+  <data name="General_ValidationSummary" xml:space="preserve">
+    <value>Validação</value>
+  </data>
+  <data name="Account_Manage_Help" xml:space="preserve">
+    <value>Ajuda do Cadastro de Clientes</value>
+  </data>
+  <data name="Unauthorized_Title" xml:space="preserve">
+    <value>Acesso Negado</value>
+  </data>
+  <data name="FileName" xml:space="preserve">
+    <value>Nome do Arquivo</value>
+  </data>
+  <data name="Select_Property_Pictures" xml:space="preserve">
+    <value>Selecionar as fotos do imóvel</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Tamanho</value>
+  </data>
+  <data name="ComponentType" xml:space="preserve">
+    <value>Tipo do Componente</value>
+  </data>
+  <data name="DefaultValue" xml:space="preserve">
+    <value>Valor Padrão</value>
+  </data>
+  <data name="FinalValue" xml:space="preserve">
+    <value>Valor Final</value>
+  </data>
+  <data name="IDFilter" xml:space="preserve">
+    <value>ID do Filtro</value>
+  </data>
+  <data name="InitialValue" xml:space="preserve">
+    <value>Valor Inicial</value>
+  </data>
+  <data name="Filter_Manage_Help" xml:space="preserve">
+    <value>Ajuda do Gerenciamento dos Filtros</value>
+  </data>
+  <data name="Filter_Manage_Title" xml:space="preserve">
+    <value>Gerenciamento de Filtros</value>
+  </data>
+  <data name="Attribute_Search_Title" xml:space="preserve">
+    <value>Pesquisa de Atributos</value>
+  </data>
+  <data name="Select_ComponentType" xml:space="preserve">
+    <value>[Selecione o Tipo de Componente]</value>
+  </data>
+  <data name="Filter_Index_Help" xml:space="preserve">
+    <value>Ajuda da Listagem de Filtros</value>
+  </data>
+  <data name="Filter_Index_Title" xml:space="preserve">
+    <value>Listagem de Filtros</value>
+  </data>
+  <data name="Filter_Manage_Available_Purposes" xml:space="preserve">
+    <value>Propósitos Disponíveis</value>
+  </data>
+  <data name="Filter_Manage_Vinculated_Purposes" xml:space="preserve">
+    <value>Propósitos Vinculados</value>
+  </data>
+  <data name="Home_Error_Title" xml:space="preserve">
+    <value>Informações sobre o erro</value>
+  </data>
+  <data name="AdvancedSearch" xml:space="preserve">
+    <value>Busca Avançada</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Fechar[X]</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Procurar</value>
+  </data>
+  <data name="Title_Search_TextBox" xml:space="preserve">
+    <value>ex: Apartamento, Vender, Santana, Porto Alegre, RS, Brasil</value>
+  </data>
+  <data name="Location_Options" xml:space="preserve">
+    <value>Opções de Localização</value>
+  </data>
+  <data name="Record_Not_Found" xml:space="preserve">
+    <value>Registros não encontrados</value>
+  </data>
+  <data name="Contact_Administrator" xml:space="preserve">
+    <value>Contact Administrator</value>
+  </data>
+  <data name="Address_Not_Found" xml:space="preserve">
+    <value>Endereço não encontrado</value>
+  </data>
+  <data name="Indifferent" xml:space="preserve">
+    <value>Indiferente</value>
+  </data>
+  <data name="Customer_Information" xml:space="preserve">
+    <value>Dados do Anunciante</value>
+  </data>
+  <data name="Favorite" xml:space="preserve">
+    <value>Favorito</value>
+  </data>
+  <data name="Found" xml:space="preserve">
+    <value>Encontrados</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Imprimir</value>
+  </data>
+  <data name="Properties" xml:space="preserve">
+    <value>Imóveis</value>
+  </data>
+  <data name="Look_On_Map" xml:space="preserve">
+    <value>Veja o local aproximado no mapa</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Preço</value>
+  </data>
+  <data name="Rooms" xml:space="preserve">
+    <value>Quartos</value>
+  </data>
+  <data name="Private_Similar" xml:space="preserve">
+    <value>Imóveis Similares</value>
+  </data>
+  <data name="List" xml:space="preserve">
+    <value>Listagem</value>
+  </data>
+  <data name="Map" xml:space="preserve">
+    <value>Mapa</value>
+  </data>
+  <data name="HierarchyPath" xml:space="preserve">
+    <value>Estrutura</value>
+  </data>
+  <data name="YouAreIn" xml:space="preserve">
+    <value>Você está em</value>
+  </data>
+  <data name="Already_Registered" xml:space="preserve">
+    <value>Já sou cadastrado</value>
+  </data>
+  <data name="Not_Registered" xml:space="preserve">
+    <value>Não sou cadastrado</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Quero me cadastrar</value>
+  </data>
+  <data name="Account_Recover_Help" xml:space="preserve">
+    <value>Utilize o fomulário abaixo para recuperar a sua senha ou usuário.</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>Ou</value>
+  </data>
+  <data name="Recover_Password_or_User" xml:space="preserve">
+    <value>Recuperação de Senha ou Usuário</value>
+  </data>
+  <data name="Access_Data_Recovered" xml:space="preserve">
+    <value>Os seu dados de acesso foram enviado por email.</value>
+  </data>
+  <data name="Recover" xml:space="preserve">
+    <value>Recuperar</value>
+  </data>
+  <data name="My_Profile" xml:space="preserve">
+    <value>Meu Perfil</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Mensagem</value>
+  </data>
+  <data name="IDCustomerFrom" xml:space="preserve">
+    <value>Enviado por</value>
+  </data>
+  <data name="IDCustomerTo" xml:space="preserve">
+    <value>Enviar para</value>
+  </data>
+  <data name="IDEmail" xml:space="preserve">
+    <value>ID e-mail</value>
+  </data>
+  <data name="IDEmailParent" xml:space="preserve">
+    <value>ID e-mail pai</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Assunto</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Enviar</value>
+  </data>
+  <data name="IDCustomerToName" xml:space="preserve">
+    <value>Enviado para</value>
+  </data>
+  <data name="Sent_Date" xml:space="preserve">
+    <value>Enviado em</value>
+  </data>
+  <data name="Alerts" xml:space="preserve">
+    <value>Alertas</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Todos</value>
+  </data>
+  <data name="Delete_Selected" xml:space="preserve">
+    <value>Excluir Selecionados</value>
+  </data>
+  <data name="Mail_Box" xml:space="preserve">
+    <value>Caixa de Entrada</value>
+  </data>
+  <data name="Mark_As_Not_Read" xml:space="preserve">
+    <value>Marcar como não lido</value>
+  </data>
+  <data name="New_Email" xml:space="preserve">
+    <value>Novo Email</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Nenhuma</value>
+  </data>
+  <data name="Only_Read" xml:space="preserve">
+    <value>Apenas os Lidos</value>
+  </data>
+  <data name="Sent_Items" xml:space="preserve">
+    <value>Itens Enviados</value>
+  </data>
+  <data name="Customer_Search_Title" xml:space="preserve">
+    <value>Procurar Usuários</value>
+  </data>
+  <data name="Answer" xml:space="preserve">
+    <value>Responder</value>
+  </data>
+  <data name="AdsCategory_Manage_Help" xml:space="preserve">
+    <value>Ajuda do Gerenciamento de Categorias</value>
+  </data>
+  <data name="AdsCategory_Manage_Title" xml:space="preserve">
+    <value>Gerenciamento de Categorias</value>
+  </data>
+  <data name="IDAdsCategory" xml:space="preserve">
+    <value>ID Categoria</value>
+  </data>
+  <data name="Ads_Index_Title" xml:space="preserve">
+    <value>Gerenciamento de Categorias Publicitárias</value>
+  </data>
+  <data name="Ads_Index_Help" xml:space="preserve">
+    <value>Ajuda das Categorias de Publicidade</value>
+  </data>
+  <data name="IDAdsCategoryRelation" xml:space="preserve">
+    <value>Relacionamento Category X Estruturas</value>
+  </data>
+  <data name="Element_Search" xml:space="preserve">
+    <value>Procura de Imóveis</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtrar </value>
+  </data>
+  <data name="Available_Purpose" xml:space="preserve">
+    <value>Propósitos Disponíveis</value>
+  </data>
+  <data name="Purpose_Selection" xml:space="preserve">
+    <value>Vínculo Propósito X Categoria</value>
+  </data>
+  <data name="Vinculated_Purpose" xml:space="preserve">
+    <value>Propósitos Vinculados</value>
+  </data>
+  <data name="Category_Selection" xml:space="preserve">
+    <value>Vínculo Categoria x Categoria Ads</value>
+  </data>
+  <data name="Available_Category" xml:space="preserve">
+    <value>Categorias Disponíveis</value>
+  </data>
+  <data name="Vinculated_Category" xml:space="preserve">
+    <value>Categorias Vinculadas</value>
+  </data>
+  <data name="Available_Type" xml:space="preserve">
+    <value>Tipos Disponíveis</value>
+  </data>
+  <data name="Type_Selection" xml:space="preserve">
+    <value>Vínculo Categorias Ads x Tipo</value>
+  </data>
+  <data name="Vinculated_Type" xml:space="preserve">
+    <value>Tipos Vinculados</value>
+  </data>
+  <data name="Customer_Search" xml:space="preserve">
+    <value>Pesquisa de Clientes</value>
+  </data>
+  <data name="Records_Not_Found" xml:space="preserve">
+    <value>Registros não encontrados, por favor tente outro filtro.</value>
+  </data>
+  <data name="StateName" xml:space="preserve">
+    <value>Estado/Província</value>
+  </data>
+  <data name="Most_Viewed" xml:space="preserve">
+    <value>Listagem dos imóveis mais visualizados</value>
+  </data>
+  <data name="Select_Search_Category" xml:space="preserve">
+    <value>Selecione a Categoria</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Aplicar</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Sair</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Ajuda</value>
+  </data>
+  <data name="MyMainPage" xml:space="preserve">
+    <value>Minha Página Principal</value>
+  </data>
+  <data name="Emails" xml:space="preserve">
+    <value>Emails</value>
+  </data>
+  <data name="FindContacts" xml:space="preserve">
+    <value>Encontrar Contatos</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Entrar</value>
+  </data>
+  <data name="MyArea" xml:space="preserve">
+    <value>Minha Área</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>Meu Perfil</value>
+  </data>
+  <data name="MyProperties" xml:space="preserve">
+    <value>Meus Imóveis</value>
+  </data>
+  <data name="Account_Register_Help" xml:space="preserve">
+    <value>Ajuda do Registro de Usuários</value>
+  </data>
+  <data name="Account_Register_Title" xml:space="preserve">
+    <value>Registro de Usuários</value>
+  </data>
+  <data name="Account_Register_Unsuccessful" xml:space="preserve">
+    <value>Erro ao efetuar o registro</value>
+  </data>
+  <data name="General_Account_Information" xml:space="preserve">
+    <value>Informações da Conta</value>
+  </data>
+  <data name="Email_Not_Found" xml:space="preserve">
+    <value>Nenhum e-mail foi encontrado.</value>
+  </data>
+  <data name="Element_Favorite" xml:space="preserve">
+    <value>Listagem de Imóveis Favoritos</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>Favoritos</value>
+  </data>
+  <data name="Alert_Index_Help" xml:space="preserve">
+    <value>Ajuda da Listagem de Alertas</value>
+  </data>
+  <data name="Alert_Index_Title" xml:space="preserve">
+    <value>Listagem de Alertas</value>
+  </data>
+  <data name="Alert_Manage_Help" xml:space="preserve">
+    <value>Ajuda do Gerenciamento de Alertas</value>
+  </data>
+  <data name="Alert_Manage_Title" xml:space="preserve">
+    <value>Gerenciamento de Alertas</value>
+  </data>
+  <data name="IDAlert" xml:space="preserve">
+    <value>Alerta</value>
+  </data>
+  <data name="RadiusNearAddress" xml:space="preserve">
+    <value>Raio próximo ao endereço informado</value>
+  </data>
+  <data name="IDAlertPurpose" xml:space="preserve">
+    <value>Propósito Alerta</value>
+  </data>
+  <data name="User_Activated_Successfully" xml:space="preserve">
+    <value>Usuário ativado com sucesso</value>
+  </data>
+  <data name="User_ActivateCode_Not_Exists" xml:space="preserve">
+    <value>Código de ativação inexistente</value>
+  </data>
+  <data name="Account_Enable_Help" xml:space="preserve">
+    <value>Ajuda da Ativação de Conta</value>
+  </data>
+  <data name="Account_Enable_Title" xml:space="preserve">
+    <value>Ativação de Conta</value>
+  </data>
+  <data name="Activate" xml:space="preserve">
+    <value>Ativar</value>
+  </data>
+  <data name="User_Activation" xml:space="preserve">
+    <value>Ativação de Usuários</value>
+  </data>
+  <data name="Account_Change_Password_Header" xml:space="preserve">
+    <value>Alteração de senha</value>
+  </data>
+  <data name="Account_Change_Password_Help" xml:space="preserve">
+    <value>Ajuda da alteração de senha</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Alterar</value>
+  </data>
+  <data name="Forgot_My_Password" xml:space="preserve">
+    <value>Esqueci minha senha</value>
+  </data>
+  <data name="Forgot_My_Username" xml:space="preserve">
+    <value>Esqueci meu usuário</value>
+  </data>
+  <data name="Recover_User_Help" xml:space="preserve">
+    <value>Ajuda da recuperação de usuários</value>
+  </data>
+  <data name="Recover_User_Title" xml:space="preserve">
+    <value>Recuperação de Usuários</value>
+  </data>
+  <data name="Recover_Password_Help" xml:space="preserve">
+    <value>Secure password tips:
+Use at least 8 characters, a combination of numbers and letters is best.
+Do not use the same password you have used with us previously.
+Do not use dictionary words, your name, e-mail address, or other personal information that can be easily obtained.
+Do not use the same password for multiple online accounts.</value>
+  </data>
+  <data name="Recover_Password_Title" xml:space="preserve">
+    <value>Recuperação de Senha</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Erro</value>
+  </data>
+  <data name="Select_Element" xml:space="preserve">
+    <value>[Selecione o imóvel]</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Deletar</value>
+  </data>
+  <data name="MainImage" xml:space="preserve">
+    <value>Imagem Principal</value>
+  </data>
+  <data name="Mail_Index_Help" xml:space="preserve">
+    <value>Ajuda do Gerenciamento dos E-mails</value>
+  </data>
+  <data name="Mail_Index_Title" xml:space="preserve">
+    <value>Gerenciamento de E-mails</value>
+  </data>
+  <data name="Element_Favorite_Help" xml:space="preserve">
+    <value>Ajuda da Listagem de Imóveis Favoritos</value>
+  </data>
+  <data name="Element_Favorite_Title" xml:space="preserve">
+    <value>Listagem de Imóveis Favoritos</value>
+  </data>
+  <data name="Activities" xml:space="preserve">
+    <value>Atividades</value>
+  </data>
+  <data name="Clicks" xml:space="preserve">
+    <value>Cliques</value>
+  </data>
+  <data name="Comparison_Visualisation_Click" xml:space="preserve">
+    <value>Comparação entre visualizações e cliques</value>
+  </data>
+  <data name="Values" xml:space="preserve">
+    <value>Valores</value>
+  </data>
+  <data name="Visualizations" xml:space="preserve">
+    <value>Visualizações</value>
+  </data>
+  <data name="Sign_to_My_Account" xml:space="preserve">
+    <value>Ir para minha conta</value>
+  </data>
+  <data name="Remember_Password" xml:space="preserve">
+    <value>Esqueci minha senha</value>
+  </data>
+  <data name="Sign_in" xml:space="preserve">
+    <value>Entrar</value>
+  </data>
+  <data name="Sign_out" xml:space="preserve">
+    <value>Sair</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Padrão</value>
+  </data>
+  <data name="Index" xml:space="preserve">
+    <value>Índice</value>
+  </data>
+  <data name="MaxValue" xml:space="preserve">
+    <value>Valor Máximo</value>
+  </data>
+  <data name="MinValue" xml:space="preserve">
+    <value>Valor Mínimo</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>Obrigatório</value>
+  </data>
+  <data name="SkypeName" xml:space="preserve">
+    <value>Nome Skype</value>
+  </data>
+  <data name="Request_Element_Info" xml:space="preserve">
+    <value>Solicitação de informação de imóvel</value>
+  </data>
+  <data name="Neighborhood" xml:space="preserve">
+    <value>Bairro</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>Grupo</value>
+  </data>
+</root>

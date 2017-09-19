@@ -1,0 +1,138 @@
+
+ <script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Deseja realmente inativar este imóvel?</h3>
+    </div>
+    <div class="modal-body">               
+        Ao inativá-lo o imóvel permanecerá em nossas bases dados por mais um mês, caso mude de idéia!
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default large" type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-danger large" type="button" ng-click="cancel()">Cancelar</button>
+    </div>
+</script>
+
+<!-- Breadcrumb -->
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li><a href="#/profile" ui-sref="profile">Conta</a></li>
+        <li class="active">Meus Imóveis</li>
+    </ol>
+</div>
+<!-- end Breadcrumb -->
+
+<div class="container">
+    <div class="row">
+    <!-- sidebar -->
+    <div class="col-md-3 col-sm-2">
+        <section id="sidebar">
+            <header><h3>Conta</h3></header>
+            <aside>
+                <ul class="sidebar-navigation">
+                    <li><a href="#/profile" ui-sref="profile"><i class="fa fa-user"></i><span>Perfil</span></a></li>
+                    <li class="active"><a href="#/my-properties" ui-sref="my-properties"><i class="fa fa-home"></i><span>Meus imóveis</span></a></li>
+                    <li><a href="#/submit" ui-sref="submit"><i class="fa fa-plus"></i><span>Novo imóvel</span></a></li>
+                    <li><a href="#/bookmarked" ui-sref="bookmarked"><i class="fa fa-heart"></i><span>Favoritos</span></a></li>
+                </ul>
+            </aside>
+        </section><!-- /#sidebar -->
+    </div><!-- /.col-md-3 -->
+    <!-- end Sidebar -->
+        <!-- My Properties -->
+        <div class="col-md-9 col-sm-10">
+            <section id="search-filter">
+                <figure><h3><i class="fa fa-search"></i>Resultado:</h3>
+                    <span class="search-count">{{ recordCount }} Imóveis</span>
+                    <div class="sorting">
+                        <div class="form-group">
+                            <select name="sorting" ng-model="filter.orderBy" bootselectpicker>
+                                <option value="name">Ordenar</option>
+                                <option value="price">Menor preço</option>
+                                <option value="price DESC">Maior preço</option>
+                                <option value="createDate DESC">Mais recente</option>
+                                <option value="isPromoted DESC">Em Destaque</option>
+                                <option value="status ASC">Inativo</option>
+                                <option value="status DESC">Ativo</option>
+                            </select>
+                        </div><!-- /.form-group -->
+                    </div>
+                </figure>
+            </section>                        
+            <section id="my-properties">
+                <header><h1>Listagem de Imóveis</h1></header>
+                <div class="my-properties">
+                    <div class="center">
+                        <zoner-pagination 
+                                total-pages-to-show="4"
+                                data-paged-array="propertiesPaged" 
+                                data-source-array="properties" 
+                                page-index="filter.pageIndex" 
+                                record-count="recordCount" 
+                                total-recods-per-page="filter.totalRecodsPerPage" 
+                                order-by="filter.orderBy"
+                            />
+                    </div><!-- /.center-->
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Imóvel</th>
+                                <th>Título</th>
+                                <th>Data</th>
+                                <th>Visualizações</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in properties">
+                                <td class="image">
+                                    <figure class="ribbon" ng-if="element.isPromoted == true">Destaque!</figure>
+                                    <a href="#/submit/{{ item.idElement }}" ui-sref="submit({ idElement: item.idElement })" >
+                                        <img alt="" src="{{   item.defaultPicturePath.includes('http') ? item.defaultPicturePath : config.adminSite + '/' + item.defaultPicturePath }}">
+                                    </a>                                    
+                                </td>
+                                <td><div class="inner">
+                                    <a href="#/submit/{{ item.idElement }}" ui-sref="submit({ idElement: item.idElement })" >
+                                        <h2>{{ item.name }}</h2>
+                                    </a>
+                                    <figure>{{ item.cityName + ', ' +item.stateProvinceName + ', ' + item.countryName }}</figure>
+                                    <div class="tag price">{{ item.price }}</div>
+                                </div>
+                                </td>
+                                <td>{{ item.createDate }}</td>
+                                <td>{{ item.pageView }}</td>
+                                <td>
+                                    <span class="label label-success" ng-show="item.status == 1">ATIVO</span>
+                                    <span class="label label-danger"  ng-show="item.status == 0">INATIVO</span>
+                                </td>
+                                <td class="actions">
+                                    <a href="#/submit/{{ item.idElement }}" ui-sref="submit({ idElement: item.idElement })" class="edit"><i class="fa fa-pencil"></i>Editar</a>
+                                    <a href="#" ng-click="$event.preventDefault(); disableElement(item.idElement)"><i class="delete fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>                            
+                            </tbody>
+                        </table>
+                    </div><!-- /.table-responsive -->
+
+                    <!-- Pagination -->
+                    <div class="center">
+                        <zoner-pagination 
+                                total-pages-to-show="4"
+                                data-paged-array="propertiesPaged" 
+                                data-source-array="properties" 
+                                page-index="filter.pageIndex" 
+                                record-count="recordCount" 
+                                total-recods-per-page="filter.totalRecodsPerPage" 
+                                order-by="filter.orderBy"
+                            />
+                    </div>                    
+
+                </div><!-- /.my-properties -->
+            </section><!-- /#my-properties -->
+        </div><!-- /.col-md-9 -->
+        <!-- end My Properties -->
+    </div><!-- /.row -->
+</div><!-- /.container -->

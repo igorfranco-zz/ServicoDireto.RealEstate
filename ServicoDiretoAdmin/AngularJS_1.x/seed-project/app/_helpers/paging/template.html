@@ -1,0 +1,11 @@
+<div class="text-center" ng-hide="config.totalPages <= 1">
+    <ul class="pagination">
+        <li ng-repeat="item in config.display" ng-class="(item.page == config.page) ? 'active' : ''">
+            <a ng-click="changePage(item.page, (item.first || item.last))">
+                {{ (!item.first || !item.last) ? item.text : '' }}
+                <i class="fa fa-arrow-left" ng-hide="!item.first"></i>
+                <i class="fa fa-arrow-right" ng-hide="!item.last"></i>
+            </a>
+        </li>
+    </ul>
+</div>

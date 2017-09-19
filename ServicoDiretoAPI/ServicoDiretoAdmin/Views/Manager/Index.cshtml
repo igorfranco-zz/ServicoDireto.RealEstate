@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = SpongeSolutions.ServicoDireto.Admin.SiteContext.SiteName;
+}
+
+<div class="container dashboard">
+
+    @if (this.TempData["Message"] != null)
+    {
+        <div class="success">@this.TempData["Message"]</div>
+    }
+    
+    //voltar para o alert pra ver o lance do atributo
+
+    <div class="span-13">
+        @Html.Action("inbox","dashboard")
+        @Html.Action("alert","dashboard")
+    </div>
+
+    <div class="span-13">
+        @Html.Action("pageviewxdetailview", "chart", new { chartType = SpongeSolutions.ServicoDireto.Model.InfraStructure.Enums.ChartType.PieChart })        
+    </div>
+
+</div>

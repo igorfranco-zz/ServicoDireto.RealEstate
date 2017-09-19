@@ -1,0 +1,45 @@
+﻿@model SpongeSolutions.ServicoDireto.Model.AccountSystem.PasswordRecoverModel
+@{
+    ViewBag.Title = @SpongeSolutions.ServicoDireto.Internationalization.Label.Recover_User_Title;
+}
+
+<div class="container">
+    <div class="form-header key">
+        <h4>@SpongeSolutions.ServicoDireto.Internationalization.Label.Recover_User_Title</h4>
+        <p>@SpongeSolutions.ServicoDireto.Internationalization.Label.Recover_User_Help</p>
+    </div>
+    @if (this.TempData["Message"] != null)
+    {
+        <div class="success">@this.TempData["Message"]</div>
+    }
+    
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true, SpongeSolutions.ServicoDireto.Internationalization.Message.ValidationSummary)
+        <div class="span-21">
+        <fieldset>
+            <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.Recover_User_Title</legend>
+@*            <div>
+                @Html.LabelFor(p => p.UserName): <br />
+                @Html.TextBoxFor(p => p.UserName)
+            </div>
+            <div><b>@SpongeSolutions.ServicoDireto.Internationalization.Label.Or</b></div>*@
+            <div>
+                @Html.LabelFor(p => p.Email): <br />
+                @Html.TextBoxFor(p => p.Email, new { @class = "xxbig" })
+            </div>
+            <div class="toolbar span-8">
+                <ul>
+                    <li>
+                        <input type="submit" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Recover" class="recover" />
+                    </li>
+                    <li>
+                        <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Back" class="back" onclick="location.href='@Url.Action("index","home")'"/>
+                    </li>
+                </ul>
+            </div>
+        </fieldset>
+    </div>
+    }
+</div>
+    

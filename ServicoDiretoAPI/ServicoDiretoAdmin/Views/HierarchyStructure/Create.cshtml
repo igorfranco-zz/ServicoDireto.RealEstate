@@ -1,0 +1,96 @@
+﻿@using SpongeSolutions.ServicoDireto.Model;
+@using SpongeSolutions.Core.Translation;
+@model SpongeSolutions.ServicoDireto.Model.HierarchyStructureExtended
+@{
+    ViewBag.Title = SpongeSolutions.ServicoDireto.Internationalization.Label.HierarchyStructure_Manage_Title;
+    Layout = "~/Views/Shared/_LayoutFull.cshtml";
+    var cultures = (IList<CultureExtended>)this.ViewData["cultures"];
+}
+<script language="javascript" type="text/javascript">
+    $(function () {
+        NBN.Helper.ApplyMask();
+        $("#tabs").tabs();
+        NBN.Helper.SwitcherOption.Init("IDHierarchyStructureAvailable", "IDHierarchyStructureVinculated");
+        $("#IDHierarchyStructureVinculated option").attr('selected', 'selected');
+    });
+</script>
+<div class="container">
+    @*<div class="form-header process">
+        <h3>@SpongeSolutions.ServicoDireto.Internationalization.Label.HierarchyStructure_Manage_Title</h3>
+        <p>@SpongeSolutions.ServicoDireto.Internationalization.Label.HierarchyStructure_Manage_Help</p>
+    </div>*@
+    @if (this.TempData["Message"] != null)
+    {
+        <div class="success">@this.TempData["Message"]</div>
+    }
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">@SpongeSolutions.ServicoDireto.Internationalization.Label.General</a></li>
+        </ul>
+        <div id="tabs-1">
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true, SpongeSolutions.ServicoDireto.Internationalization.Message.ValidationSummary)
+                @Html.HiddenFor(model => model.IDHierarchyStructure)
+                <fieldset>
+                    <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.HierarchyStructure_Manage_Title</legend>
+                    <div class="span-21">
+                        <div>
+                            @{
+                                for (int i = 0; i < cultures.Count; i++)
+                                {
+                                    Html.RenderAction("create", "hierarchystructureculture", new { idCulture = cultures[i].IDCulture, idHierarchyStructure = (this.Model != null && this.Model.IDHierarchyStructure.HasValue) ? this.Model.IDHierarchyStructure.Value.ToString() : "", index = i });
+                                }
+                            }
+                            <hr />
+                            <div class="span-21">
+                                <div>
+                                    @*@Html.FindTextBoxFor(model => model.IDIcon, model => model.IconName, SpongeSolutions.ServicoDireto.Internationalization.Label.Icon_Search_Title, "icon", "index", "{ windowMode : true, status : 1 }")*@
+                                    @Html.SpongeAutoCompleteFor(p => p.IDIcon, p => p.IconName, Url.Action("autocomplete", "icon"), new { @class = "xxbig"})
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>   
+                <fieldset>
+                    <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.HierarchyStructure_Manage_Vinculation</legend>
+                    <div class="span-21">
+                        <div class="container">
+                            <div class="span-9">
+                                <div>@SpongeSolutions.ServicoDireto.Internationalization.Label.HierarchyStructure_Available</div>
+                                @Html.ListBox("IDHierarchyStructureAvailable", (SelectList)this.ViewData["availableItems"], new { @class = "dropdown-multiple" })
+                            </div>
+                            <div class="exporter-container">
+                                <input type="button" name="btnAdd" value=">" class="xxsmall" onclick="NBN.Helper.SwitcherOption.Add();" />
+                                <input type="button" name="btnAddAll" value=">>" class="xxsmall" onclick="NBN.Helper.SwitcherOption.AddAll();" />
+                                <input type="button" name="btnRemove" value="<" class="xxsmall" onclick="NBN.Helper.SwitcherOption.Remove();" />
+                                <input type="button" name="btnRemoveAll" value="<<" class="xxsmall" onclick="NBN.Helper.SwitcherOption.RemoveAll();" />
+                            </div>
+                            <div class="prefix-1 span-9">
+                                <div>@SpongeSolutions.ServicoDireto.Internationalization.Label.HierarchyStructure_Vinculated</div>
+                                @Html.ListBox("IDHierarchyStructureVinculated", (SelectList)this.ViewData["vinculatedItems"], new { @class = "dropdown-multiple" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span-20">
+                        @Html.SpongeEditorForBaseEntity((this.Model != null && this.Model.IDHierarchyStructure.HasValue))
+                    </div>
+                </fieldset> 
+                
+                <div class="toolbar span-20">
+                    <ul>
+                        <li>
+                            <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.New" class="add" onclick="location.href='@Url.Action("create", new { id = "" })'" />
+                        </li>
+                        <li>
+                            <input type="submit" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Save" class="save" />
+                        </li>
+                        <li>
+                            <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Back" class="back" onclick="location.href='@Url.Action("/index")'"/>
+                        </li>
+                    </ul>
+                </div>                        
+            }
+        </div>
+    </div>
+</div>

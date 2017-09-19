@@ -1,0 +1,162 @@
+﻿@using SpongeSolutions.ServicoDireto.Model;
+@using SpongeSolutions.Core.Translation;
+@model SpongeSolutions.ServicoDireto.Model.Advertisement.AdsCategory
+@{
+    ViewBag.Title = SpongeSolutions.ServicoDireto.Internationalization.Label.AdsCategory_Manage_Title;
+    Layout = "~/Views/Shared/_LayoutFull.cshtml";
+    var cultures = (IList<CultureExtended>)ViewBag.Cultures;
+    var vinculatedPurpose = (IList<PurposeBasic>)ViewBag.VinculatedPurpose;
+    var availablePurpose = (IList<PurposeBasic>)ViewBag.AvailablePurpose;
+
+    var availableCategory = (IList<HierarchyStructureBasic>)ViewBag.AvailableCategory;
+    var vinculatedCategory = (IList<HierarchyStructureBasic>)ViewBag.VinculatedCategory;
+
+    var availableType = (IList<HierarchyStructureBasic>)ViewBag.AvailableType;
+    var vinculatedType = (IList<HierarchyStructureBasic>)ViewBag.VinculatedType;
+}
+<script language="javascript" type="text/javascript">
+    $(function () {
+
+        $("#CustomerName").change(function () {
+            if ($(this).val() == "")
+                $("#IDCustomer").val("");
+        })
+
+        NBN.Helper.ApplyMask();
+        $("#tabs").tabs();
+        $("#IDPurposeVinculated option, #IDHierarchyStructureCategoryVinculated option, #IDHierarchyStructureTypeVinculated option").attr('selected', 'selected');
+    });
+</script>
+<div class="container">
+    <div class="form-header process">
+        <h3>@SpongeSolutions.ServicoDireto.Internationalization.Label.AdsCategory_Manage_Title</h3>
+        <p>@SpongeSolutions.ServicoDireto.Internationalization.Label.AdsCategory_Manage_Help</p>
+    </div>
+    @if (this.TempData["Message"] != null)
+    {
+        <div class="success">@this.TempData["Message"]</div>
+    }
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">@SpongeSolutions.ServicoDireto.Internationalization.Label.General</a></li>
+        </ul>
+        <div id="tabs-1">
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true, SpongeSolutions.ServicoDireto.Internationalization.Message.ValidationSummary)
+                @Html.HiddenFor(model => model.IDAdsCategory)
+                <fieldset>
+                    <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.General</legend>
+                    <div class="span-21">
+                        <div>
+                            @*@Html.FindTextBoxFor(model => model.IDCustomer, model => model.CustomerName, SpongeSolutions.ServicoDireto.Internationalization.Label.Customer_Search, "customer", "search", "{ windowMode : true}" )*@
+                            @Html.SpongeAutoCompleteFor(p => p.IDCustomer, p => p.CustomerName, Url.Action("autocomplete", "customer"), new { @class = "xxbig"})
+                        </div>
+                    </div>
+                </fieldset>    
+                <fieldset>
+                    <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.AdsCategory_Manage_Title</legend>
+                    <div class="span-21">
+                        <div>
+                            @{
+                       for (int i = 0; i < cultures.Count; i++)
+                       {
+                           Html.RenderAction("culture", "advertisement", new { idCulture = cultures[i].IDCulture, idAdsCategory = (this.Model != null && this.Model.IDAdsCategory.HasValue) ? this.Model.IDAdsCategory.Value.ToString() : "", index = i });
+                       }
+                            }
+                            <hr />
+                        </div>
+                    </div>
+                </fieldset>    
+                <fieldset>
+                    <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.Purpose_Selection</legend>
+                    <div class="span-21">
+                        <div class="container">
+                            <div class="span-9">
+                                <div>@SpongeSolutions.ServicoDireto.Internationalization.Label.Available_Purpose</div>
+                                @Html.ListBox("IDPurposeAvailable", new SelectList(availablePurpose, "IDPurpose", "Description"), new { @class = "dropdown-multiple" })
+                            </div>
+                            <div class="exporter-container">
+                                <input type="button" name="btnAdd" value=">" onclick="NBN.Helper.SwitcherOption.Init('IDPurposeAvailable', 'IDPurposeVinculated');NBN.Helper.SwitcherOption.Add();" />
+                                <input type="button" name="btnAddAll" value=">>" onclick="NBN.Helper.SwitcherOption.Init('IDPurposeAvailable', 'IDPurposeVinculated');NBN.Helper.SwitcherOption.AddAll();" />
+                                <input type="button" name="btnRemove" value="<" onclick="NBN.Helper.SwitcherOption.Init('IDPurposeAvailable', 'IDPurposeVinculated');NBN.Helper.SwitcherOption.Remove();" />
+                                <input type="button" name="btnRemoveAll" value="<<" onclick="NBN.Helper.SwitcherOption.Init('IDPurposeAvailable', 'IDPurposeVinculated');NBN.Helper.SwitcherOption.RemoveAll();" />
+                            </div>
+                            <div class="prefix-1 span-9">
+                                <div>@SpongeSolutions.ServicoDireto.Internationalization.Label.Vinculated_Purpose</div>
+                                @Html.ListBox("IDPurposeVinculated", new SelectList(vinculatedPurpose, "IDPurpose", "Description"), new { @class = "dropdown-multiple" })
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                
+                <fieldset>
+                    <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.Category_Selection</legend>
+                    <div class="span-21">
+                        <div class="container">
+                            <div class="span-9">
+                                <div>@SpongeSolutions.ServicoDireto.Internationalization.Label.Available_Category</div>
+                                @Html.ListBox("IDHierarchyStructureCategoryAvailable", new SelectList(availableCategory, "IDHierarchyStructure", "Description"), new { @class = "dropdown-multiple" })
+                            </div>
+                            <div class="exporter-container">
+                                <input type="button" name="btnAdd" value=">" onclick="NBN.Helper.SwitcherOption.Init('IDHierarchyStructureCategoryAvailable', 'IDHierarchyStructureCategoryVinculated');NBN.Helper.SwitcherOption.Add();" />
+                                <input type="button" name="btnAddAll" value=">>" onclick="NBN.Helper.SwitcherOption.Init('IDHierarchyStructureCategoryAvailable', 'IDHierarchyStructureCategoryVinculated');NBN.Helper.SwitcherOption.AddAll();" />
+                                <input type="button" name="btnRemove" value="<" onclick="NBN.Helper.SwitcherOption.Init('IDHierarchyStructureCategoryAvailable', 'IDHierarchyStructureCategoryVinculated');NBN.Helper.SwitcherOption.Remove();" />
+                                <input type="button" name="btnRemoveAll" value="<<" onclick="NBN.Helper.SwitcherOption.Init('IDHierarchyStructureCategoryAvailable', 'IDHierarchyStructureCategoryVinculated');NBN.Helper.SwitcherOption.RemoveAll();" />
+                            </div>
+                            <div class="prefix-1 span-9">
+                                <div>@SpongeSolutions.ServicoDireto.Internationalization.Label.Vinculated_Category</div>
+                                @Html.ListBox("IDHierarchyStructureCategoryVinculated", new SelectList(vinculatedCategory, "IDHierarchyStructure", "Description"), new { @class = "dropdown-multiple" })
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.Type_Selection</legend>
+                    <div class="span-21">
+                        <div class="container">
+                            <div class="span-9">
+                                <div>@SpongeSolutions.ServicoDireto.Internationalization.Label.Available_Type</div>
+                                @Html.ListBox("IDHierarchyStructureTypeAvailable", new SelectList(availableType, "IDHierarchyStructure", "Description"), new { @class = "dropdown-multiple" })
+                            </div>
+                            <div class="exporter-container">
+                                <input type="button" name="btnAdd" value=">" onclick="NBN.Helper.SwitcherOption.Init('IDHierarchyStructureTypeAvailable', 'IDHierarchyStructureTypeVinculated');NBN.Helper.SwitcherOption.Add();" />
+                                <input type="button" name="btnAddAll" value=">>" onclick="NBN.Helper.SwitcherOption.Init('IDHierarchyStructureTypeAvailable', 'IDHierarchyStructureTypeVinculated');NBN.Helper.SwitcherOption.AddAll();" />
+                                <input type="button" name="btnRemove" value="<" onclick="NBN.Helper.SwitcherOption.Init('IDHierarchyStructureTypeAvailable', 'IDHierarchyStructureTypeVinculated');NBN.Helper.SwitcherOption.Remove();" />
+                                <input type="button" name="btnRemoveAll" value="<<" onclick="NBN.Helper.SwitcherOption.Init('IDHierarchyStructureTypeAvailable', 'IDHierarchyStructureTypeVinculated');NBN.Helper.SwitcherOption.RemoveAll();" />
+                            </div>
+                            <div class="prefix-1 span-9">
+                                <div>@SpongeSolutions.ServicoDireto.Internationalization.Label.Vinculated_Type</div>
+                                @Html.ListBox("IDHierarchyStructureTypeVinculated", new SelectList(vinculatedType, "IDHierarchyStructure", "Description"), new { @class = "dropdown-multiple" })
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                
+                if ((this.Model != null && this.Model.IDAdsCategory != 0))
+                {
+                    <fieldset>
+                        <div class="span-21">
+                            @Html.SpongeEditorForBaseEntity((this.Model != null && this.Model.IDAdsCategory != 0))
+                        </div>
+                    </fieldset>
+                }
+                                
+                <div class="toolbar span-20">
+                    <ul>
+                        <li>
+                            <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.New" class="add" onclick="location.href='@Url.Action("create", new { id = "" })'" />
+                        </li>
+                        <li>
+                            <input type="submit" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Save" class="save" />
+                        </li>
+                        <li>
+                            <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Back" class="back" onclick="location.href='@Url.Action("/index")'"/>
+                        </li>
+                    </ul>
+                </div>                        
+            }
+        </div>
+    </div>
+</div>

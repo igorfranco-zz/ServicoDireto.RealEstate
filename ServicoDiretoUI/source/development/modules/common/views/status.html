@@ -1,0 +1,17 @@
+
+     <!-- Breadcrumb -->
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="#/">Home</a></li>
+            <li class="active">{{ message.header }}</li>
+        </ol>
+    </div>
+    <!-- end Breadcrumb -->
+
+    <div class="container">
+        <section class="center submission-message">
+            <header><span class="glyphicon glyphicon-ok-sign"></span>{{ message.header }}</header>
+            <p>{{ message.description }}</p>
+            <a href="/" ui-sref="/" class="link-arrow">Voltar a homepage</a>
+        </section>
+    </div><!-- /.container -->

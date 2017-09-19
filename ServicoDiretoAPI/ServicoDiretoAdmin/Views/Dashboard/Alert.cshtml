@@ -1,0 +1,18 @@
+﻿@using SpongeSolutions.Core.Helpers;
+@using SpongeSolutions.ServicoDireto.Model;
+@model IList<AlertExtended>
+@{
+    ViewBag.Title = "Alert";
+    Layout = null;
+}
+<div class="span-13 dashboard-resume-item">
+    <h3>Imóveis que se encaixam com a definição de Alerta</h3>
+    <div class="lineall">
+        @foreach (var item in Model)
+        {
+            <b>@Html.ActionLink(item.Name, "create", "alert", new { id = item.IDAlert.Value }, new { target = "_blank", title = "Visualizar os detalhes do alerta" })</b>
+            @Html.Action("alertelement", "dashboard", new { idAlert = item.IDAlert.Value })
+        }
+    </div>
+
+</div>

@@ -1,0 +1,8 @@
+﻿
+
+usar como lib de adaptacao pra sql 2012
+http://www.sqlsharp.com/free/
+
+ajustes:
+filtrar os atributos por acronimos
+quando salvando a imagem principal nao esta sendo mantida

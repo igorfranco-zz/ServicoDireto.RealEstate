@@ -1,0 +1,70 @@
+﻿@model  SpongeSolutions.ServicoDireto.Model.AccountSystem.LogOnModel
+@{
+    ViewBag.Title = SpongeSolutions.ServicoDireto.Internationalization.Label.Account_Logon_Title;
+    Layout = "~/Views/Shared/_LayoutFull.cshtml";
+}
+<div class="container span-24">
+    @if (this.TempData["Message"] != null)
+    {
+        <div class="success">@this.TempData["Message"]</div>
+    }
+    @Html.ValidationSummary(true, SpongeSolutions.ServicoDireto.Internationalization.Message.Account_Logon_Login_Unsuccessful)
+    @using (Html.BeginForm())
+    {
+        @Html.Hidden("isModalWindow", (((bool)this.ViewBag.IsModalWindow)).ToString().ToLower())
+        @Html.Hidden("isValidUser", ((bool)this.ViewBag.IsValidUser).ToString().ToLower())
+
+        <div class="span-9">
+            <fieldset class="alternating ui-corner-all">
+                <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.Already_Registered</legend>
+                <div>
+                    @Html.LabelFor(m => m.UserName)<br />
+                    @Html.TextBoxFor(m => m.UserName)
+                    @Html.ValidationMessageFor(m => m.UserName)
+                </div>
+                <div>
+                    @Html.LabelFor(m => m.Password)<br />
+                    @Html.PasswordFor(m => m.Password)
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+                <div class="toolbar span-4">
+                    <ul>
+                        <li>
+                            <input type="submit" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Logon" class="logon" />
+                        </li>
+                    </ul>
+                </div>
+                <div class="toolbar span-4">
+                    | <a href="@Url.Action("forgotpassword", "account")">@SpongeSolutions.ServicoDireto.Internationalization.Label.Forgot_My_Password</a> | <br />
+                    | <a href="@Url.Action("recover", "account")">@SpongeSolutions.ServicoDireto.Internationalization.Label.Forgot_My_Username</a> |
+                </div>
+            </fieldset>
+        </div>
+        
+        @*<div class="prefix-1 span-9">
+            <fieldset class="alternating ui-corner-all">
+                <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.Not_Registered</legend>
+                <div>
+                    Caso você ainda não possua uma conta, faça o seu cadastro. É rápido, fácil e garante
+                    acesso a diferentes serviços. Se você já possui cadastro em outros sites do Grupo
+                    Pescar, utilize o mesmo.
+                </div>
+                <div class="toolbar span-4">
+                    <ul>
+                        <li>
+                            <input type="submit" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Register" class="user xmedium" />
+                        </li>
+                    </ul>
+                </div>
+                <div class="toolbar span-4">
+                    <ul>
+                        <li>
+                            <input type="submit" value="Facebook" class="facebook" />
+                            <img src="https://graph.facebook.com/igor.franco.589/picture"/>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+        </div>*@
+    }
+</div>

@@ -1,0 +1,26 @@
+﻿@using SpongeSolutions.ServicoDireto.Model;
+@using SpongeSolutions.Core.Translation;
+@model IList<ElementExtended>
+@{
+    Layout = null;
+    
+}
+<div class="span-10" id="right-column">
+    <h3>@SpongeSolutions.ServicoDireto.Internationalization.Label.Most_Viewed</h3>
+    @foreach (var item in Model)
+    {        
+        <a href="javascript:location.href='@Url.Action("details", "element", new { id = item.IDElement})'">        
+            <div class="span-10">
+            <div class="span-2">
+                <img class="image" src="@item.DefaultPicturePath"  alt="@item.Name"/>
+            </div>
+            <div class="span-8">
+                <h2>@item.Name - @item.HierarchyPath</h2>
+                <p>
+                    @item.Description
+                </p>
+            </div>
+        </div>
+        </a>
+    }
+</div>

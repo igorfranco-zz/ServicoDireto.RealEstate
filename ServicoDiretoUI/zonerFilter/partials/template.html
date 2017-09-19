@@ -1,0 +1,60 @@
+<div class="search-box map">
+    <form role="form" id="form-map" class="form-map form-search">
+        <h2>Buscar Imóveis</h2>
+        <div class="form-group" ng-show="false">
+            <input type="text" class="form-control" id="search-box-property-id" placeholder="Property ID" ng-model="filter.IDElement">
+        </div>
+        <div ng-controller="StructureController">
+            <div class="form-group" >
+                <select bootselectpicker data-array="purposes" name="purpose" ng-init="listPurpose()" ng-change="listCategory(filter.singleIDPurpose)" ng-model="filter.singleIDPurpose" ng-options="purpose.idPurpose as purpose.description for purpose in purposes">
+                    <option value="">Propósito</option>                                       
+                </select>                                        
+            </div>
+            
+            <div class="form-group" >
+                <select  bootselectpicker data-array="categories" name="category" ng-change="listType(filter.IDHierarchyStructureParent)" ng-model="filter.IDHierarchyStructureParent" ng-options="category.idHierarchyStructure as category.description for category in categories"  >
+                    <option value="">Categoria</option>                                       
+                </select>                                        
+            </div>
+
+            <div class="form-group" >
+                <select  name="type" bootselectpicker data-array="types" ng-model="filter.IDHierarchyStructure" ng-options="type.idHierarchyStructure as type.description for type in types" >
+                    <option value="">Tipo</option>                                       
+                </select>                                        
+            </div>
+        </div>
+
+        <div ng-controller="LocationController"> 
+            <div class="form-group" >
+                <select bootselectpicker data-array="countries" name="country" ng-init="listCountry()" ng-model="filter.IDCountry" ng-change="listStateProvince(filter.IDCountry)" ng-options="country.idCountry as country.name for country in countries">
+                    <option value="">País</option>                                       
+                </select>
+            </div>
+            <div class="form-group" >
+                <select bootselectpicker data-array="stateProvinces" name="stateProvince" ng-model="filter.IDStateProvince" ng-change="listCity(filter.IDCountry, filter.IDStateProvince)" ng-options="stateProvince.idStateProvince  as stateProvince.name for stateProvince in stateProvinces">
+                    <option value="">Estado</option>
+                </select>
+
+            </div>
+            <div class="form-group" >
+                <select bootselectpicker data-array="cities" name="city" ng-model="filter.IDCity"  ng-options="city.idCity as city.name for city in cities">
+                    <option value="">Cidade</option>
+                </select>
+            </div>
+        </div>            
+        
+        <div class="form-group">
+            <rzslider rz-slider-model="filter.minPrice" rz-slider-high="filter.maxPrice" rz-slider-options="priceSlider.options"></rzslider>
+            --
+            <rzslider rz-slider-model="filter.minRooms" rz-slider-high="filter.maxRooms" rz-slider-options="roomSlider.options"></rzslider>
+            --
+            <rzslider rz-slider-model="filter.Radius" rz-slider-options="radiusSlider.options" ></rzslider>
+        </div>                                        
+
+        <div class="form-group">
+            <button type="button" id="btnSearch" name="btnSearch" class="btn btn-default loa" ng-click="listElements()">Pesquisar</button>
+        </div>
+
+
+    </form>
+</div>

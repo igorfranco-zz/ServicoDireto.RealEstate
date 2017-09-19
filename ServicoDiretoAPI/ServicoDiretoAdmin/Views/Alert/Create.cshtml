@@ -1,0 +1,225 @@
+﻿@using SpongeSolutions.ServicoDireto.Model;
+@using SpongeSolutions.Core.Translation;
+@model AlertExtended
+@{
+    ViewBag.Title = SpongeSolutions.ServicoDireto.Internationalization.Label.Alert_Manage_Title;
+    Layout = "~/Views/Shared/_LayoutFull.cshtml";
+    var purposes = (SelectList)ViewBag.Purposes;
+    var filters = (IList<SpongeSolutions.ServicoDireto.Model.FilterExtended>)ViewBag.Filters;
+    var countries = (SelectList)ViewBag.Countries;
+    var states = (SelectList)ViewBag.States;
+    var cities = (SelectList)ViewBag.Cities;
+    var hierarchyStructureCategory = (SelectList)ViewBag.Categories;
+    var hierarchyStructureType = (SelectList)ViewBag.Types;        
+}
+<script language="javascript" type="text/javascript">
+    $(function () {
+        NBN.Helper.ApplyMask();
+        $("#tabs").tabs();
+        $("input[id*='IDPurpose']").each(function () {
+            $(this).click(function () {
+                FillChildControl_IDHierarchyStructureParent({ idPurpose: NBN.Helper.GetSelectedValuesAsArray("IDPurpose") });
+            });
+        });
+
+        $("#slider-range-radius").slider({
+            min: 0,
+            max: 100,
+            step: 1,
+            value: @((Model != null) ? Model.Radius.ToString().Replace(',','.') : "0"),
+            slide: function (event, ui) {
+                $("#Radius").val(ui.value);
+                if (ui.value == 0)
+                    $("#span-radius").html("@SpongeSolutions.ServicoDireto.Internationalization.Label.Indifferent");
+                else
+                    $("#span-radius").html(ui.value + " KM");
+            }
+        });
+        
+        @if(Model != null && Model.Radius.HasValue)
+        {
+            <text>$("#span-radius").html('@String.Format("{0:0} KM", Model.Radius)');</text>
+        }
+
+    });
+
+    function CreateAttributeParameter(idAttribute, initialValue, finalValue) {
+        return idAttribute + "|" + initialValue + "|" + finalValue;
+    }
+
+    function FillChildControl_IDHierarchyStructureParent(params) {
+        if (params != null) {
+            NBN.REST.Execute('/hierarchystructure.aspx/listbypurpose', params, function (data) {
+                //alert(data);
+                data = JSON.parse(data);
+                if (data.ResponseData.Status == 200) //Sucesso
+                {
+                    NBN.Helper.FillDropDown('IDHierarchyStructureParent', data, { Text: '@SpongeSolutions.ServicoDireto.Internationalization.Label.Select_Category', Value: '' })
+                    NBN.Helper.FillDropDown('IDHierarchyStructure', {}, { Text: '@SpongeSolutions.ServicoDireto.Internationalization.Label.Select_Type', Value: '' })
+                }
+                else
+                    NBN.Helper.ShowModalWindowJqueryUI(data.ResponseData.Details, '', { width: 300, heigth: 200 }, false, true);
+            }, 'POST');
+        }
+        else {
+            $('#IDHierarchyStructureParent').html('');
+        }
+    }
+</script>
+<div class="container">
+    <div class="form-header process">
+        <h3>@SpongeSolutions.ServicoDireto.Internationalization.Label.Alert_Manage_Title</h3>
+        <p>@SpongeSolutions.ServicoDireto.Internationalization.Label.Alert_Manage_Help</p>
+    </div>
+    @if (this.TempData["Message"] != null)
+    {
+        <div class="success">@this.TempData["Message"]</div>
+    }
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">@SpongeSolutions.ServicoDireto.Internationalization.Label.General</a></li>
+        </ul>
+        <div id="tabs-1">
+            @using (Html.BeginForm())
+            {
+                @Html.HiddenFor(p => p.IDAlert)
+                @Html.ValidationSummary(true, SpongeSolutions.ServicoDireto.Internationalization.Message.ValidationSummary)
+                <fieldset>
+                    <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.Alert_Manage_Title</legend>
+                    <div class="span-21" >           
+                        <div>
+                            @Html.SpongeTextBoxFor(p => p.Name, new { maxlength=250, @class="xxbig" })
+                        </div>
+                        <div>
+                            @Html.SpongeTextBoxFor(p => p.Address, new { maxlength=250, @class="xxbig" })
+                        </div>
+                    </div>                    
+                    <div class="span-21">
+                        <div class="span-6">
+                            @Html.SpongeDropDownListFor(model => model.IDPurpose,
+                                            purposes,
+                                            SpongeSolutions.ServicoDireto.Internationalization.Label.Select_Purpose,
+                                            "hierarchystructure",
+                                            "listbypurpose",
+                                            SpongeSolutions.ServicoDireto.Internationalization.Label.Select_Category,
+                                            "IDHierarchyStructureParent",
+                                            "{ idPurpose: $('#IDPurpose').val()}")
+                        </div>
+                        <div class="span-6">
+                            @Html.SpongeDropDownListFor(model => model.IDHierarchyStructureParent,
+                                            hierarchyStructureCategory,
+                                            SpongeSolutions.ServicoDireto.Internationalization.Label.Select_Category,
+                                            "hierarchystructure",
+                                            "listbycategory",
+                                            SpongeSolutions.ServicoDireto.Internationalization.Label.Select_Type,
+                                            "IDHierarchyStructure",
+                                            "{ idPurpose: $('#IDPurpose').val(), idHierarchyStructureParent: $('#IDHierarchyStructureParent').val()}")
+                        </div>
+                        <div class="span-6">
+                            @Html.SpongeDropDownListFor(model => model.IDHierarchyStructure, hierarchyStructureType, SpongeSolutions.ServicoDireto.Internationalization.Label.Select_Type, null)
+                        </div>
+                    </div>
+                    <div class="span-21">
+                        <div class="span-6">
+                            @Html.SpongeDropDownListFor(model => model.IDCountry,
+                                            SpongeSolutions.ServicoDireto.Services.ServiceContext.CountryService.GetAllActive(),
+                                            SpongeSolutions.ServicoDireto.Internationalization.Label.Select_Country,
+                                            "stateprovince",
+                                            "listbycountry",
+                                            SpongeSolutions.ServicoDireto.Internationalization.Label.Select_StateProvince,
+                                            "IDStateProvince",
+                                            "{ idCountry: $('#IDCountry').val()}")
+                        </div>
+                        <div class="span-6">
+                            @Html.SpongeDropDownListFor(model => model.IDStateProvince,
+                                                states,
+                                                SpongeSolutions.ServicoDireto.Internationalization.Label.Select_StateProvince,
+                                                "city",
+                                                "listbystateprovince",
+                                                SpongeSolutions.ServicoDireto.Internationalization.Label.Select_City,
+                                                "IDCity",
+                                            "{ idStateProvince: $('#IDStateProvince').val(), idCountry: $('#IDCountry').val()}")
+                        </div>
+                        <div class="span-6">
+                            @Html.SpongeDropDownListFor(model => model.IDCity, cities, SpongeSolutions.ServicoDireto.Internationalization.Label.Select_City, null)
+                        </div>
+                    </div>
+                    <div class="span-18 topline" >    
+                       <div class="span-9" >    
+                            <div class="filter-element">
+                                <label for="Radius">@Html.Label(SpongeSolutions.ServicoDireto.Internationalization.Label.RadiusNearAddress):</label><br />
+                                <span id="span-radius">@SpongeSolutions.ServicoDireto.Internationalization.Label.Indifferent</span>
+                                @Html.Hidden("Radius", ( (Model != null) ? String.Format("{0:0}", Model.Radius) : "0"))
+                                <div id="slider-range-radius"></div>
+                            </div>
+                            @foreach (var item in filters)
+                            {
+                                <div class="filter-element">
+                                    <label for="@string.Concat("amount", item.IDAttribute)">@item.AttributeName:</label><br />
+                                    <span id="@string.Concat("amount", item.IDAttribute)" ></span>
+                                    <input type="hidden"  id="@string.Concat("IDAttribute_", item.IDAttribute)" name="IDAttribute"/>
+                                    <div id="@string.Concat("slider-range", item.IDAttribute)" displaymask="@(((item.DisplayMask != null) ? String.Format(item.DisplayMask, 0) : "0").ToString().Replace("0,00", "#").Replace("0.00", "#").Replace("0", "#"))"></div>
+                                </div>                                                                                                                                                                                                                                                                                                                                           
+                                <script type="text/javascript">                                               
+                                    $(function () {
+                                        $("#@string.Concat("slider-range", item.IDAttribute)").slider({
+                                            range: true,
+                                            min: @item.InitialValue,
+                                            max: @item.FinalValue,
+                                            values: [@item.InitialValue, @item.FinalValue ],
+                                            slide: function (event, ui) {
+                                                if(ui.values[0] != 0 || ui.values[1] != @item.FinalValue)
+                                                {
+                                                    var displaymask = $(this).attr('displaymask');
+                                                    $("#@string.Concat("amount", item.IDAttribute)").text( displaymask.replace('#', ui.values[0]) + " - " + displaymask.replace('#', ui.values[1]));
+                                                    $("#@string.Concat("IDAttribute_", item.IDAttribute)").val(CreateAttributeParameter(@item.IDAttribute, ui.values[0], ui.values[1]))
+                                        
+                                        
+                                                }
+                                                else if(ui.values[1] == @item.FinalValue)
+                                                {
+                                                    $("#@string.Concat("amount", item.IDAttribute)").text("@SpongeSolutions.ServicoDireto.Internationalization.Label.Indifferent");
+                                                    $("#@string.Concat("IDAttribute_", item.IDAttribute)").val(CreateAttributeParameter(@item.IDAttribute, @item.InitialValue, @item.FinalValue))
+                                                }
+                                            }
+                                        });
+
+                                        if($("#@string.Concat("slider-range", item.IDAttribute)").slider("values", 0) != 0)
+                                        {
+                                            var displaymask = $("#@string.Concat("slider-range", item.IDAttribute)").attr('displaymask');
+                                            var init = $("#@string.Concat("slider-range", item.IDAttribute)").slider("values", 0);
+                                            var end = $("#@string.Concat("slider-range", item.IDAttribute)").slider("values", 1);
+                                            $("#@string.Concat("amount", item.IDAttribute)").text( displaymask.replace('#', init) + " - " + displaymask.replace('#', end));
+                                            $("#@string.Concat("IDAttribute_", item.IDAttribute)").val(CreateAttributeParameter(@item.IDAttribute, init, end))
+                                        }
+                                        else
+                                        {
+                                            $("#@string.Concat("IDAttribute_", item.IDAttribute)").val(CreateAttributeParameter(@item.IDAttribute, @item.InitialValue, @item.FinalValue))
+                                            $("#@string.Concat("amount", item.IDAttribute)").text("@SpongeSolutions.ServicoDireto.Internationalization.Label.Indifferent");
+                                        }
+                                    });
+                                </script>            
+                            }
+                         </div>
+                    </div>
+                    <div class="span-18">    
+                        @Html.SpongeEditorForBaseEntity((this.Model != null && this.Model.IDAlert.HasValue))                    
+                    </div>
+                </fieldset>    
+                <div class="toolbar span-20">
+                    <ul>
+                        <li>
+                            <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.New" class="add" onclick="location.href='@Url.Action("create", new { id = "" })'" />
+                        </li>
+                        <li>
+                            <input type="submit" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Save" class="save" />
+                        </li>
+                        <li>
+                            <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Back" class="back" onclick="location.href='@Url.Action("/index")'"/>
+                        </li>
+                    </ul>
+                </div>        
+            }
+        </div>
+    </div>
+</div>

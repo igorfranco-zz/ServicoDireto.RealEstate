@@ -1,0 +1,81 @@
+﻿@model SpongeSolutions.ServicoDireto.Model.EmailExtended
+@{
+    ViewBag.Title = "EmailCreate";
+    Layout = null;//"~/Views/Shared/_LayoutBasic.cshtml";
+    string buttonLabel = (this.Model != null && this.Model.IDEmail.HasValue) ? SpongeSolutions.ServicoDireto.Internationalization.Label.Answer : SpongeSolutions.ServicoDireto.Internationalization.Label.Send;
+}
+<link rel="stylesheet" type="text/css" href="@String.Concat(SpongeSolutions.ServicoDireto.Admin.SiteContext.LayoutPath, "/tinyeditor/tinyeditor.css")" />
+<script type="text/javascript" src="@String.Concat(SpongeSolutions.ServicoDireto.Admin.SiteContext.LayoutPath, "/tinyeditor/tiny.editor.packed.js")" ></script>
+<div class="span-24">
+    @if (this.TempData["Message"] != null)
+    {
+        <div class="success">@this.TempData["Message"]</div>
+    }
+    <fieldset>
+        @using (Html.BeginForm("create", "email", FormMethod.Post, new { id = "emailCreateForm", name = "emailCreateForm" }))
+        {
+            <div class="span-11">
+                @Html.ValidationSummary(true, SpongeSolutions.ServicoDireto.Internationalization.Message.ValidationSummary)
+                <div>
+                    @Html.HiddenFor(p => p.IDCustomerFrom)
+                    @Html.LabelFor(p => p.IDCustomerFromName) : @Html.Label(Model.IDCustomerFromName)
+                </div>
+                <div>
+                    @Html.SpongeAutoCompleteFor(p => p.IDCustomerTo, p => p.IDCustomerToName, Url.Action("autocomplete", "customer"), new { @class = "xxbig"})
+                </div>
+                <div>   
+                    @Html.SpongeDropDownListFor(p => p.IDElement, optionLabel:SpongeSolutions.ServicoDireto.Internationalization.Label.Select_Element, htmlAttributes: new { @class = "xxbig" })
+                </div>
+                <div>
+                    @Html.SpongeTextBoxFor(p => p.Subject, htmlAttributes: new { @class = "xxbig" })
+                </div>
+                <br />
+                <div>
+                    @Html.LabelFor(p => p.Content):
+                    <br />
+                    @Html.TextAreaFor(p => p.Content, new { style = "width: 400px; height: 200px" })
+                </div>
+                @*<div>
+                    @Html.SpongeEditorForBaseEntity((this.Model != null && this.Model.IDEmail.HasValue))
+                </div>*@
+                @Html.HiddenFor(p => p.CreateDate)
+                @Html.HiddenFor(p => p.CreatedBy)
+                @Html.HiddenFor(p => p.IDEmailParent)
+                @Html.HiddenFor(p => p.Status)
+                <div class="toolbar span-10">
+                    <ul>
+                        <li>
+                            <input type="submit" value="@buttonLabel" class="email_go" />
+                        </li>
+                        <li>
+                            <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Cancel" class="cancel" onclick="javascript:CancelCreateEmail();"/>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        }
+    </fieldset>
+</div>
+@*<script type="text/javascript">
+    var editor = new TINY.editor.edit('editor', {
+        id: 'Content',
+        width: 584,
+        height: 175,
+        cssclass: 'tinyeditor',
+        controlclass: 'tinyeditor-control',
+        rowclass: 'tinyeditor-header',
+        dividerclass: 'tinyeditor-divider',
+        controls: ['bold', 'italic', 'underline', 'strikethrough', '|', 'subscript', 'superscript', '|',
+		'orderedlist', 'unorderedlist', '|', 'outdent', 'indent', '|', 'leftalign',
+		'centeralign', 'rightalign', 'blockjustify', '|', 'unformat', '|', 'undo', 'redo', 'n',
+		'font', 'size', 'style', '|', 'image', 'hr', 'link', 'unlink', '|', 'print'],
+        footer: true,
+        fonts: ['Verdana', 'Arial', 'Georgia', 'Trebuchet MS'],
+        xhtml: true,
+        cssfile: 'custom.css',
+        bodyid: 'editor',
+        footerclass: 'tinyeditor-footer',
+        toggle: { text: 'source', activetext: 'wysiwyg', cssclass: 'toggle' },
+        resize: { cssclass: 'resize' }
+    });
+</script>*@ 

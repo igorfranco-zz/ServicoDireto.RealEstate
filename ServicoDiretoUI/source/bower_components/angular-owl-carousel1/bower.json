@@ -1,0 +1,27 @@
+{
+	"name": "angular-owl-carousel1",
+	"version": "1.0.1",
+	"authors": [
+		"Andrew Fatuk <fatukk@gmail.com>"
+	],
+	"description": "Populate Owl Carousel v1 with data from an Angular controller",
+	"main": "src/angular-owl-carousel1.js",
+	"keywords": [
+		"owl",
+		"carousel",
+		"angular",
+		"directive"
+	],
+	"license": "MIT",
+	"homepage": "https://github.com/fatuk/angular-owl-carousel1",
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"bower_components",
+		"test",
+		"tests"
+	],
+	"dependencies": {
+		"owl-carousel": "~1.3.2"
+	}
+}

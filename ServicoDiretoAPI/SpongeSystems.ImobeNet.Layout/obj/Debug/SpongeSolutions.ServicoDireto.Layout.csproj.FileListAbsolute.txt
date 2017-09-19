@@ -1,0 +1,6 @@
+D:\Avantika\Projects\_Servico_\ServicoDiretoAPI\SpongeSystems.ImobeNet.Layout\bin\SpongeSolutions.ServicoDireto.Layout.dll.config
+D:\Avantika\Projects\_Servico_\ServicoDiretoAPI\SpongeSystems.ImobeNet.Layout\bin\SpongeSolutions.ServicoDireto.Layout.dll
+D:\Avantika\Projects\_Servico_\ServicoDiretoAPI\SpongeSystems.ImobeNet.Layout\bin\SpongeSolutions.ServicoDireto.Layout.pdb
+D:\Avantika\Projects\_Servico_\ServicoDiretoAPI\SpongeSystems.ImobeNet.Layout\obj\Debug\SpongeSolutions.ServicoDireto.Layout.csprojResolveAssemblyReference.cache
+D:\Avantika\Projects\_Servico_\ServicoDiretoAPI\SpongeSystems.ImobeNet.Layout\obj\Debug\SpongeSolutions.ServicoDireto.Layout.dll
+D:\Avantika\Projects\_Servico_\ServicoDiretoAPI\SpongeSystems.ImobeNet.Layout\obj\Debug\SpongeSolutions.ServicoDireto.Layout.pdb

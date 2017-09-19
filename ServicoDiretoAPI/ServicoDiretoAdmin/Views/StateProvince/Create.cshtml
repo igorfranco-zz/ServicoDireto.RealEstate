@@ -1,0 +1,63 @@
+﻿@using SpongeSolutions.ServicoDireto.Model;
+@using SpongeSolutions.Core.Translation;
+@model StateProvince
+@{
+    ViewBag.Title = @SpongeSolutions.ServicoDireto.Internationalization.Label.StateProvince_Manage_Title;
+    Layout = "~/Views/Shared/_LayoutFull.cshtml";
+}
+<script language="javascript" type="text/javascript">
+    $(function () {
+        NBN.Helper.ApplyMask();
+        $("#tabs").tabs();
+    });
+</script>
+<div class="container">
+    <div class="form-header process">
+        <h3>@SpongeSolutions.ServicoDireto.Internationalization.Label.StateProvince_Manage_Title</h3>
+        <p>@SpongeSolutions.ServicoDireto.Internationalization.Label.StateProvince_Manage_Help</p>
+    </div>
+    @if (this.TempData["Message"] != null)
+    {
+        <div class="success">@this.TempData["Message"]</div>
+    }
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">@SpongeSolutions.ServicoDireto.Internationalization.Label.General</a></li>
+        </ul>
+        <div id="tabs-1">
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true, SpongeSolutions.ServicoDireto.Internationalization.Message.ValidationSummary)
+                @Html.HiddenFor(model => model.IDStateProvince)
+                <fieldset>
+                    <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.StateProvince_Manage_Title</legend>
+                    <div>
+                        @Html.SpongeTextBoxFor(model => model.Acronym)
+                    </div>
+
+                    <div>
+                        @Html.SpongeTextBoxFor(model => model.Name)
+                    </div>
+                    <div>
+                        @Html.FindTextBoxFor(model => model.IDCountry, model => model.CountryName, SpongeSolutions.ServicoDireto.Internationalization.Label.Country_Search_Title, "country", "index", "{ windowMode : true, status : 1 }")
+                    </div>
+
+                    @Html.SpongeEditorForBaseEntity((this.Model != null && this.Model.IDStateProvince.HasValue))
+                </fieldset>    
+                <div class="toolbar span-20">
+                    <ul>
+                        <li>
+                            <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.New" class="add" onclick="location.href='@Url.Action("create", new { id = "" })'" />
+                        </li>
+                        <li>
+                            <input type="submit" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Save" class="save" />
+                        </li>
+                        <li>
+                            <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Back" class="back" onclick="location.href='@Url.Action("/index")'"/>
+                        </li>
+                    </ul>
+                </div>        
+            }
+        </div>
+    </div>
+</div>

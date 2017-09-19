@@ -1,0 +1,57 @@
+﻿@model IList<SpongeSolutions.ServicoDireto.Model.Customer>
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_LayoutBasic.cshtml";
+    var elementFilter = (SpongeSolutions.ServicoDireto.Model.ElementFilter)this.ViewBag.ElementFilter;
+}
+<script type="text/javascript">
+    function AddSelected(key, value) {
+        $("#CustomerName").val(value);
+        $("#IDCustomer").val(key);
+        NBN.Helper.CloseAll();
+    }
+
+    $(function () {
+        setTimeout(function () {
+            var options = {
+                // pre-submit callback 
+                beforeSubmit: function (formData, jqForm, options) {
+                },
+                // post-submit callback 
+                success: function (responseText, statusText, xhr, $form) {
+                    $("#searchBody").html(responseText);
+                }
+            };
+            // bind form using 'ajaxForm'             
+            $('#customerSearchForm').ajaxForm(options);
+        }, 500);
+    });
+</script>
+<fieldset>
+    <div id="searchBody" class="container">
+    @using (Html.BeginForm("search", "customer", FormMethod.Post, new { id = "customerSearchForm", name = "customerSearchForm" }))
+    {        
+        <fieldset class="filter-container">
+            <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.Customer_Search</legend>            
+                <div class="span-11">
+                    @Html.Label(SpongeSolutions.ServicoDireto.Internationalization.Label.Name)<br />
+                    @Html.TextBox("name", "", new { @class = "xbig" })
+                </div>
+
+                <div class="toolbar">
+                    <ul>
+                        <li>
+                            <input type="submit" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Filter" class="filter" />
+                        </li>
+                    </ul>
+                </div>
+        </fieldset>
+        if (this.Model != null)
+        {
+            <div id="gridResult" class="grid">
+                @Html.Grid(Model, "IDCustomer", SpongeSolutions.ServicoDireto.Internationalization.Label.Customer_Index_Title, rowPerPage: SpongeSolutions.ServicoDireto.Admin.SiteContext.MaximumRows, canPage: true, activePage: int.Parse((Request.QueryString["page"] == null) ? "1" : Request.QueryString["page"]), isWindowMode: (bool)this.ViewBag.WindowMode)
+            </div>
+        }
+    }
+</div>
+</fieldset >

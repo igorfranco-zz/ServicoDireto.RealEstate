@@ -1,0 +1,85 @@
+<!-- Breadcrumb -->
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li class="active">Efetuar registro</li>
+    </ol>
+</div>
+<!-- end Breadcrumb -->
+
+<div class="container">
+    <header><h1>Efetuar registro</h1></header>
+    <div class="row">
+        <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+            <form role="form" id="form-create-account" method="post" novalidate="novalidate" ng-submit="createAccount()" autocomplete="off" >
+                <div class="form-group">
+                    <label for="userName">Usuário:</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="userName" 
+                        required
+                        ng-model="account.userName"
+                        ng-minlength="6"
+                        ng-maxlength="512"
+                        >
+                </div><!-- /.form-group -->            
+                <div class="form-group">
+                    <label for="form-create-account-email">Email:</label>
+                    <input 
+                        type="email" 
+                        class="form-control" 
+                        id="form-create-account-email" 
+                        required
+                        ng-model="account.email"
+                        ng-maxlength="512"
+                        >
+                </div><!-- /.form-group -->
+                <div class="form-group">
+                    <hr/>
+                    <strong>Dica:</strong>
+                    <p>
+                        Para tornar sua senha mais segura e válida, use letras maiúsculas e minúsculas, números e caracteres especiais, como @, % e !.
+                    </p>
+                    <label for="form-create-account-password">Senha:</label>
+                    <input type="password" 
+                        class="form-control"
+                        id="form-create-account-password" 
+                        required
+                        ng-model-options="{allowInvalid: true}"
+                        ng-model="account.password"
+                        ng-minlength="6"
+                        ng-maxlength="100"
+                        >
+                </div><!-- /.form-group -->
+                <div class="form-group">
+                    <label for="form-create-account-confirm-password">Confirmar Senha:</label>
+                    <input 
+                        type="password" 
+                        class="form-control" 
+                        id="form-create-account-confirm-password" 
+                        required
+                        ng-model-options="{allowInvalid: true}"
+                        ng-model="account.confirmPassword"
+                        ng-minlength="6"
+                        ng-maxlength="100"
+                        match-password="account.password"
+                        >
+                </div><!-- /.form-group -->
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" icheck ng-model="account.allowNewsletter">Receber Newsletter
+                        <i class="fa fa-question-circle tool-tip" z-tooltip data-toggle="tooltip" data-placement="right" title="Permitir que emails com notícias sejam enviados."></i>
+                    </label>
+                </div>
+                <div class="form-group clearfix">
+                    <button type="submit" class="btn pull-right btn-default" id="account-submit">Criar conta</button>
+                </div><!-- /.form-group -->
+            </form>
+            <hr>
+            <div class="center">
+                <figure class="note">Clicando no botão “Criar conta”, automaticamente estará de acordo com os <a href="#/terms-conditions" ui-sref="terms-conditions">Termos e condições</a> de utilização da plataforma.</figure>
+            </div>
+        </div>
+    </div><!-- /.row -->
+</div><!-- /.container -->

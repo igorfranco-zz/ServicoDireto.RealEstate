@@ -1,0 +1,14 @@
+﻿<div class="menu border-bottom prefix-1">
+    @if (Request.IsAuthenticated)
+    {
+        @Html.MvcSiteMap().Menu()
+    }
+    <div class="loading-main" style="display: none;">
+    </div>
+</div>
+@if (Request.IsAuthenticated)
+{
+    <div class="breadcrumb topline bottomline">
+       @Html.MvcSiteMap().SiteMapPath()
+    </div>
+}

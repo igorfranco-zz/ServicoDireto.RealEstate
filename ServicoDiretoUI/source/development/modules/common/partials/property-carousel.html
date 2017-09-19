@@ -1,0 +1,8 @@
+<div class="owl-carousel property-carousel">
+	<div class="property-slide" ng-repeat="item in items">		
+        <a href="{{ config.adminSite + '/uploads/' + element.idCustomer + '/' + element.idElement + '/' + item}}" class="image-popup">
+            <div class="overlay"><h3>Front View</h3></div>
+            <img alt="" src="{{ config.adminSite + '/uploads/' + element.idCustomer + '/' + element.idElement + '/thumb/' + item}}">
+        </a>
+    </div>	
+</div><!-- /.property-carousel -->

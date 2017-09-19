@@ -1,0 +1,36 @@
+﻿<div class="header center">
+    <div class="left">
+    </div>
+    <div class="right">
+    </div>
+    <!--header-->
+    <div class="logo-litle">
+    </div>
+    <div class="language-container">
+        <dl id="language" class="dropdown">
+            <dt><a href="#"><span>@SpongeSolutions.ServicoDireto.Internationalization.Label.Language</span></a>
+            </dt>
+            <dd>
+                <ul>
+                    @foreach (var item in SpongeSolutions.ServicoDireto.Services.ServiceContext.CultureService.GetAllActive())
+                    {
+                        <li><a href="@Url.Action("ChangeLanguage", "Account", new { culture = item.IDCulture, page = Request.Path })" lang="@item.IDCulture">
+                            <img class="flag" src="@String.Concat(SpongeSolutions.ServicoDireto.Admin.SiteContext.LayoutPath, item.IconPath)" title="@item.Name" />&nbsp;@item.Name</a>
+                        </li>
+                    }
+                </ul>
+            </dd>
+        </dl>
+        @if (Request.IsAuthenticated)
+        {
+            <text>@SpongeSolutions.ServicoDireto.Internationalization.Label.Welcome <b>@Context.User.Identity.Name</b>!
+            [ @Html.ActionLink(SpongeSolutions.ServicoDireto.Internationalization.Label.LogOff, "LogOff", "Account")
+            ]</text>
+        }
+        else
+        {
+            @:[ @Html.ActionLink(SpongeSolutions.ServicoDireto.Internationalization.Label.Logon, "LogOn", "Account")]
+        }
+        <span id="result"></span>
+    </div>
+</div>

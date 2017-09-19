@@ -1,0 +1,9 @@
+E:\Sponge\Crawling\FuckSpider\FuckSpider\bin\Debug\SpongeSystems.FuckSpider.exe.config
+E:\Sponge\Crawling\FuckSpider\FuckSpider\bin\Debug\SpongeSystems.FuckSpider.exe
+E:\Sponge\Crawling\FuckSpider\FuckSpider\bin\Debug\SpongeSystems.FuckSpider.pdb
+E:\Sponge\Crawling\FuckSpider\FuckSpider\obj\Debug\SpongeSystems.FuckSpider.csprojResolveAssemblyReference.cache
+E:\Sponge\Crawling\FuckSpider\FuckSpider\obj\Debug\SpongeSystems.FuckSpider.exe
+E:\Sponge\Crawling\FuckSpider\FuckSpider\obj\Debug\SpongeSystems.FuckSpider.pdb
+E:\Sponge\Crawling\FuckSpider\FuckSpider\bin\Debug\HtmlAgilityPack.dll
+E:\Sponge\Crawling\FuckSpider\FuckSpider\bin\Debug\HtmlAgilityPack.pdb
+E:\Sponge\Crawling\FuckSpider\FuckSpider\bin\Debug\HtmlAgilityPack.xml

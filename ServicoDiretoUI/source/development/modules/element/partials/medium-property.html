@@ -1,0 +1,32 @@
+<div class="property" >
+    <a href="#/property-detail/{{ element.idElement }}" ui-sref="property-detail({ idElement: element.idElement })">
+        <div class="property-image">
+            <img alt="{{ element.defaultPicturePath.includes('http') }}" src="{{ element.defaultPicturePath.includes('http') ? element.defaultPicturePath : config.adminSite + '/' + element.defaultPicturePath }}">
+        </div>
+        <div class="overlay">
+            <div class="info">
+                <div class="tag price">{{ element.price }}</div>
+                <h3>{{ element.name }}</h3>
+                <figure>{{ element.cityName + ', ' + element.stateProvinceName + ', ' + element.countryName }}</figure>
+            </div>
+            <ul class="additional-info">
+                <li>
+                    <header>Área Total:</header>
+                    <figure>{{element.totalArea }}m<sup>2</sup></figure>
+                </li>
+                <li>
+                    <header>Quartos:</header>
+                    <figure>{{element.beds}}</figure>
+                </li>
+                <li>
+                    <header>Banheiros:</header>
+                    <figure>{{element.bathrooms}}</figure>
+                </li>
+                <li>
+                    <header>Garagens:</header>
+                    <figure>{{element.garages}}</figure>
+                </li>
+            </ul>
+        </div>
+    </a>
+</div>

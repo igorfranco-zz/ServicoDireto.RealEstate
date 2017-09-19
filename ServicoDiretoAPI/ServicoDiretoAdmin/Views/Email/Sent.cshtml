@@ -1,0 +1,7 @@
+﻿@{
+    ViewBag.Title = "Sent";
+    Layout = null;
+}
+@{
+    Html.RenderAction("index", "email", new { idCustomerFrom = SpongeSolutions.ServicoDireto.Manager.SiteContext.GetActiveProfile.Preferences.IDCustomer, status = (short)SpongeSolutions.ServicoDireto.Model.InfraStructure.Enums.EmailType.Sent }); 
+}

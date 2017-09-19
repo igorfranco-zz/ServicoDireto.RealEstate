@@ -1,0 +1,64 @@
+﻿@using SpongeSolutions.ServicoDireto.Model;
+@using SpongeSolutions.Core.Translation;
+@model Icon
+@{
+    ViewBag.Title = @SpongeSolutions.ServicoDireto.Internationalization.Label.Icon_Manage_Title;
+    Layout = "~/Views/Shared/_LayoutFull.cshtml";
+}
+<script language="javascript" type="text/javascript">
+    $(function () {
+        NBN.Helper.ApplyMask();
+        $("#tabs").tabs();
+    });
+</script>
+<div class="container">
+    @*<div class="form-header process">
+        <h3>@SpongeSolutions.ServicoDireto.Internationalization.Label.Icon_Manage_Title</h3>
+        <p>@SpongeSolutions.ServicoDireto.Internationalization.Label.Icon_Manage_Help</p>
+    </div>*@
+    @if (this.TempData["Message"] != null)
+    {
+        <div class="success">@this.TempData["Message"]</div>
+    }
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">@SpongeSolutions.ServicoDireto.Internationalization.Label.General</a></li>
+        </ul>
+        <div id="tabs-1">
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true, SpongeSolutions.ServicoDireto.Internationalization.Message.ValidationSummary)
+                @Html.HiddenFor(model => model.IDIcon)
+                <fieldset>
+                    <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.Icon_Manage_Title</legend>
+                    <div>
+                        @Html.LabelFor(model => model.Name):
+                        <br />
+                        @Html.TextBoxFor(model => model.Name)
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </div>
+                    <div>
+                        @Html.LabelFor(model => model.Path):<br />
+                        @Html.TextBoxFor(model => model.Path)
+                        @Html.ValidationMessageFor(model => model.Path)
+                    </div>
+                    
+                    @Html.SpongeEditorForBaseEntity((this.Model != null && this.Model.IDIcon != 0))
+                </fieldset>    
+                <div class="toolbar span-20">
+                    <ul>
+                        <li>
+                            <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.New" class="add" onclick="location.href='@Url.Action("create", new { id = "" })'" />
+                        </li>
+                        <li>
+                            <input type="submit" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Save" class="save" />
+                        </li>
+                        <li>
+                            <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Back" class="back" onclick="location.href='@Url.Action("/index")'"/>
+                        </li>
+                    </ul>
+                </div>        
+            }
+        </div>
+    </div>
+</div>

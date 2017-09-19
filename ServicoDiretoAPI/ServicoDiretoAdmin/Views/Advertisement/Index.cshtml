@@ -1,0 +1,73 @@
+﻿@using SpongeSolutions.Core.Helpers;
+@using SpongeSolutions.ServicoDireto.Model;
+@model IList<SpongeSolutions.ServicoDireto.Model.Advertisement.AdsCategoryExtended>
+@{
+    ViewBag.Title = SpongeSolutions.ServicoDireto.Internationalization.Label.Ads_Index_Title;
+    Layout = (this.ViewBag.WindowMode) ? "~/Views/Shared/_LayoutBasic.cshtml" : "~/Views/Shared/_LayoutFull.cshtml";
+}
+<script language="javascript" type="text/javascript">
+    $(function () {
+        NBN.Helper.EnableContextFilterMenu();
+    });
+
+    function AddSelected(key, value) {
+        $("input[id$='IDAttribute']").val(key);
+        $("input[id$='Name']").val(value);
+        NBN.Helper.CloseLatestFromWindowStack();
+    }
+
+    function InactiveRecords() {
+        if (confirm("@Html.Raw(SpongeSolutions.ServicoDireto.Internationalization.Message.Confirm_Deactivation)")) {
+            Manager.Services.DeactivateAdsCategory({ ids: NBN.Helper.GetSelectedValuesAsArray('chkIDAdsCategory') }, function (data) {
+                data = JSON.parse(data);
+                if (data.ResponseData.Status == 200) //Sucesso
+                {
+                    var result = data.ResponseData.Result[0];
+                    if (result.Deleted)
+                        window.location.reload(true);
+                }
+                else {
+                    NBN.Helper.ShowModalWindowJqueryUI(data.ResponseData.Details, "@SpongeSolutions.ServicoDireto.Internationalization.Message.Error_Deactivation", { width: 300, heigth: 200 });
+                }
+            });
+        }
+    }
+</script>
+<div class="container">
+    @if (!this.ViewBag.WindowMode)
+    {
+        <div class="form-header recipe">
+            <h3>@SpongeSolutions.ServicoDireto.Internationalization.Label.Ads_Index_Title</h3>
+            <p>@SpongeSolutions.ServicoDireto.Internationalization.Label.Ads_Index_Help</p>
+        </div>
+        if (this.ViewBag.Message != null)
+        {
+            <div>@this.ViewBag.Message</div>
+        }
+    }
+    <fieldset>
+        @using (Html.BeginForm())
+        {
+            <div id="gridResult" class="span-25">
+                @Html.Grid(Model, "IDAdsCategory", SpongeSolutions.ServicoDireto.Internationalization.Label.Ads_Index_Title, (bool)this.ViewBag.WindowMode)
+            </div>
+            
+            if (!this.ViewBag.WindowMode)
+            {
+                <div class="span-22 toolbar">
+                    <ul>
+                        <li>
+                            <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.New" class="add" onclick="location.href='@Url.Action("create")'" />
+                        </li>
+                        <li>
+                            <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Inactivate" class="delete" onclick="javascript:InactiveRecords();" />
+                        </li>
+                        <li>
+                            <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Cancel" class="cancel" onclick="location.href='@Url.Action("/index")'" />
+                        </li>
+                    </ul>
+                </div>
+            }
+        }
+    </fieldset>
+</div>

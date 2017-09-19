@@ -1,0 +1,60 @@
+<!-- MAIN CONTENT -->
+<div id="content">
+    <div class="row">
+        <big-breadcrumbs items="['Propósitos', 'Listagem']" icon="map-marker" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></big-breadcrumbs>        
+    </div>
+   <section widget-grid id="widget-grid">
+        <div class="row">
+            <article class="col-sm-12">
+                <div jarvis-widget id="grid" data-widget-color="blueDark" data-widget-editbutton="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                        <h2>Listagem de Propósitos</h2>
+                    </header>
+                    <div>
+                        <div class="widget-body">
+                            <div class="table-responsive ">
+                                <table class="table table-bordered table-hover table-striped smart-form has-tickbox">
+                                    <thead>
+                                    <tr>
+                                        <th ng-repeat="column in gridConfig.colModel">{{ column.caption }}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="row in gridConfig.data">
+                                        <td ng-repeat="model in gridConfig.colModel">
+                                            <label class="checkbox" ng-show="model.checkbox==true">
+                                                <input type="checkbox" 
+                                                    name="checkbox-inline" 
+                                                    ng-model="row[model.field]">
+                                                <i></i>
+                                            </label>                                    
+                                            <button ng-show="model.edit==true" class="btn btn-xs btn-default" uib-tooltip="Editar" tooltip-append-to-body="true" ng-click="editRow(row);">
+                                                <i class='fa fa-pencil'></i>
+                                            </button>
+
+                                            <span ng-hide="model.hide==true" ng-class="(model.field=='status') ? ((row[model.field] == '1')  ? 'label label-success' : 'label label-danger') : '' ">
+                                                <div class="text-center">
+                                                    {{ (model.field=='status') ? ((row[model.field] == '1')  ? 'Ativo' : 'Inativo') : row[model.field] }} 
+                                                </div>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <paging config="paging"/>
+                </div>
+            </article>
+
+            <div class="col-sm-12">
+                <a class="btn btn-danger"  uib-tooltip="Inativar" tooltip-append-to-body="true" ng-click="deactivate();"><i class="glyphicon glyphicon-trash"></i></a>
+                <a class="btn btn-warning" uib-tooltip="Atualizar" tooltip-append-to-body="true" ng-click="search();"><i class="glyphicon glyphicon-refresh"></i></a>
+                <a class="btn btn-primary" uib-tooltip="Novo" tooltip-append-to-body="true" ng-click="new();"><i class="glyphicon glyphicon-plus"></i></a>
+            </div>     
+        </div>
+
+    </section>
+</div>    

@@ -1,0 +1,10 @@
+D:\Avantika\Projects\_Servico_\ServicoDiretoAPI\SpongeSystems.ImobeNet.Internationalization\bin\Debug\SpongeSolutions.ServicoDireto.Internationalization.dll
+D:\Avantika\Projects\_Servico_\ServicoDiretoAPI\SpongeSystems.ImobeNet.Internationalization\bin\Debug\SpongeSolutions.ServicoDireto.Internationalization.pdb
+D:\Avantika\Projects\_Servico_\ServicoDiretoAPI\SpongeSystems.ImobeNet.Internationalization\obj\Debug\SpongeSolutions.ServicoDireto.Internationalization.Enum.resources
+D:\Avantika\Projects\_Servico_\ServicoDiretoAPI\SpongeSystems.ImobeNet.Internationalization\obj\Debug\SpongeSolutions.ServicoDireto.Internationalization.Label.resources
+D:\Avantika\Projects\_Servico_\ServicoDiretoAPI\SpongeSystems.ImobeNet.Internationalization\obj\Debug\SpongeSolutions.ServicoDireto.Internationalization.Message.resources
+D:\Avantika\Projects\_Servico_\ServicoDiretoAPI\SpongeSystems.ImobeNet.Internationalization\obj\Debug\SpongeSolutions.ServicoDireto.Internationalization.Validation.resources
+D:\Avantika\Projects\_Servico_\ServicoDiretoAPI\SpongeSystems.ImobeNet.Internationalization\obj\Debug\SpongeSolutions.ServicoDireto.Internationalization.csproj.GenerateResource.Cache
+D:\Avantika\Projects\_Servico_\ServicoDiretoAPI\SpongeSystems.ImobeNet.Internationalization\obj\Debug\SpongeSolutions.ServicoDireto.Internationalization.dll
+D:\Avantika\Projects\_Servico_\ServicoDiretoAPI\SpongeSystems.ImobeNet.Internationalization\obj\Debug\SpongeSolutions.ServicoDireto.Internationalization.pdb
+D:\Avantika\Projects\_Servico_\ServicoDiretoAPI\SpongeSystems.ImobeNet.Internationalization\obj\Debug\SpongeSolutions.ServicoDireto.Internationalization.csprojResolveAssemblyReference.cache

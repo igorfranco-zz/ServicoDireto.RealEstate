@@ -1,0 +1,221 @@
+﻿@{
+    ViewBag.Title = "Create";
+    Layout = null;//"~/Views/Shared/_LayoutBasic.cshtml";
+    string[] uploadedFiles = ViewBag.UploadedFiles;
+}
+<style>    
+    .progress-number
+    {
+        font-size:smaller;
+        margin-left:5px;
+    }    
+</style>
+
+<script language="javascript" type="text/javascript">
+    var totalFiles = 0;
+    $(function () {
+        //is the file api available in this browser
+        //only override *if* available.
+       // $(document).tooltip();
+
+        if (new XMLHttpRequest().upload) {
+            $("#uploadedfile").click(function () {
+                upload_files($("#files-to-upload")[0].files);
+                return false;
+            });
+        }
+
+        $('#files-to-upload').change(
+            function (e) {
+                var files = this.files;
+                $("#upload-list").removeClass("hide");
+                //$("#upload-list").html("");
+                for (i = 0; i < files.length; i++) {
+                    CreateUploadLine(files[i], i);
+                }
+
+                $("#uploadedfile").click();
+                return false;
+            }
+        );
+    });
+
+    function GetProgressbarID(file) {
+        return (file.name + '_' + file.size + '_' + file.type).replace(' ', '_').replace(',', '_').replace('.', '_').replace('/', '_');
+    }
+
+    function CreateUploadLine(file, index) {
+        var totalKb = file.size / 1024;
+        totalKb = $.formatNumber(totalKb, { format: "#.###.00", locale: "us" });
+        var progressbarID = GetProgressbarID(file)
+        var result = $("<div>").attr("class", "span-18 bottomline")
+            .append($("<div>").attr("class", "span-1").attr("id", progressbarID + "_ProgressStatus").html("&nbsp;"))
+            .append($("<div>").attr("class", "span-5").html(file.name))
+            .append($("<div>").attr("class", "span-3").html(totalKb + "Kb"))
+            .append($("<div>").attr("class", "span-3").html(file.type))
+            .append($("<div>").attr("class", "span-5").append($("<div>").attr("class", "ProgressBar").attr("id", progressbarID)))
+            .append($("<div>").attr("class", "span-1 progress-number").attr("id", progressbarID + "_ProgressNumber"));
+
+        $("#upload-list").append(result);
+        $("#" + progressbarID).progressbar({ value: 0, max: 100 });
+        totalFiles++;
+    }
+
+    //accepts the input.files parameter
+    function upload_files(filelist) {
+        if (typeof filelist !== "undefined") {
+            for (var i = 0, l = filelist.length; i < l; i++) {
+                upload_file(filelist[i]);
+            }
+        }
+    }
+
+    //each file upload produces a unique POST
+    function upload_file(file) {
+        xhr = new XMLHttpRequest();
+        var progressbarID = GetProgressbarID(file)
+        xhr.upload.addEventListener("progress", function (evt) {
+            if (evt.lengthComputable) {
+                //update the progress bar
+                var percentual = (evt.loaded / evt.total) * 100;
+                $("#" + progressbarID).progressbar({ value: percentual, max: 100 });
+                $("#" + progressbarID + "_ProgressNumber").html($.formatNumber(percentual, { format: "#,###.00", locale: "us" }) + '%');
+            }
+        }, false);
+
+        // File uploaded
+        xhr.addEventListener("load", function () {
+            $("#" + progressbarID + "_ProgressNumber").html("100%");
+            $("#" + progressbarID + "_ProgressStatus").addClass("save");
+            $("#" + progressbarID).progressbar({ value: 100, max: 100 });
+            totalFiles--;
+
+            if (totalFiles == 0) {
+                NBN.Helper.ShowMessage("@SpongeSolutions.ServicoDireto.Internationalization.Message.All_Files_Were_Uploaded_Sucessfully");
+                ListFiles();
+            }
+        }, false);
+
+        xhr.open("post", "/element.aspx/uploadfiles", true);
+
+        // Set appropriate headers
+        // We're going to use these in the UploadFile method
+        // To determine what is being uploaded.
+        xhr.setRequestHeader("Content-Type", "multipart/form-data");
+        xhr.setRequestHeader("X-File-Name", file.name);
+        xhr.setRequestHeader("X-File-Size", file.size);
+        xhr.setRequestHeader("X-File-Type", file.type);
+
+        // Send the file
+        xhr.send(file);
+    }
+
+    function ListFiles()
+    {
+        NBN.REST.Execute("/element.aspx/uploadfile", {}, function (data) {
+                $("#tabs-3").html(data);
+                $(".gallery a[rel^='prettyPhoto']").prettyPhoto({ animation_speed: 'normal', theme: 'light_rounded', slideshow: 3000, autoplay_slideshow: false });
+            }, "GET"); 
+    }
+
+
+    function DeleteImage(_path) {
+        NBN.REST.Execute('/element.aspx/deleteimage', { path: _path }, function (data) {
+            data = JSON.parse(data);
+            if (data.ResponseData.Status == 200) //Sucesso
+            {
+                var result = data.ResponseData.Result[0];
+                if (result.Executed)
+                    ListFiles();
+            }
+            else
+                NBN.Helper.ShowModalWindowJqueryUI(data.ResponseData.Details, '@SpongeSolutions.ServicoDireto.Internationalization.Message.Error_Deactivation', { width: 300, heigth: 200 }, false, true);
+        }, 'POST');
+    }
+
+    function SetImageAsDefault(_path) {
+        NBN.REST.Execute('/element.aspx/SetAsDefault', { path: _path }, function (data) {
+            data = JSON.parse(data);
+            if (data.ResponseData.Status == 200) //Sucesso
+                ListFiles();
+            else
+                NBN.Helper.ShowModalWindowJqueryUI(data.ResponseData.Details, '@SpongeSolutions.ServicoDireto.Internationalization.Message.Error_Deactivation', { width: 300, heigth: 200 }, false, true);
+        }, 'POST');
+    }
+
+    function UpImage(_path) {
+        NBN.REST.Execute('/element.aspx/upimage', { path: _path }, function (data) {
+            data = JSON.parse(data);
+            if (data.ResponseData.Status == 200) //Sucesso
+                ListFiles();
+            else
+                NBN.Helper.ShowModalWindowJqueryUI(data.ResponseData.Details, '@SpongeSolutions.ServicoDireto.Internationalization.Message.Error_Deactivation', { width: 300, heigth: 200 }, false, true);
+        }, 'POST');
+    }
+
+    function DownImage(_path) {
+        NBN.REST.Execute('/element.aspx/downimage', { path: _path }, function (data) {
+            data = JSON.parse(data);
+            if (data.ResponseData.Status == 200) //Sucesso
+                ListFiles();
+            else
+                NBN.Helper.ShowModalWindowJqueryUI(data.ResponseData.Details, '@SpongeSolutions.ServicoDireto.Internationalization.Message.Error_Deactivation', { width: 300, heigth: 200 }, false, true);
+        }, 'POST');
+    }
+
+</script>
+
+<fieldset>
+    <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.Images</legend>
+    @using (Html.BeginForm("uploadfiles", "element", FormMethod.Post, new { enctype = "multipart/form-data", id = "uploadImageForm", name = "uploadImageForm" }))
+    {
+        <div class="span-21">
+            <br />
+            <div class="span-18">
+                <label>@SpongeSolutions.ServicoDireto.Internationalization.Label.Select_Property_Pictures:<br /></label>
+                <input type="file" name="files-to-upload" id="files-to-upload" size="35" multiple accept="gif|jpg" /><br />
+                <input type="button" name="uploadedfile" id="uploadedfile" value="Enviar" class="hide"/>
+            </div>
+            <div class="span-18 bottomline">
+                &nbsp;</div>
+            <div class="span-18 hide" id="upload-list">
+                <div class="span-18 bottomline alternating leftline rightline">
+                    <div class="span-1">&nbsp;</div>
+                    <div class="span-5">@SpongeSolutions.ServicoDireto.Internationalization.Label.FileName</div>
+                    <div class="span-3">@SpongeSolutions.ServicoDireto.Internationalization.Label.Size</div>
+                    <div class="span-3">@SpongeSolutions.ServicoDireto.Internationalization.Label.Type</div>
+                </div>
+            </div>
+            <div class="span-21">
+                <br />
+                <ul class="gallery clearfix">
+                    @{
+                        foreach (var fileName in uploadedFiles)
+                        {
+                            <li class="@(fileName.StartsWith("_default_") ? "default-image" : "" )" >
+                                <div class="span-3 leftline allline">
+                                    <div>
+                                        <a href="@(ViewBag.ImageBasePath + "/" + fileName)" rel="prettyPhoto[gallery2]" title="">
+                                            <img src="@(ViewBag.ImageBasePath + "/thumb/" + fileName)" alt="Imagem do Imóvel" />
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <ul class="image-tool-box">
+                                            @if(!fileName.StartsWith("_default_"))
+                                            {
+                                                <li><a class="default" title="@SpongeSolutions.ServicoDireto.Internationalization.Label.MainImage" href="javascript:SetImageAsDefault('@(ViewBag.ImageBasePath + "/" + fileName)');">&nbsp;&nbsp;&nbsp;&nbsp</a></li>
+                                            }
+                                            <li><a class="delete" title="@SpongeSolutions.ServicoDireto.Internationalization.Label.Delete" href="javascript:DeleteImage('@(ViewBag.ImageBasePath + "/" + fileName)');">&nbsp;&nbsp;&nbsp;&nbsp</a></li>
+    @*                                        <li><a class="up" href="javascript:UpImage('@(ViewBag.ImageBasePath + "/" + fileName)');">Up</a></li>
+                                            <li><a class="down" href="javascript:DownImage('@(ViewBag.ImageBasePath + "/" + fileName)');">Down</a></li>
+    *@                                  </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>            
+    }
+</fieldset>

@@ -1,0 +1,8 @@
+﻿@{
+    ViewBag.Title = "Inbox";
+    Layout = null;
+}
+<div class="span-13 dashboard-resume-item alternating">
+    Existem <b>@this.ViewBag.TotalEmails email(s)</b> na caixa postal. 
+    @Html.ActionLink("Ir para minha caixa postal", "manager", "email")    
+</div>

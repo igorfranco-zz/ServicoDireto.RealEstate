@@ -1,0 +1,13 @@
+﻿
+
+<ul>
+    <li ng-repeat="culture in cultures">
+        <a href="#" ng-click="getCulture(culture.IDCulture)">{{ culture.Name }}</a>
+    </li>
+</ul>
+
+<input type="button" ng-click="delete()" value="Delete" />
+<input type="button" ng-click="update()" value="Update" />
+<input type="button" ng-click="getCulture('pst-BR')" value="Get com erro" />
+
+

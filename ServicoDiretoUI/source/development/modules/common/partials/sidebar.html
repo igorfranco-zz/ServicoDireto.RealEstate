@@ -1,0 +1,26 @@
+<!-- sidebar -->
+<section id="sidebar" >
+    <aside id="edit-search" ng-show="showFilter">
+        <header><h3>Procurar Imóveis</h3></header>
+        <zoner-filter filter="$root.filter" options="$root.options"></zoner-filter>                            
+    </aside><!-- /#edit-search -->
+
+    <aside id="featured-properties" ng-show="elementFeatured != null" ng-show="showFeaturedProperties">
+        <header><h3>Imovéis em destaque</h3></header>
+        <small-property data-array="elementFeatured" limit="10"></small-property>
+    </aside><!-- /#featured-properties -->
+
+    <!--aside id="our-guides" ng-show="showGuides">
+        <header><h3>Nossos Guias</h3></header>
+        <a href="#" class="universal-button">
+            <figure class="fa fa-home"></figure>
+            <span>Guia de Compra</span>
+            <span class="arrow fa fa-angle-right"></span>
+        </a>
+        <a href="#" class="universal-button">
+            <figure class="fa fa-umbrella"></figure>
+            <span>O seguro ideal para você</span>
+            <span class="arrow fa fa-angle-right"></span>
+        </a--><!-- /.universal-button -->
+    </aside><!-- /#our-guide -->
+</section><!-- /#sidebar -->

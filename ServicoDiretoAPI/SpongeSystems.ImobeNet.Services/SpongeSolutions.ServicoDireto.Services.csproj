@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D7510CE3-9EF9-4F29-8802-B3D088C58D9D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SpongeSolutions.ServicoDireto.Services</RootNamespace>
+    <AssemblyName>SpongeSolutions.ServicoDireto.Services</AssemblyName>
+    <ProjectTypeGuids>{3D9AD99F-2412-4246-B90B-4EAA41C64699};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <StartArguments>/client:"WcfTestClient.exe"</StartArguments>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Google.Api.Maps.Service, Version=0.9.2.40292, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Api.Maps.Service.1.1.4\lib\net45\Google.Api.Maps.Service.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel.Web">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.ApplicationServices">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Unity.Mvc4, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Mvc4.1.4.0.0\lib\net45\Unity.Mvc4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccountSystem\Contracts\IFormsAuthenticationContract.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AccountSystem\Contracts\IMembershipContract.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AccountSystem\Implementation\AccountMembershipService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AccountSystem\Implementation\FormsAuthenticationService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AdvertisementSystem\Contracts\IAdsCategoryRelation.cs" />
+    <Compile Include="AdvertisementSystem\Contracts\IAdsCategoryCultureContract.cs" />
+    <Compile Include="AdvertisementSystem\Contracts\IAdsCategoryContract.cs" />
+    <Compile Include="AdvertisementSystem\Implementation\AdsCategoryService.cs" />
+    <Compile Include="AdvertisementSystem\Implementation\AdsCategoryCultureService.cs" />
+    <Compile Include="AdvertisementSystem\Implementation\AdsCategoryRelationService.cs" />
+    <Compile Include="ElementSystem\Contracts\IElementBookmarkedContract.cs" />
+    <Compile Include="ElementSystem\Implementation\ElementBookmarkedService.cs" />
+    <Compile Include="InfraStructure\Bootstrapper.cs" />
+    <Compile Include="ServiceContext.cs" />
+    <Compile Include="CustomerSystem\Contracts\IAlertContract.cs" />
+    <Compile Include="CustomerSystem\Contracts\IEmailContract.cs" />
+    <Compile Include="CustomerSystem\Implementation\AlertService.cs" />
+    <Compile Include="CustomerSystem\Implementation\EmailService.cs" />
+    <Compile Include="ElementSystem\Contracts\IElementContract.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ElementSystem\Contracts\IElementCultureContract.cs" />
+    <Compile Include="ElementSystem\Implementation\ElementCultureService.cs" />
+    <Compile Include="CustomerSystem\Contracts\ICustomerContract.cs" />
+    <Compile Include="CustomerSystem\Implementation\CustomerService.cs" />
+    <Compile Include="InfraStructure\BaseRepository.cs" />
+    <Compile Include="InfraStructure\IBaseRepository.cs" />
+    <Compile Include="InfraStructure\IBaseService.cs" />
+    <Compile Include="InfraStructure\UnityContainerSetup.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ElementSystem\Implementation\ElementService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PositioningSystem\Contracts\IPositioningContract.cs" />
+    <Compile Include="PositioningSystem\Implementation\PositioningService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StructureSystem\Contracts\IFilterContract.cs" />
+    <Compile Include="StructureSystem\Contracts\IHierarchyStructureCultureContract.cs" />
+    <Compile Include="StructureSystem\Contracts\IHierarchyStructureContract.cs" />
+    <Compile Include="StructureSystem\Contracts\IAttributeTypeContract.cs" />
+    <Compile Include="StructureSystem\Contracts\IAttributeTypeCultureContract.cs" />
+    <Compile Include="StructureSystem\Contracts\IAttributeContract.cs" />
+    <Compile Include="StructureSystem\Contracts\IAttributeCultureContract.cs" />
+    <Compile Include="StructureSystem\Contracts\IPurposeCultureContract.cs" />
+    <Compile Include="StructureSystem\Contracts\ICityContract.cs" />
+    <Compile Include="StructureSystem\Contracts\IStateProvinceContract.cs" />
+    <Compile Include="StructureSystem\Contracts\ICountryContract.cs" />
+    <Compile Include="StructureSystem\Contracts\ICultureContract.cs" />
+    <Compile Include="StructureSystem\Contracts\IIconContract.cs" />
+    <Compile Include="StructureSystem\Contracts\IPurposeContract.cs" />
+    <Compile Include="StructureSystem\Implementation\AttributeCultureService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="StructureSystem\Implementation\AttributeService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="StructureSystem\Implementation\AttributeTypeCultureService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="StructureSystem\Implementation\AttributeTypeService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="StructureSystem\Implementation\CityService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="StructureSystem\Implementation\FilterService.cs" />
+    <Compile Include="StructureSystem\Implementation\CountryService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="StructureSystem\Implementation\CultureService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="StructureSystem\Implementation\HierarchyStructureCultureService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="StructureSystem\Implementation\HierarchyStructureService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="StructureSystem\Implementation\IconService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="StructureSystem\Implementation\PurposeCultureService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="StructureSystem\Implementation\PurposeService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="StructureSystem\Implementation\StateProvinceService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SpongeSystems.Core\SpongeSolutions.Core.csproj">
+      <Project>{1740b0d0-0e3b-42c3-9ca0-9d72d37b5f49}</Project>
+      <Name>SpongeSolutions.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SpongeSystems.ImobeNet.Database\SpongeSolutions.ServicoDireto.Database.csproj">
+      <Project>{30245868-FDBF-4BEC-B2FE-985860F33F22}</Project>
+      <Name>SpongeSolutions.ServicoDireto.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SpongeSystems.ImobeNet.Internationalization\SpongeSolutions.ServicoDireto.Internationalization.csproj">
+      <Project>{6DAD465B-57C4-429D-875A-7ED98624320B}</Project>
+      <Name>SpongeSolutions.ServicoDireto.Internationalization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SpongeSystems.ImobeNet.Model\SpongeSolutions.ServicoDireto.Model.csproj">
+      <Project>{13F03C3A-FAF5-4C9D-ACDE-B8B7D3B905FF}</Project>
+      <Name>SpongeSolutions.ServicoDireto.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Unity.Mvc4.README.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{3D9AD99F-2412-4246-B90B-4EAA41C64699}">
+        <WcfProjectProperties>
+          <AutoStart>False</AutoStart>
+        </WcfProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+</Project>

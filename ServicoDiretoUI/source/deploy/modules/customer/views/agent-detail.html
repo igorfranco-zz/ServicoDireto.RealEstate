@@ -1,0 +1,247 @@
+<!-- Page Content -->
+<div id="page-content">
+    <!-- Breadcrumb -->
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li class="active">Detalhe do Agente</li>
+        </ol>
+    </div>
+    <!-- end Breadcrumb -->
+
+    <div class="container">
+        <div class="row">
+            <!-- Agent Detail -->
+            <div class="col-md-9 col-sm-9">
+                <section id="agent-detail">
+                    <header><h1>{{ customer.name }}</h1></header>
+                    <section id="agent-info">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3">
+                                <figure class="agent-image">
+                                    <img alt="" src="{{ (customer.logo != null) ? config.adminSite + '/' +  customer.logo : 'assets/img/agent-01.jpg'}}">
+                                </figure>
+                            </div><!-- /.col-md-3 -->
+                            <div class="col-md-5 col-sm-5">
+                                <h3>Informações de contato</h3>
+                                <dl>
+                                    <dt>Telefone 1:</dt>
+                                    <dd>{{ customer.phone1 }}</dd>
+                                    <dt>Telefone 2:</dt>
+                                    <dd>{{ customer.phone2 }}</dd>
+                                    <dt>Celular:</dt>
+                                    <dd>{{ customer.cellPhone}}</dd>                                    
+                                    <dt ng-show="customer.skypeName != null">Skype:</dt>
+                                    <dd ng-show="customer.skypeName != null">{{ customer.skypeName }}</dd>
+                                </dl>
+                                <hr />
+                                <h3 ng-show="customer.allowShowAddress == true">Localização</h3>
+                                <dl ng-show="customer.allowShowAddress == true">
+                                    <dt>Endereço:</dt>
+                                    <dd>{{ customer.address + ',' + customer.addressNumber + ' ' + customer.addressComplement }}</dd>
+                                    <dt>CEP: </dt>
+                                    <dd>{{ customer.postalCode }}</dd>
+                                    <dt>Cidade: </dt>
+                                    <dd>{{ customer.countryName + ', ' + customer.stateProvinceName + ', ' + customer.cityName }}</dd>
+                                </dl>                                
+                            </div><!-- /.col-md-5 -->
+                            <div class="col-md-4 col-sm-4">
+                                <h3>Sobre mim</h3>
+                                <p>{{ customer.comments}}</p>
+                            </div><!-- /.col-md-4 -->
+                        </div><!-- /.row -->
+                        <div class="row"  ng-show="customer.twitter != null || customer.facebook != null || customer.linkedin != null || customer.pinterest != null">
+                            <div class="col-md-4 col-sm-4">
+                                <h3>Redes Sociais</h3>
+                                <div class="agent-social">
+                                    <a href="{{ customer.twitter }}" ng-show="customer.twitter != null" class="fa fa-twitter btn btn-grey-dark" target="_blank"></a>
+                                    <a href="{{ customer.facebook }}" ng-show="customer.facebook != null" class="fa fa-facebook btn btn-grey-dark" target="_blank"></a>
+                                    <a href="{{ customer.linkedin }}" ng-show="customer.linkedin != null" class="fa fa-linkedin btn btn-grey-dark" target="_blank"></a>
+                                    <a href="{{ customer.pinterest }}" ng-show="customer.pinterest != null" class="fa fa-pinterest btn btn-grey-dark" target="_blank"></a>
+                                </div>
+                            </div><!-- /.col-md-4 -->
+                        </div><!-- /.row -->
+                    </section><!-- /#agent-info -->
+                    <hr class="thick">                    
+                    <section id="search-filter">
+                        <figure><h3><i class="fa fa-search"></i>Resultado:</h3>
+                            <span class="search-count">{{ recordCount }} Imóveis cadastrados</span>
+                            <div class="sorting">
+                                <div class="form-group">
+                                    <select name="sorting" ng-model="filter.orderBy" bootselectpicker>
+                                        <option value="name">Ordenar</option>
+                                        <option value="price">Menor preço</option>
+                                        <option value="price DESC">Maior preço</option>
+                                        <option value="createDate DESC">Mais recente</option>
+                                        <option value="isPromoted DESC">Em Destaque</option>
+                                    </select>
+                                </div><!-- /.form-group -->
+                            </div>
+                        </figure>
+                    </section>                     
+                    
+                    <section id="agent-properties">
+                        <div class="center">
+                            <zoner-pagination 
+                                data-paged-array="propertiesPaged" 
+                                data-source-array="properties" 
+                                page-index="filter.pageIndex" 
+                                record-count="recordCount" 
+                                total-recods-per-page="filter.totalRecodsPerPage" 
+                                order-by="filter.orderBy"
+                            />
+                        </div>                             
+                        <div class="layout-expandable__">                            
+                            <div class="row" ng-repeat="property in properties" agent-properties-loaded>
+                                <div class="col-md-4 col-sm-4" ng-repeat="element in property" >
+                                    <medium-property element="element" config="config" ></medium-property>
+                                </div><!-- /.col-md-4 -->                               
+                            </div><!-- /.row-->                            
+                        </div>                        
+                        <div class="center">
+                            <zoner-pagination 
+                                data-paged-array="propertiesPaged" 
+                                data-source-array="properties" 
+                                page-index="filter.pageIndex" 
+                                record-count="recordCount" 
+                                total-recods-per-page="filter.totalRecodsPerPage" 
+                                order-by="filter.orderBy"
+                            />
+                        </div>       
+                    </section><!-- /#agent-properties -->
+                    
+                    <div class="row">
+                        <hr class="thick">
+                        <div class="col-md-5" ng-hide="'true'">
+                            <section id="agent-testimonials">
+                                <h3>What Other Said About Me</h3>
+                                <div class="owl-carousel testimonials-carousel small">
+                                    <blockquote class="testimonial">
+                                        <figure>
+                                            <div class="image">
+                                                <img alt="" src="assets/img/client-01.jpg">
+                                            </div>
+                                        </figure>
+                                        <aside class="cite">
+                                            <p>Fusce risus metus, placerat in consectetur eu, porttitor a est sed sed dolor lorem cras adipiscing</p>
+                                            <footer>Natalie Jenkins</footer>
+                                        </aside>
+                                    </blockquote>
+                                    <blockquote class="testimonial">
+                                        <figure>
+                                            <div class="image">
+                                                <img alt="" src="assets/img/client-01.jpg">
+                                            </div>
+                                        </figure>
+                                        <aside class="cite">
+                                            <p>Fusce risus metus, placerat in consectetur eu, porttitor a est sed sed dolor lorem cras adipiscing</p>
+                                            <footer>Natalie Jenkins</footer>
+                                        </aside>
+                                    </blockquote>
+                                </div><!-- /.testimonials-carousel -->
+                            </section><!-- /#agent-testimonial -->
+                        </div><!-- /.col-md-5 -->
+                        <div class="col-md-7">
+                            <h3>Entre em contato</h3>{{contact}}
+                            <div class="agent-form" ng-controller="SendMessageCustomerController">
+                                <form role="form" id="form-contact-agent" method="post"  class="clearfix" novalidate="novalidate" ng-submit="sendEmail();">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="name">Seu Nome<em>*</em></label>
+                                                <input 
+                                                    type="text" 
+                                                    class="form-control" 
+                                                    id="name" 
+                                                    name="name" 
+                                                    ng-model="contact.name"
+                                                    ng-maxlength="300"
+                                                    required>
+                                            </div>                                            
+                                        </div><!-- /.col-md-6 -->
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="email">Seu e-mail<em>*</em></label>
+                                                <input 
+                                                    type="email" 
+                                                    class="form-control" 
+                                                    id="email" 
+                                                    name="email" 
+                                                    ng-model="contact.email"
+                                                    ng-maxlength="400"                                                                
+                                                    required>
+                                            </div><!-- /.form-group -->                                            
+                                        </div><!-- /.col-md-6 -->
+                                    </div><!-- /.row -->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="form-contact-agent-message">Mensagem<em>*</em></label>
+                                                <textarea 
+                                                    class="form-control" 
+                                                    id="message" 
+                                                    name="message"
+                                                    ng-minlength="6"
+                                                    ng-maxlength="400"
+                                                    ng-model="contact.message"
+                                                    rows="2" 
+                                                    required>
+                                                </textarea>
+                                            </div><!-- /.form-group -->                                            
+                                        </div><!-- /.col-md-12 -->
+                                    </div><!-- /.row -->
+                                    <div class="form-group clearfix">
+                                        <button type="submit" class="btn pull-right btn-default" id="form-contact-agent-submit">Enviar Mensagem</button>
+                                    </div><!-- /.form-group -->
+                                    <div id="form-rating-status"></div>
+                                </form><!-- /#form-contact -->
+                            </div><!-- /.rating-form -->
+                        </div>
+                    </div><!-- /.row -->
+                </section><!-- /#agent-detail -->
+            </div><!-- /.col-md-9 -->
+            <!-- end Agent Detail -->
+
+            <!-- sidebar -->
+            <div class="col-md-3 col-sm-3">
+                <section id="sidebar">
+                   <aside id="edit-search">
+                        <zoner-filter filter="filter" options="{
+                             minArea:0, 
+                             maxArea:10000,                         
+                             minPrice:0, 
+                             maxPrice:2000000, 
+                             priceStep:200, 
+                             minRadius:0, 
+                             maxRadius:20,
+                             showRadius:false,
+                             minRooms:1, 
+                             maxRooms:10,
+                             minGarage:1,
+                             maxGarage:4
+                        }"></zoner-filter>
+                    </aside><!-- /#edit-search -->
+                    <aside id="featured-properties">
+                        <header><h3>Imovéis em destaque</h3></header>                        
+                        <small-property data-array="elementFeatured" limit="2"></small-property>
+                    </aside><!-- /#featured-properties -->
+                    <!--aside id="our-guides">
+                        <header><h3>Our Guides</h3></header>
+                        <a href="#" class="universal-button">
+                            <figure class="fa fa-home"></figure>
+                            <span>Buying Guide</span>
+                            <span class="arrow fa fa-angle-right"></span>
+                        </a>
+                        <a href="#" class="universal-button">
+                            <figure class="fa fa-umbrella"></figure>
+                            <span>Right Insurance for You</span>
+                            <span class="arrow fa fa-angle-right"></span>
+                        </a--><!-- /.universal-button -->
+                    </aside><!-- /#our-guide -->
+                </section><!-- /#sidebar -->
+            </div><!-- /.col-md-3 -->
+            <!-- end Sidebar -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div>
+<!-- end Page Content -->

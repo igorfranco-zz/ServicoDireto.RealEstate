@@ -1,0 +1,25 @@
+{
+  "name": "angular-magic-search",
+  "version": "0.2.5",
+  "author": "David Kavanagh <dkavanagh@gmail.com>",
+  "main": [
+    "magic-search.js",
+    "magic-search.html",
+    "magic-search.css",
+    "magic-search.scss"
+  ],
+  "dependencies": {
+    "angular": ">= 1.2.0"
+  },
+  "homepage": "https://github.com/eucalyptus/magic-search-dist",
+  "_release": "0.2.5",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.2.5",
+    "commit": "2dc0c0f2ae4b3c9427d75c0a786b74e73a51abaf"
+  },
+  "_source": "git://github.com/eucalyptus/magic-search-dist.git",
+  "_target": "~0.2.5",
+  "_originalSource": "angular-magic-search",
+  "_direct": true
+}

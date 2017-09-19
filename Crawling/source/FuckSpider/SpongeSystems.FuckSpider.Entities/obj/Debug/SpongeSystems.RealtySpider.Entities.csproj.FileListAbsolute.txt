@@ -1,0 +1,10 @@
+E:\Sponge\Crawling\FuckSpider\SpongeSystems.FuckSpider.Entities\obj\Debug\SpongeSystems.RealtySpider.Entities.csprojResolveAssemblyReference.cache
+E:\Sponge\Crawling\FuckSpider\SpongeSystems.FuckSpider.Entities\bin\Debug\SpongeSystems.RealtySpider.Entities.dll
+E:\Sponge\Crawling\FuckSpider\SpongeSystems.FuckSpider.Entities\bin\Debug\SpongeSystems.RealtySpider.Entities.pdb
+E:\Sponge\Crawling\FuckSpider\SpongeSystems.FuckSpider.Entities\bin\Debug\MongoDB.Bson.dll
+E:\Sponge\Crawling\FuckSpider\SpongeSystems.FuckSpider.Entities\bin\Debug\MongoDB.Driver.Core.dll
+E:\Sponge\Crawling\FuckSpider\SpongeSystems.FuckSpider.Entities\bin\Debug\MongoDB.Driver.dll
+E:\Sponge\Crawling\FuckSpider\SpongeSystems.FuckSpider.Entities\bin\Debug\MongoDB.Bson.xml
+E:\Sponge\Crawling\FuckSpider\SpongeSystems.FuckSpider.Entities\bin\Debug\MongoDB.Driver.xml
+E:\Sponge\Crawling\FuckSpider\SpongeSystems.FuckSpider.Entities\obj\Debug\SpongeSystems.RealtySpider.Entities.dll
+E:\Sponge\Crawling\FuckSpider\SpongeSystems.FuckSpider.Entities\obj\Debug\SpongeSystems.RealtySpider.Entities.pdb

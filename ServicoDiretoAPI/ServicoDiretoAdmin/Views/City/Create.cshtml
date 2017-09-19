@@ -1,0 +1,86 @@
+﻿@using SpongeSolutions.ServicoDireto.Model;
+@using SpongeSolutions.Core.Translation;
+@model City
+@{
+    ViewBag.Title = @SpongeSolutions.ServicoDireto.Internationalization.Label.City_Manage_Title;
+    Layout = "~/Views/Shared/_LayoutFull.cshtml";
+    var states = (SelectList)ViewBag.States;
+    var countries = (SelectList)ViewBag.Countries;
+}
+<script language="javascript" type="text/javascript">
+    $(function () {
+        NBN.Helper.ApplyMask();
+        $("#tabs").tabs();
+    });
+
+    function FillStateProvince(params) {
+        if (params != null) {
+            NBN.REST.Execute('/stateprovince.aspx/listbycountry', params, function (data) {
+                data = JSON.parse(data);
+                if (data.ResponseData.Status == 200) //Sucesso
+                    NBN.Helper.FillDropDown('IDStateProvince', data, { Text: '@Html.Raw(SpongeSolutions.ServicoDireto.Internationalization.Label.Select_StateProvince)', Value: '' })
+                else
+                    NBN.Helper.ShowModalWindowJqueryUI(data.ResponseData.Details, '@SpongeSolutions.ServicoDireto.Internationalization.Message.Error_Deactivation', { width: 300, heigth: 200 }, false, true);
+            }, 'POST');
+        }
+        else {
+            $('#IDStateProvince').html('');
+        }
+    }
+</script>
+<div class="container">
+    <div class="form-header process">
+        <h3>@SpongeSolutions.ServicoDireto.Internationalization.Label.City_Manage_Title</h3>
+        <p>@SpongeSolutions.ServicoDireto.Internationalization.Label.City_Manage_Help</p>
+    </div>
+    @if (this.TempData["Message"] != null)
+    {
+        <div class="success">@this.TempData["Message"]</div>
+    }
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">@SpongeSolutions.ServicoDireto.Internationalization.Label.General</a></li>
+        </ul>
+        <div id="tabs-1">
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true, SpongeSolutions.ServicoDireto.Internationalization.Message.ValidationSummary)
+                @Html.HiddenFor(model => model.IDCity)
+                <fieldset>
+                    <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.City_Manage_Title</legend>
+                    <div>
+                        @Html.SpongeTextBoxFor(model => model.Name)
+                    </div>
+                    <div>
+                        @Html.SpongeDropDownListFor(model => model.IDCountry,
+                                                    countries,
+                                                    SpongeSolutions.ServicoDireto.Internationalization.Label.Select_Country,
+                                                    "stateprovince",
+                                                    "listbycountry",
+                                                    SpongeSolutions.ServicoDireto.Internationalization.Label.Select_StateProvince,
+                                                    "IDStateProvince",
+                                                    "{ idCountry: $('#IDCountry').val()}")
+                    </div>
+                    <div>
+                        @Html.SpongeDropDownListFor(model => model.IDStateProvince, states, SpongeSolutions.ServicoDireto.Internationalization.Label.Select_StateProvince, null)
+                    </div>
+
+                    @Html.SpongeEditorForBaseEntity((this.Model != null && this.Model.IDCity.HasValue))                    
+                </fieldset>    
+                <div class="toolbar span-20">
+                    <ul>
+                        <li>
+                            <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.New" class="add" onclick="location.href='@Url.Action("create", new { id = "" })'" />
+                        </li>
+                        <li>
+                            <input type="submit" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Save" class="save" />
+                        </li>
+                        <li>
+                            <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Back" class="back" onclick="location.href='@Url.Action("/index")'"/>
+                        </li>
+                    </ul>
+                </div>        
+            }
+        </div>
+    </div>
+</div>

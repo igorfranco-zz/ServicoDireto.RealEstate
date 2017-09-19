@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "Inbox";
+    Layout = null;
+}
+
+@{
+    Html.RenderAction("index", "email", new { idCustomerTo = SpongeSolutions.ServicoDireto.Admin.SiteContext.GetActiveProfile.Preferences.IDCustomer, status = (short)SpongeSolutions.ServicoDireto.Model.InfraStructure.Enums.EmailType.Sent });
+}
+

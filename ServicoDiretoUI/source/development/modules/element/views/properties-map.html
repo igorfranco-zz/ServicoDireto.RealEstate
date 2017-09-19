@@ -1,0 +1,72 @@
+<!-- Page Content -->
+<div id="page-content">
+    <!-- Breadcrumb -->
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li class="active">Pesquisa em Mapa</li>
+        </ol>
+    </div>
+    <!-- end Breadcrumb -->
+
+    <div class="container">
+        <div class="row">
+            <!-- sidebar -->
+            <div class="col-md-3 col-sm-3">
+                <section id="sidebar">
+                    <aside id="edit-search">
+                        <zoner-filter filter="filter" options="{
+                             minArea:0, 
+                             maxArea:10000,                         
+                             minPrice:0, 
+                             maxPrice:2000000, 
+                             priceStep:200, 
+                             minRadius:0, 
+                             maxRadius:20,
+                             showRadius:true,
+                             minRooms:1, 
+                             maxRooms:10,
+                             minGarage:1,
+                             maxGarage:4
+                        }"></zoner-filter>
+                    </aside><!-- /#edit-search -->
+                </section><!-- /#sidebar -->
+            </div><!-- /.col-md-3 -->
+
+            <div class="col-md-9 col-sm-9">
+                <section id="search-section">
+                    <section id="search-filter">
+                        <figure>
+                            <div>
+                                <label>Localização: </label>
+                                <span>{{ filter.BaseAddress }}</span>
+                            </div>                            
+                            <h3><i class="fa fa-search"></i>Resultado:</h3>
+                            <span class="search-count">{{ properties.length }} Imóveis retornados</span>
+                            <div class="sorting">
+                                <div class="form-group">
+                                    <select name="sorting" ng-model="filter.orderBy" bootselectpicker>
+                                        <option value="name">Ordenar</option>
+                                        <option value="price">Menor preço</option>
+                                        <option value="price DESC">Maior preço</option>
+                                        <option value="createDate DESC">Mais recente</option>
+                                        <option value="isPromoted DESC">Em Destaque</option>
+                                    </select>
+                                </div><!-- /.form-group -->
+                            </div>
+                        </figure>
+                    </section>                     
+
+                    <section id="map-section">
+                        <zoner-map filter-data="filter" element-result-data="properties"></zoner-map>
+                    </section><!-- /#agent-properties -->
+                </section><!-- /#agent-detail -->
+            </div><!-- /.col-md-9 -->
+            <!-- end Agent Detail -->
+
+          
+            <!-- end Sidebar -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div>
+<!-- end Page Content -->

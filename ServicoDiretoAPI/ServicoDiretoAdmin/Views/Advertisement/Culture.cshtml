@@ -1,0 +1,14 @@
+﻿@using SpongeSolutions.ServicoDireto.Model.Advertisement;
+@model AdsCategoryCulture
+@{
+    ViewBag.Title = "Culture";
+    Layout = null;
+}
+<div class="span-6">
+    <img src="@String.Concat(SpongeSolutions.ServicoDireto.Admin.SiteContext.LayoutPath, this.Model.IconPath)" title="@this.Model.CultureName" alt="@this.Model.CultureName"/>&nbsp;@Html.Label(this.Model.CultureName):<br />
+    @Html.LabelFor(model => model.Name)<br/>
+    @Html.TextBox(String.Format("[{0}].Name", (string)Convert.ToString(this.ViewBag.Index)), this.Model.Name)<br/>
+    @Html.ValidationMessage(String.Format("[{0}].Name", (string)Convert.ToString(this.ViewBag.Index)))
+    @Html.Hidden(String.Format("[{0}].IDCulture", (string)Convert.ToString(this.ViewBag.Index)), this.Model.IDCulture)
+</div>
+

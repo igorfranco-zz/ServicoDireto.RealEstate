@@ -1,0 +1,75 @@
+﻿@using SpongeSolutions.Core.Helpers;
+@using SpongeSolutions.ServicoDireto.Model;
+@model IList<Icon>
+@{
+    ViewBag.Title = SpongeSolutions.ServicoDireto.Internationalization.Label.Icon_Index_Title;
+    Layout = (this.ViewBag.WindowMode) ? "~/Views/Shared/_LayoutBasic.cshtml" : "~/Views/Shared/_LayoutFull.cshtml";
+}
+<script language="javascript" type="text/javascript">
+    $(function () {
+        NBN.Helper.EnableContextFilterMenu();
+    });
+
+    function InactiveRecords() {
+        if (confirm("@Html.Raw(SpongeSolutions.ServicoDireto.Internationalization.Message.Confirm_Deactivation)")) {
+            Manager.Services.DeactivateIcon({ ids : NBN.Helper.GetSelectedValuesAsArray('chkIDIcon') }, function (data) {
+                data = JSON.parse(data);
+                if (data.ResponseData.Status == 200) //Sucesso
+                {
+                    var result = data.ResponseData.Result[0];
+                    if (result.Deleted)
+                        window.location.reload(true);
+                    else
+                        alert(result.Message)
+                }
+                else {
+                    NBN.Helper.ShowModalWindowJqueryUI(data.ResponseData.Details, "@SpongeSolutions.ServicoDireto.Internationalization.Message.Error_Deactivation", { width: 300, heigth: 200 });
+                }
+            });
+        }
+    }
+
+    function AddSelected(key, value) {        
+        $("input[id='IDIcon']").val(key);
+        $("input[id='IconName']").val(value);
+        $(".ui-dialog-content").dialog("close");
+    }
+
+</script>
+<div class="container">
+    @*@if (!this.ViewBag.WindowMode)
+    {
+        <div class="form-header recipe">
+            <h3>@SpongeSolutions.ServicoDireto.Internationalization.Label.Icon_Index_Title</h3>
+            <p>@SpongeSolutions.ServicoDireto.Internationalization.Label.Icon_Index_Help</p>
+        </div>
+    }*@
+    @if (this.ViewBag.Message != null)
+    {
+        <div>@this.ViewBag.Message</div>
+    }
+    <fieldset>
+        @using (Html.BeginForm())
+        {    
+            <div id="gridResult" class="span-25">
+                @Html.Grid(Model, "Description", SpongeSolutions.ServicoDireto.Internationalization.Label.Icon_Index_Title, rowPerPage: SpongeSolutions.ServicoDireto.Admin.SiteContext.MaximumRows, canPage: true, activePage: int.Parse((Request.QueryString["page"] == null) ? "1" : Request.QueryString["page"]), isWindowMode: (bool)this.ViewBag.WindowMode, rowCount: (int)this.ViewBag.RowCount)
+            </div>
+            if (!this.ViewBag.WindowMode)
+            {
+                <div class="span-24 toolbar">
+                    <ul>
+                        <li>
+                            <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.New" class="add" onclick="location.href='@Url.Action("create")'" />
+                        </li>
+                        <li>
+                            <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Inactivate" class="delete" onclick="javascript:InactiveRecords();" />
+                        </li>
+                        <li>
+                            <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Cancel" class="cancel" onclick="location.href='@Url.Action("/index")'" />
+                        </li>
+                    </ul>
+                </div>
+            }
+        }
+    </fieldset>
+</div>

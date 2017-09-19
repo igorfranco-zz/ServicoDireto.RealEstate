@@ -1,0 +1,90 @@
+﻿@using SpongeSolutions.ServicoDireto.Model;
+@using SpongeSolutions.Core.Translation;
+@model SpongeSolutions.ServicoDireto.Model.FilterExtended
+@{
+    ViewBag.Title = @SpongeSolutions.ServicoDireto.Internationalization.Label.Filter_Manage_Title;
+    Layout = "~/Views/Shared/_LayoutFull.cshtml";
+}
+<script language="javascript" type="text/javascript">
+    $(function () {
+        NBN.Helper.SwitcherOption.Init("IDPurposeAvailable", "IDPurpose");
+        NBN.Helper.ApplyMask();
+        $("#tabs").tabs();
+        $("#IDPurpose option").attr('selected', 'selected');
+    });
+</script>
+<div class="container">
+    <div class="form-header process">
+        <h3>@SpongeSolutions.ServicoDireto.Internationalization.Label.Filter_Manage_Title</h3>
+        <p>@SpongeSolutions.ServicoDireto.Internationalization.Label.Filter_Manage_Help</p>
+    </div>
+    @if (this.TempData["Message"] != null)
+    {
+        <div class="success">@this.TempData["Message"]</div>
+    }
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">@SpongeSolutions.ServicoDireto.Internationalization.Label.General</a></li>
+        </ul>
+        <div id="tabs-1">
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true, SpongeSolutions.ServicoDireto.Internationalization.Message.ValidationSummary)
+                @Html.HiddenFor(model => model.IDFilter)
+                <fieldset>
+                    <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.Filter_Manage_Title</legend>
+                    <div class="span-21">
+                        @*@Html.FindTextBoxFor(model => model.IDAttribute, model => model.AttributeName, SpongeSolutions.ServicoDireto.Internationalization.Label.Attribute_Search_Title, "attribute", "index", "{ windowMode : true, status : 1 }")*@
+                        @Html.SpongeAutoCompleteFor(p => p.IDAttribute, p => p.AttributeName, Url.Action("autocomplete", "attribute"), new { @class = "xxbig"})
+                    </div>
+                    <div class="span-21">
+                        @Html.SpongeTextBoxFor(model => model.InitialValue)
+                    </div>
+                    <div class="span-21">
+                        @Html.SpongeTextBoxFor(model => model.FinalValue)
+                    </div>
+                    <div class="span-21">
+                        @Html.SpongeTextBoxFor(model => model.DefaultValue)
+                    </div>
+                    <div class="span-21">
+                        @Html.SpongeDropDownListFor(model => model.ComponentType, EnumTranslator.Translate<SpongeSolutions.ServicoDireto.Model.InfraStructure.Enums.ComponentType>(""), SpongeSolutions.ServicoDireto.Internationalization.Label.Select_ComponentType, null)
+                    </div>
+                    <div class="span-21">
+                        <div class="container">
+                            <div class="span-9">
+                                <div>@SpongeSolutions.ServicoDireto.Internationalization.Label.Filter_Manage_Available_Purposes</div>
+                                @Html.ListBox("IDPurposeAvailable", (SelectList)this.ViewData["availablePurposes"], new { @class = "dropdown-multiple" })
+                            </div>
+                            <div class="exporter-container">
+                                <input type="button" name="btnAdd" value=">" onclick="NBN.Helper.SwitcherOption.Add();" />
+                                <input type="button" name="btnAddAll" value=">>" onclick="NBN.Helper.SwitcherOption.AddAll();" />
+                                <input type="button" name="btnRemove" value="<" onclick="NBN.Helper.SwitcherOption.Remove();" />
+                                <input type="button" name="btnRemoveAll" value="<<" onclick="NBN.Helper.SwitcherOption.RemoveAll();" />
+                            </div>
+                            <div class="prefix-1 span-9">
+                                <div>@SpongeSolutions.ServicoDireto.Internationalization.Label.Filter_Manage_Vinculated_Purposes</div>
+                                @Html.ListBox("IDPurpose", (SelectList)this.ViewData["vinculatedPurposes"], new { @class = "dropdown-multiple" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span-21">
+                        @Html.SpongeEditorForBaseEntity((this.Model != null && this.Model.IDFilter != 0))
+                    </div>
+                </fieldset>    
+                <div class="toolbar span-20">
+                    <ul>
+                        <li>
+                            <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.New" class="add" onclick="location.href='@Url.Action("create", new { id = "" })'" />
+                        </li>
+                        <li>
+                            <input type="submit" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Save" class="save" />
+                        </li>
+                        <li>
+                            <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Back" class="back" onclick="location.href='@Url.Action("/index")'"/>
+                        </li>
+                    </ul>
+                </div>        
+            }
+        </div>
+    </div>
+</div>

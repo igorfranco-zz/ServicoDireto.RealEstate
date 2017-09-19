@@ -1,0 +1,16 @@
+﻿@using SpongeSolutions.Core.Helpers;
+@using SpongeSolutions.ServicoDireto.Model;
+@model IList<ElementExtended>
+@{
+    ViewBag.Title = "AlertItem";
+    Layout = null;
+}
+<div class="topline">
+    @foreach (var item in Model)
+    {
+        <a href="@Url.Action("details", "element", new { id = item.IDElement })" target="_blank" title="Visualizar os detalhes do imóvel">
+            <div>@item.Name</div>
+            <div>@item.Description</div>
+        </a>
+    }
+</div>

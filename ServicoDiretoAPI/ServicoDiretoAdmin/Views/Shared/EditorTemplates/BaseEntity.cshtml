@@ -1,0 +1,28 @@
+﻿@model SpongeSolutions.ServicoDireto.Model.InfraStructure.BaseEntity
+<div class="info-container span-22">
+    <div>
+        @Html.LabelFor(model => this.Model.Status):<br />
+        @Html.DropDownListFor(model => this.Model.Status, SpongeSolutions.Core.Translation.EnumTranslator.Translate<SpongeSolutions.ServicoDireto.Model.InfraStructure.Enums.StatusType>(""))
+        @Html.ValidationMessageFor(model => this.Model.Status)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.CreateDate):<br />
+        @Html.DisplayFor(model => model.CreateDate)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.ModifyDate):<br />
+        @Html.DisplayFor(model => model.ModifyDate)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.CreatedBy):<br />
+        @Html.DisplayFor(model => model.CreatedBy)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.ModifiedBy):<br />
+        @Html.DisplayFor(model => model.ModifiedBy)
+    </div>
+    @Html.HiddenFor(model => model.CreatedBy)
+    @Html.HiddenFor(model => model.ModifiedBy)
+    @Html.HiddenFor(model => model.ModifyDate)
+    @Html.HiddenFor(model => model.CreateDate)
+</div>

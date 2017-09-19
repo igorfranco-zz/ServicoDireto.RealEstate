@@ -1,0 +1,74 @@
+{
+  "chunks": {
+    "vendor": [
+      "moment",
+      "angular",
+      "angular-locale",
+      "ui-bootstrap",
+      "angular-resource",
+      "angular-route",
+      "angular-ui-router",
+      "angular-animate",
+      "angular-touch",
+      "rzslider",
+      "ng-map",
+      "angular-owl-carousel",
+      "meiomask",
+      "bootstrap",
+      "fileinput",
+      "fileinput_locale",
+      "angular-toastr",
+      "jcs-auto-validate",
+      "loading-bar",
+      "angular-local-storage",
+      "ng-file-upload",
+      "angular-advanced-searchbox"      
+    ],
+    "vendor.ui": [
+    ],
+    "vendor.datatables": [
+
+    ],
+    "vendor.graphs": [
+    ]
+  },
+  "css":
+  {
+    "css_compiled": [
+      "rzslider-css",
+      "angular-toastr-css",
+      "loading-bar-css",
+      "angular-advanced-searchbox-css"
+     ]
+  }
+  ,
+  "paths": {
+    "moment": "bower_components/moment/min/moment.min.js",
+    "angular": "bower_components/angular/angular.min.js",
+    "angular-locale": "bower_components/angular-i18n/angular-locale_pt-BR.js",
+    "ui-bootstrap": "bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js",
+    "angular-resource": "bower_components/angular-resource/angular-resource.min.js",
+    "angular-route": "bower_components/angular-route/angular-route.min.js",
+    "angular-ui-router": "bower_components/angular-ui-router/release/angular-ui-router.min.js",
+    "angular-animate": "bower_components/angular-animate/angular-animate.min.js",
+    "angular-touch": "bower_components/angular-touch/angular-touch.min.js",
+    "rzslider": "bower_components/angularjs-slider/dist/rzslider.js",
+    "ng-map": "bower_components/ngmap/build/scripts/ng-map.min.js",
+    "angular-owl-carousel": "bower_components/angular-owl-carousel1/src/angular-owl-carousel.js",
+    "meiomask": "bower_components/jquery-meiomask/dist/meiomask.min.js", 
+    "bootstrap": "bower_components/bootstrap/dist/js/bootstrap.min.js",
+    "fileinput": "bower_components/bootstrap-fileinput/js/fileinput.min.js",
+    "fileinput_locale": "bower_components/bootstrap-fileinput/js/fileinput_locale_pt-BR.js",
+    "angular-toastr": "bower_components/angular-toastr/dist/angular-toastr.tpls.js",
+    "jcs-auto-validate": "bower_components/angular-auto-validate/dist/jcs-auto-validate.min.js",
+    "loading-bar": "bower_components/angular-loading-bar/build/loading-bar.min.js",
+    "angular-local-storage": "bower_components/angular-local-storage/dist/angular-local-storage.min.js",
+    "ng-file-upload": "bower_components/ng-file-upload/ng-file-upload.min.js",
+    "angular-advanced-searchbox": "bower_components/angular-advanced-searchbox/dist/angular-advanced-searchbox-tpls.min.js",
+    
+    "rzslider-css":  "bower_components/angularjs-slider/dist/rzslider.css",
+    "angular-toastr-css": "bower_components/angular-toastr/dist/angular-toastr.css",
+    "loading-bar-css": "bower_components/angular-loading-bar/build/loading-bar.css",
+    "angular-advanced-searchbox-css": "bower_components/angular-advanced-searchbox/dist/angular-advanced-searchbox.min.css"    
+  }
+}

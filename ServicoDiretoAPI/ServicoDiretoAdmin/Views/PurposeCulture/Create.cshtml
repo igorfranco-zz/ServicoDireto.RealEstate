@@ -1,0 +1,14 @@
+﻿@using SpongeSolutions.ServicoDireto.Model;
+@model PurposeCulture
+@{
+    ViewBag.Title = "Culture";
+    Layout = "~/Views/Shared/_LayoutBasic.cshtml";
+}
+@if (this.Model != null)
+{
+    <div class="span-6">
+        <img src="@String.Concat(SpongeSolutions.ServicoDireto.Admin.SiteContext.LayoutPath, this.Model.IconPath)" title="@this.Model.CultureName" alt="@this.Model.CultureName"/>&nbsp;@Html.Label(this.Model.CultureName):<br />
+        @Html.TextBox(String.Format("[{0}].Description", (string)Convert.ToString(this.ViewBag.Index)), this.Model.Description)
+        @Html.Hidden(String.Format("[{0}].IDCulture", (string)Convert.ToString(this.ViewBag.Index)), this.Model.IDCulture)
+    </div>
+}

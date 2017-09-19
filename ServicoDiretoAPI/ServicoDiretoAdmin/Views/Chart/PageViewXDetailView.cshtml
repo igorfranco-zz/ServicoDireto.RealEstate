@@ -1,0 +1,29 @@
+﻿@model object[][] 
+@{
+    ViewBag.Title = "PageViewXDetailView";
+    Layout = null;
+
+    var resultJSON = SpongeSolutions.Core.Helpers.Serialization.SerializationHelper.SerializeJSON<object[][]>(Model);
+    var chartType = (SpongeSolutions.ServicoDireto.Model.InfraStructure.Enums.ChartType)this.ViewBag.ChartType;
+}
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script language="javascript" type="text/javascript" >
+    google.load("visualization", "1", { packages: ["corechart"] });
+    google.setOnLoadCallback(drawChart);
+    function drawChart() { 
+        var data = google.visualization.arrayToDataTable(@Html.Raw( resultJSON ) );
+        var options = {
+            curveType: "function",
+            width: 400,
+            height: 350,
+            title: '@Html.Raw( SpongeSolutions.ServicoDireto.Internationalization.Label.Comparison_Visualisation_Click )',
+            chartArea: { width: 300 },
+            displayAnnotations: true
+        };
+        
+        var chart = new google.visualization.@chartType (document.getElementById('chartContainer'));
+        chart.draw(data, options);
+    }
+</script>
+
+<div id="chartContainer"><img src="@Url.Content("~/_images/loading.gif")" title="" /></div>

@@ -1,0 +1,65 @@
+﻿@using SpongeSolutions.ServicoDireto.Model;
+@using SpongeSolutions.Core.Translation;
+@model IList<AttributeType>
+@{
+    ViewBag.Title = "Attribute";
+    Layout = null;
+    int idElement = Convert.ToInt32(Session["IDElement"]);
+}
+<fieldset>
+    <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.Attributes</legend>
+    <div class="span-21">
+        @{
+            var indexer = 0;
+            foreach (var item in this.Model)
+            {
+                if (1==1)
+                {                
+                    <div class="span-20">
+                        <h6>@item.Description</h6>
+                        <hr />
+                        @{                
+                            var attributes = SpongeSolutions.ServicoDireto.Services.ServiceContext.AttributeService.List(item.IDAttributeType.Value, idElement);
+                            foreach (var attribute in attributes)
+                            {
+                                string alternating = (indexer % 2 == 0) ? "alternating" : "";
+                                <div class="span-20 @alternating" >
+                                    <div class="span-1">                                        
+                                        @Html.Hidden(String.Format("ElementAttribute[{0}].IDAttribute", indexer), attribute.IDAttribute)
+                                        @if(item.Acronym == "BASIC")
+                                        {
+                                            @Html.Hidden(String.Format("ElementAttribute[{0}].Checked", indexer), true)
+                                        }
+                                        else
+                                        {
+                                            @Html.CheckBox(String.Format("ElementAttribute[{0}].Checked", indexer), attribute.Checked)
+                                        }
+                                            
+                                    </div>
+                                    <div class="span-9">
+                                        @Html.Label(attribute.Name)
+                                    </div>
+                                    @if (attribute.EditMask != null && attribute.EditMask.Length > 0)
+                                    {            
+                                        <div class="span-5">
+                                            @if (attribute.EditMask.Trim().ToLower() == "text")
+                                            {
+                                                @Html.TextBox(String.Format("ElementAttribute[{0}].Value", indexer), attribute.Value, new { @class = "xxbig" })
+                                            }
+                                            else
+                                            { 
+                                                @Html.TextBox(String.Format("ElementAttribute[{0}].Value", indexer), attribute.Value, new { @class = "xsmall", xmask = attribute.EditMask })
+                                            }
+                                        </div>            
+                                        @((attribute.DisplayMask != null && attribute.DisplayMask.Length > 0) ? "ex: " + String.Format(attribute.DisplayMask, 100) : "")            
+                                    }
+                                </div>    
+                                    indexer++;
+                            }
+                        }
+                    </div>
+                }
+            }
+        }
+    </div>
+</fieldset>

@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Enable";
+}
+<div class="container">
+    <div class="form-header process">
+        <h3>@SpongeSolutions.ServicoDireto.Internationalization.Label.Account_Enable_Title</h3>
+        <p>@SpongeSolutions.ServicoDireto.Internationalization.Label.Account_Enable_Help</p>
+    </div>
+    @if (this.TempData["Message"] != null)
+    {
+        <div class="success">@this.TempData["Message"]</div>
+    }
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true, SpongeSolutions.ServicoDireto.Internationalization.Label.General_ValidationSummary)
+        <fieldset>
+            <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.ActivateKey</legend>
+            <div>
+                @Html.Label(SpongeSolutions.ServicoDireto.Internationalization.Label.ActivateKey)<br />
+                @Html.TextBox("code", Request.QueryString["code"], new { @class = "xxbig" })
+            </div>
+        </fieldset>
+        <div class="toolbar span-20">
+            <ul>
+                <li>
+                    <input type="submit" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Activate" class="recover" />
+                </li>
+
+                <li>
+                    <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Back" class="back" onclick="location.href='@Url.Action("/index", "home")'"/>
+                </li>
+            </ul>
+        </div>
+    }
+</div>

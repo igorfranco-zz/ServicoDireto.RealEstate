@@ -1,0 +1,255 @@
+﻿@using SpongeSolutions.ServicoDireto.Model;
+@using SpongeSolutions.Core.Translation;
+@model Customer
+@{
+    ViewBag.Title = @SpongeSolutions.ServicoDireto.Internationalization.Label.Customer_Manage_Title;
+    //Layout = "~/Views/Shared/_LayoutBasic.cshtml";
+    var states = (SelectList)ViewBag.States;
+    var cities = (SelectList)ViewBag.Cities;        
+}
+<script language="javascript" type="text/javascript">
+
+    function ApllyMaskByFederalID()
+    {
+        if($("input:radio[name='IDFedereral']:checked'").val() == @Convert.ToInt16(SpongeSolutions.ServicoDireto.Model.InfraStructure.Enums.FederealIDType.CPF))
+        {
+            $("#CPF_CNPJ").removeAttr("xmask");
+            $("#CPF_CNPJ").attr("xmask", 'cpf');
+        }
+        else
+        {
+            $("#CPF_CNPJ").removeAttr("xmask");
+            $("#CPF_CNPJ").attr("xmask", 'cnpj');
+        }
+        NBN.Helper.ApplyMask();
+    }
+    
+    $(function () {        
+        //$("#tabs").tabs();        
+        $("#slider").slider(
+        {
+            value: @( (Model != null && Model.Preferences != null && Model.Preferences.Radius.HasValue) ? Model.Preferences.Radius.ToString() : "1"),
+            min: 0,
+            max: 100,
+            step: 1,
+            slide: function (event, ui) {
+                $("input[id*='Radius']").val(ui.value);
+            }
+        });
+
+        @if (Model != null && Model.CPF_CNPJ != null)
+        {
+            string type = (Model.CPF_CNPJ.Length == 18) ? "2" : "1";
+            <text>
+                $("input:radio[name='IDFedereral'][value='@type']")[0].checked = true;                           
+                ApllyMaskByFederalID(); 
+            </text>            
+        }
+        else
+        {
+            <text>
+                NBN.Helper.ApplyMask();
+            </text>            
+        }
+
+        $("input:radio[name='IDFedereral']").click(function(){
+           ApllyMaskByFederalID();
+           $("#CPF_CNPJ").val('').focus();
+        });
+    });
+
+    function SelectImage() {
+        $("#fupLogo").click();
+//        $("#fupLogo").change(function(){
+//            $("#imgCompany").attr("src", "file:///" + $("#fupLogo").val());            
+//        });
+    }
+</script>
+<div class="container">
+    @*    <div class="form-header process">
+        <h3>@SpongeSolutions.ServicoDireto.Internationalization.Label.Customer_Manage_Title</h3>
+        <p>@SpongeSolutions.ServicoDireto.Internationalization.Label.Customer_Manage_Help</p>
+    </div>
+*@
+    @if (this.TempData["Message"] != null)
+    {
+        <div class="success">@this.TempData["Message"]</div>
+    }
+    <fieldset class="profile-container">
+        <div class="span-5 customer-menu" >
+            <div class="span-4 company-logo">
+                <a href="javascript:SelectImage();">
+                    <img src="@Url.Content((Model != null && !string.IsNullOrEmpty(Model.Logo) ? String.Format("{0}/{1}/Thumb/{2}", SpongeSolutions.ServicoDireto.Admin.SiteContext.UploadPath, Model.IDCustomer, Model.Logo) : SpongeSolutions.ServicoDireto.Admin.SiteContext.LayoutPath + "/_images/blank.png"))" alt="[Imagem Logo]" id="imgCompany"/>
+                    <br />
+                    @SpongeSolutions.ServicoDireto.Internationalization.Label.AddLogo
+                </a>
+            </div>
+            <br />
+            <div class="span-4">
+                <ul>
+                    <li class="user"><a href="@Url.Action("create","customer")">@SpongeSolutions.ServicoDireto.Internationalization.Label.MyProfile</a></li>
+                    <li class="email"><a href="@Url.Action("manager","email")">@SpongeSolutions.ServicoDireto.Internationalization.Label.Emails</a></li>
+                    <li class="house"><a href="@Url.Action("index","element")">@SpongeSolutions.ServicoDireto.Internationalization.Label.MyProperties</a></li>
+                    <li class="favorite"><a href="@Url.Action("listfavorite","element")">@SpongeSolutions.ServicoDireto.Internationalization.Label.Favorites</a></li>
+                    <li class="warning"><a href="@Url.Action("index","alert")">@SpongeSolutions.ServicoDireto.Internationalization.Label.Alerts</a></li>
+                    @*<li class="group"><a href="#">@SpongeSolutions.ServicoDireto.Internationalization.Label.FindContacts</a></li>*@
+                </ul>
+            </div>
+        </div>
+        @using (Html.BeginForm("Create", "Customer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="span-18">
+                <input type="file" name="fupLogo" id="fupLogo" class="hide" />
+                @Html.HiddenFor(model => model.Logo)
+                @Html.HiddenFor(model => model.IDCustomer)
+                @Html.HiddenFor(model => model.UserName)
+                @Html.ValidationSummary(true , SpongeSolutions.ServicoDireto.Internationalization.Message.ValidationSummary)
+                <div class="span-21" id="profile-container">
+                    <!--Dados de Perfil -->
+                    <fieldset>
+                        <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.Profile</legend>
+                        <hr class="space" />
+                        <div class="span-19">
+                            <div class="prefix-1 span-12">
+                                <h5>@SpongeSolutions.ServicoDireto.Internationalization.Label.Customer_Site_Name_Title</h5>
+                                <div>
+                                    @SpongeSolutions.ServicoDireto.Admin.SiteContext.SitePath
+                                    @Html.TextBoxFor(model => model.SiteName, htmlAttributes: new { @class = "xsmall" })
+                                </div>
+                                <div class="menu">
+                                    <ul>
+                                        <li>@SpongeSolutions.ServicoDireto.Internationalization.Label.Customer_Choose_Address</li>
+                                        <li>@SpongeSolutions.ServicoDireto.Internationalization.Label.Customer_Only_Words</li>
+                                    </ul>
+                                </div>
+                                <hr class="space" />
+                                <div>
+                                    @Html.SpongeTextBoxFor(model => model.Comments, isTextArea: true, initialValue: SpongeSolutions.ServicoDireto.Internationalization.Label.Company_Description, htmlAttributes: new { rows = 5, cols = 70 })
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <!--Dados de Identificação-->
+                    <fieldset>
+                        <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.Identification</legend>
+                        <div class="span-19">
+                            <div>
+                                @Html.SpongeTextBoxFor(model => model.Name, new { @class = "xxbig" })
+                            </div>
+                        </div>
+                        @*Verificar se o cliente está no Brasil*@
+                        <div class="span-19">
+                            <div class="span-6">
+                                @Html.SpongeTextBoxFor(model => model.CRECI)
+                            </div>
+                            <div class="span-2">
+                                @Html.RadionButtonList("IDFedereral", EnumTranslator.Translate<SpongeSolutions.ServicoDireto.Model.InfraStructure.Enums.FederealIDType>(1))
+                            </div>
+                            <div class="span-6">
+                                @Html.SpongeTextBoxFor(model => model.CPF_CNPJ, new { xmask = "cpf" })
+                            </div>
+                        </div>
+                        <div class="span-19">
+                            <div class="span-6">
+                                @Html.SpongeDropDownListFor(model => model.IDCountry,
+                                                    SpongeSolutions.ServicoDireto.Services.ServiceContext.CountryService.GetAllActive(),
+                                                    SpongeSolutions.ServicoDireto.Internationalization.Label.Select_Country,
+                                                    "stateprovince",
+                                                    "listbycountry",
+                                                    SpongeSolutions.ServicoDireto.Internationalization.Label.Select_StateProvince,
+                                                    "IDStateProvince",
+                                                    "{ idCountry: $('#IDCountry').val()}")
+                            </div>
+                            <div class="span-6">
+                                @Html.SpongeDropDownListFor(model => model.IDStateProvince,
+                                                        states,
+                                                        SpongeSolutions.ServicoDireto.Internationalization.Label.Select_StateProvince,
+                                                        "city",
+                                                        "listbystateprovince",
+                                                        SpongeSolutions.ServicoDireto.Internationalization.Label.Select_City,
+                                                        "IDCity",
+                                                 "{ idStateProvince: $('#IDStateProvince').val(), idCountry: $('#IDCountry').val()}")
+                            </div>
+                            <div class="span-6">
+                                @Html.SpongeDropDownListFor(model => model.IDCity, cities, SpongeSolutions.ServicoDireto.Internationalization.Label.Select_City, null)
+                            </div>
+                        </div>
+                        <div class="span-19">
+                            <div class="span-4">
+                                @Html.SpongeTextBoxFor(model => model.PostalCode, new { @class = "xsmall" })
+                            </div>
+                            <div class="span-6">
+                                @Html.SpongeTextBoxFor(model => model.Address, new { @class = "xbig" })
+                            </div>
+                            <div class="span-4">
+                                @Html.SpongeTextBoxFor(model => model.AddressNumber, new { @class = "xsmall", xmask = "integer" })
+                            </div>
+                            <div class="span-4">
+                                @Html.SpongeTextBoxFor(model => model.AddressComplement)
+                            </div>
+                        </div>
+                    </fieldset>
+                    <!--Dados de Contato-->
+                    <div class="span-10">
+                        <fieldset>
+                            <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.Contact</legend>
+                            <div>
+                                @Html.SpongeTextBoxFor(model => model.Phone1, new { xmask = "phone" })
+                            </div>
+                            <div>
+                                @Html.SpongeTextBoxFor(model => model.Phone2, new { xmask = "phone" })
+                            </div>
+                            <div>
+                                @Html.SpongeTextBoxFor(model => model.CellPhone, new { xmask = "phone" })
+                            </div>
+                            <div>
+                                @Html.SpongeTextBoxFor(model => model.Email, new { @class = "xxbig" })
+                            </div>
+                            <div>
+                                @Html.SpongeDropDownListFor(model => model.NotifyBy, EnumTranslator.Translate<SpongeSolutions.ServicoDireto.Model.InfraStructure.Enums.NotifyType>(""), SpongeSolutions.ServicoDireto.Internationalization.Label.Select_Type, null)
+                            </div>
+                        </fieldset>
+                    </div>
+                    <!--Dados de Preferencia-->
+                    <div class="prefix-1 span-8">
+                        <fieldset>
+                            <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.Preferences</legend>
+                            <div>
+                                @Html.CheckBoxFor(model => model.Preferences.AllowShowAddress)
+                                @Html.LabelFor(model => model.Preferences.AllowShowAddress)
+                            </div>
+                            @* <div>   
+                                @Html.CheckBoxFor(model => Model.Preferences.ShowRadiusCircle)
+                                @Html.DisplayTextFor(model => Model.Preferences.ShowRadiusCircle)
+                                @Html.LabelFor(model => model.Preferences.ShowRadiusCircle)
+                            </div>*@
+                            <div>
+                                @Html.SpongeTextBoxFor(model => model.Preferences.Radius, new { @class = "xsmall", xmask = "integer" }, initialValue: "0")
+                                KM
+                            </div>
+                            <div>
+                                <div id="slider" />
+                            </div>
+                        </fieldset>
+                        <div class="span-18">
+                            @Html.SpongeEditorForBaseEntity((this.Model != null && !(this.Model.IDCustomer != 0)))
+                        </div>
+                        </div>
+                    <div class="toolbar span-20">
+                        <ul>
+                            <li>
+                                <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.New" class="add" onclick="location.href='@Url.Action("create", new { id = "" })'" />
+                            </li>
+                            <li>
+                                <input type="submit" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Save" class="save" />
+                            </li>
+                            <li>
+                                <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Back" class="back" onclick="location.href='@Url.Action("/index")'"/>
+                            </li>
+                        </ul>
+                    </div> 
+                 </div>
+            </div>                
+        }       
+    </fieldset>
+</div>

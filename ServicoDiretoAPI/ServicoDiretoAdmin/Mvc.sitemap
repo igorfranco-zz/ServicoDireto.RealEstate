@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
+
+  <mvcSiteMapNode title="Home" controller="Manager" action="Index" changeFrequency="Always" updatePriority="Normal">
+    <mvcSiteMapNode title="Cadastro" action="create" controller="customer" >
+      <mvcSiteMapNode title="Básico" action="create" controller="customer">
+        <mvcSiteMapNode title="Ícones" action="index" controller="icon" >
+          <mvcSiteMapNode title="Novo" action="create" controller="icon" >
+          </mvcSiteMapNode>
+        </mvcSiteMapNode>
+        <mvcSiteMapNode title="Idiomas" action="index" controller="culture" >
+        </mvcSiteMapNode>
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Geográfico" action="create" controller="customer">
+        <mvcSiteMapNode title="Países" action="index" controller="country">
+        </mvcSiteMapNode>
+        <mvcSiteMapNode title="Estados" action="index" controller="stateprovince">
+        </mvcSiteMapNode>
+        <mvcSiteMapNode title="Cidades" action="index" controller="city" >
+        </mvcSiteMapNode>
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Estrutural"  action="create" controller="customer">
+        <mvcSiteMapNode title="Publicidade" action="index" controller="advertisement" >
+        </mvcSiteMapNode>
+        <mvcSiteMapNode title="Propósitos" action="index" controller="purpose">
+          <mvcSiteMapNode title="Novo" action="create" controller="purpose">
+          </mvcSiteMapNode>
+        </mvcSiteMapNode>
+        <mvcSiteMapNode title="Tipos de Atributos" action="index" controller="attributetype" >
+          <mvcSiteMapNode title="Novo" action="create" controller="attributetype" >
+          </mvcSiteMapNode>
+        </mvcSiteMapNode>
+        <mvcSiteMapNode title="Atributos" action="index" controller="attribute">
+          <mvcSiteMapNode title="Novo" action="create" controller="attribute"></mvcSiteMapNode>
+          </mvcSiteMapNode>
+        <mvcSiteMapNode title="Filtros" action="index" controller="filter">
+        </mvcSiteMapNode>
+        <mvcSiteMapNode title="Hierarquia" action="index" controller="hierarchystructure" >
+          <mvcSiteMapNode title="Novo" action="create" controller="hierarchystructure" >
+          </mvcSiteMapNode>
+        </mvcSiteMapNode>
+      </mvcSiteMapNode>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Meu Perfil" action="create" controller="customer" >
+      <mvcSiteMapNode title="Imóveis" action="index" controller="element" >
+        <mvcSiteMapNode title="Novo" action="create" controller="element" >
+        </mvcSiteMapNode>
+        <mvcSiteMapNode title="Listagem" action="index" controller="element" >
+        </mvcSiteMapNode>
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Alterar Senha" action="changepassword" controller="account" >
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Emails" action="manager" controller="email">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Favoritos" action="listfavorite" controller="element" >
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Alertas" action="index" controller="alert">
+      </mvcSiteMapNode>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Sobre" action="about" controller="manager"></mvcSiteMapNode>
+  </mvcSiteMapNode>
+
+</mvcSiteMap>

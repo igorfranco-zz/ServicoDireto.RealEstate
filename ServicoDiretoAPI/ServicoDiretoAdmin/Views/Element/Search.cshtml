@@ -1,0 +1,30 @@
+﻿@model IList<SpongeSolutions.ServicoDireto.Model.ElementExtended>
+@{
+    ViewBag.Title = "Search";
+    var elementFilter = (SpongeSolutions.ServicoDireto.Model.ElementFilter)this.ViewBag.ElementFilter;
+}
+@using (Html.BeginForm())
+{
+    <fieldset class="filter-container">
+        <legend>@SpongeSolutions.ServicoDireto.Internationalization.Label.Element_Search</legend>
+        <div class="span-11">
+            @Html.LabelFor(model => elementFilter.Title)<br />
+            @Html.TextBoxFor(model => elementFilter.Title, new { @class = "xbig" })
+        </div>
+
+        <div class="toolbar">
+            <ul>
+                <li>
+                    <input type="submit" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Filter" class="filter" />
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+
+    if (this.Model != null)
+    {
+        <div id="gridResult">
+            @Html.Grid(Model, "IDElement", SpongeSolutions.ServicoDireto.Internationalization.Label.Element_Index_Title, rowPerPage: SpongeSolutions.ServicoDireto.Admin.SiteContext.MaximumRows, canPage: true, activePage: int.Parse((Request.QueryString["page"] == null) ? "1" : Request.QueryString["page"]), isWindowMode: (bool)this.ViewBag.WindowMode)
+        </div>
+    }
+}

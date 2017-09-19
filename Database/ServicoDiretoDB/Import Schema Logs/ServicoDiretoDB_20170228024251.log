@@ -1,0 +1,71 @@
+2/28/2017 11:42:51 AM	This log contains information about the import schema operation into project 'ServicoDiretoDB' on computer 'AVANTIKADEV1-PC' by user 'Administrator'.
+2/28/2017 11:42:51 AM	Import of database schema has started.
+2/28/2017 11:43:01 AM	Gathering database options
+2/28/2017 11:43:01 AM	Gathering users
+2/28/2017 11:43:01 AM	Gathering roles
+2/28/2017 11:43:01 AM	Gathering application roles
+2/28/2017 11:43:01 AM	Gathering role memberships
+2/28/2017 11:43:01 AM	Gathering filegroups
+2/28/2017 11:43:01 AM	Gathering full-text catalogs
+2/28/2017 11:43:01 AM	Gathering assemblies
+2/28/2017 11:43:05 AM	Gathering certificates
+2/28/2017 11:43:05 AM	Gathering asymmetric keys
+2/28/2017 11:43:05 AM	Gathering symmetric keys
+2/28/2017 11:43:05 AM	Gathering encrypted symmetric keys
+2/28/2017 11:43:05 AM	Gathering schemas
+2/28/2017 11:43:05 AM	Gathering XML schema collections
+2/28/2017 11:43:05 AM	Gathering user-defined data types
+2/28/2017 11:43:05 AM	Gathering user-defined types
+2/28/2017 11:43:05 AM	Gathering table types
+2/28/2017 11:43:05 AM	Gathering unique keys for table types
+2/28/2017 11:43:05 AM	Gathering primary keys for table types
+2/28/2017 11:43:05 AM	Gathering check constraints for table types
+2/28/2017 11:43:05 AM	Gathering default constraints for table types
+2/28/2017 11:43:05 AM	Gathering partition functions
+2/28/2017 11:43:05 AM	Gathering partition schemes
+2/28/2017 11:43:05 AM	Gathering functions
+2/28/2017 11:43:05 AM	Gathering encrypted functions
+2/28/2017 11:43:06 AM	Gathering aggregates
+2/28/2017 11:43:06 AM	Gathering procedures
+2/28/2017 11:43:06 AM	Gathering encrypted procedures
+2/28/2017 11:43:06 AM	Gathering tables
+2/28/2017 11:43:06 AM	Gathering primary keys
+2/28/2017 11:43:06 AM	Gathering unique constraints
+2/28/2017 11:43:06 AM	Gathering foreign keys
+2/28/2017 11:43:06 AM	Gathering default constraints
+2/28/2017 11:43:06 AM	Gathering check constraints
+2/28/2017 11:43:06 AM	Gathering views
+2/28/2017 11:43:06 AM	Gathering encrypted views
+2/28/2017 11:43:06 AM	Gathering indexes
+2/28/2017 11:43:06 AM	Gathering statistics
+2/28/2017 11:43:06 AM	Gathering full-text index stoplists
+2/28/2017 11:43:06 AM	Gathering full-text indexes
+2/28/2017 11:43:06 AM	Gathering spatial indexes
+2/28/2017 11:43:06 AM	Gathering XML indexes
+2/28/2017 11:43:06 AM	Gathering encrypted triggers
+2/28/2017 11:43:06 AM	Gathering triggers
+2/28/2017 11:43:06 AM	Gathering encrypted and clr ddl triggers
+2/28/2017 11:43:06 AM	Gathering ddl triggers
+2/28/2017 11:43:06 AM	Gathering synonyms
+2/28/2017 11:43:06 AM	Gathering defaults
+2/28/2017 11:43:06 AM	Gathering data constraint uddt bindings
+2/28/2017 11:43:06 AM	Gathering rules
+2/28/2017 11:43:06 AM	Gathering data constraint uddt bindings
+2/28/2017 11:43:06 AM	Gathering message types
+2/28/2017 11:43:06 AM	Gathering queues
+2/28/2017 11:43:06 AM	Gathering contracts
+2/28/2017 11:43:06 AM	Gathering services
+2/28/2017 11:43:06 AM	Gathering event notifications
+2/28/2017 11:43:06 AM	Gathering remote service bindings
+2/28/2017 11:43:06 AM	Gathering broker priorities
+2/28/2017 11:43:06 AM	Gathering signatures
+2/28/2017 11:43:06 AM	Gathering data compression options
+2/28/2017 11:43:07 AM	Gathering extended properties
+2/28/2017 11:43:07 AM	Gathering credentials
+2/28/2017 11:43:07 AM	Gathering logins
+2/28/2017 11:43:07 AM	Gathering server audits
+2/28/2017 11:43:09 AM	Scanning project for duplicate elements
+2/28/2017 11:43:09 AM	Finished duplicate element processing
+2/28/2017 11:43:18 AM	Finished importing database.
+2/28/2017 11:43:18 AM	A summary of the import was saved to the following location: D:\Avantika\Projects\_Servico_\Database\ServicoDiretoDB\Import Schema Logs\ServicoDiretoDB_20170228024251.log
+2/28/2017 11:43:18 AM	Click Finish to continue...

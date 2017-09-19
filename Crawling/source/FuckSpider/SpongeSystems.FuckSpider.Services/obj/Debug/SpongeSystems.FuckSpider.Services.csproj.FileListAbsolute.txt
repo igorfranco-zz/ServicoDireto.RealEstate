@@ -1,0 +1,5 @@
+E:\Sponge\Crawling\FuckSpider\SpongeSystems.FuckSpider.Services\bin\Debug\SpongeSystems.FuckSpider.Services.dll
+E:\Sponge\Crawling\FuckSpider\SpongeSystems.FuckSpider.Services\bin\Debug\SpongeSystems.FuckSpider.Services.pdb
+E:\Sponge\Crawling\FuckSpider\SpongeSystems.FuckSpider.Services\obj\Debug\SpongeSystems.FuckSpider.Services.csprojResolveAssemblyReference.cache
+E:\Sponge\Crawling\FuckSpider\SpongeSystems.FuckSpider.Services\obj\Debug\SpongeSystems.FuckSpider.Services.dll
+E:\Sponge\Crawling\FuckSpider\SpongeSystems.FuckSpider.Services\obj\Debug\SpongeSystems.FuckSpider.Services.pdb

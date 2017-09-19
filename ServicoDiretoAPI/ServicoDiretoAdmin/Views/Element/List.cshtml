@@ -1,0 +1,30 @@
+﻿@using SpongeSolutions.Core.Helpers;
+@using SpongeSolutions.ServicoDireto.Model;
+@model IList<SpongeSolutions.ServicoDireto.Model.ElementExtended>
+@{
+    ViewBag.Title = "-";
+    Layout = null;// "~/Views/Shared/_LayoutBasicSite.cshtml";
+    var parameter = new List<KeyValuePair<string, object>>();
+    parameter.Add(new KeyValuePair<string, object>("filterSource", ViewBag.FilterSource));    
+}
+<div id="paggingResult">
+    <div class="navigator-container span-22">
+        @Html.CreatePageNavigator(SpongeSolutions.ServicoDireto.Admin.SiteContext.MaximumRows, (int)ViewBag.RecordCount, int.Parse((Request.QueryString["page"] == null) ? "1" : Request.QueryString["page"]), parameter, true, "*paggingResult")
+    </div>
+    <div>
+        @if (Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                 Html.RenderAction("ListItem", item);                
+            }
+        }
+        else
+        { 
+            <div class="result-summarize notice span-22">@SpongeSolutions.ServicoDireto.Internationalization.Label.Record_Not_Found</div>
+        }
+    </div>
+    <div class="navigator-container span-24">
+        @Html.CreatePageNavigator(SpongeSolutions.ServicoDireto.Admin.SiteContext.MaximumRows, (int)ViewBag.RecordCount, int.Parse((Request.QueryString["page"] == null) ? "1" : Request.QueryString["page"]), parameter, true, "*paggingResult")
+    </div>
+</div>

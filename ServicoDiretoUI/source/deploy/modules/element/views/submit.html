@@ -1,0 +1,318 @@
+ <script type="text/ng-template" id="delete-image-template.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Deseja realmente excluir esta imagem?</h3>
+    </div>
+    <div class="modal-body">               
+        Ao excluí-la não será possível reverter o processo!
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default large" type="button" ng-click="confirmDeleteImage()">OK</button>
+        <button class="btn btn-danger large" type="button" ng-click="cancelDeleteImage()">Cancelar</button>
+    </div>
+</script>
+
+ 
+ <script type="text/ng-template" id="delete-all-images-template.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Deseja realmente excluir <b>TODAS</b> as imagens?</h3>
+    </div>
+    <div class="modal-body">               
+        Ao excluí-las não será possível reverter o processo!
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default large" type="button" ng-click="confirmDeleteAllImages()">OK</button>
+        <button class="btn btn-danger large" type="button" ng-click="cancelDeleteAllImagese()">Cancelar</button>
+    </div>
+</script>
+
+<!-- Breadcrumb -->
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li><a href="#/profile" ui-sref="profile">Conta</a></li>
+        <li class="active">Adicione o seu imóvel</li>
+    </ol>
+</div>
+<!-- end Breadcrumb -->
+
+<div class="container">
+    <form role="form" id="form-submit" class="form-submit" novalidate="novalidate" ng-submit="$event.preventDefault(); insertUpdateElement();" >
+        <div class="row">
+            <div class="block">
+                <div class="col-md-9 col-sm-9">
+                    <section id="submit-form">
+                        <section >
+                            <header><h2>Informações do imóvel</h2></header>                            
+                            <div class="form-group">
+                                <label for="submit-title">Título</label>
+                                <input type="text"
+                                 class="form-control"
+                                 required
+                                 ng-minlength="10"
+                                 ng-maxlength="300"
+                                 ng-model="element.name">
+                            </div><!-- /.form-group -->
+                        
+                            <div class="form-group">
+                                <label for="submit-description">Descrição</label>
+                                <textarea class="form-control"
+                                 rows="8"
+                                 ng-minlength="50"
+                                 ng-maxlength="1000"       
+                                 required 
+                                 ng-model="element.description"></textarea>
+                            </div><!-- /.form-group -->
+
+                            <div class="form-group ">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" icheck ng-model="element.allowRatting" >Permitir classificação
+                                        <i class="fa fa-question-circle tool-tip" z-tooltip data-toggle="tooltip" data-placement="right" title="Permitir que os usuários classifiquem o imóvel"></i>
+                                    </label>
+                                </div>                            
+                            </div>                            
+                        </section>
+
+                        <section><!--Localização-->
+                            <div class="row">
+                                <div class="block clearfix">
+                                    <div class="col-md-6 col-sm-6">
+                                        <section ng-controller="LocationController" >
+                                            <header><h2>Localização</h2></header>
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6">                                            
+                                                    <div class="form-group" >
+                                                        <select bootselectpicker required data-array="countries" name="country"  ng-init="listCountry()" ng-model="element.idCountry" ng-change="listStateProvince(element.idCountry)" ng-options="country.idCountry as country.name for country in countries">
+                                                            <option value="">País</option>                                       
+                                                        </select>
+                                                    </div><!-- /.form-group -->
+                                                </div>
+
+                                                <div class="col-md-6 col-sm-6">                                            
+                                                    <div class="form-group" >
+                                                        <select bootselectpicker required data-array="stateProvinces" name="stateProvince" ng-model="element.idStateProvince" ng-change="listCity(element.idCountry, element.idStateProvince)" ng-options="stateProvince.idStateProvince  as stateProvince.name for stateProvince in stateProvinces">
+                                                            <option value="">Estado</option>
+                                                        </select>
+                                                    </div><!-- /.form-group -->
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="form-group" >
+                                                        <select bootselectpicker required data-array="cities" name="city" ng-model="element.idCity"  ng-options="city.idCity as city.name for city in cities">
+                                                            <option value="">Cidade</option>
+                                                        </select>
+                                                    </div><!-- /.form-group -->
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12">  
+                                                    <div class="form-group">
+                                                        <label for="address-map">Endereço</label>
+                                                        <input type="text" 
+                                                            class="form-control"
+                                                            required
+                                                            ng-minlength="10"
+                                                            ng-maxlength="300"                                                        
+                                                            ng-model="element.address">
+
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" icheck ng-model="element.showAddress" >Exibir endereço
+                                                                <i class="fa fa-question-circle tool-tip" z-tooltip data-toggle="tooltip" data-placement="right" title="Permitir que os usuários visualizem o endereço"></i>
+                                                            </label>
+                                                        </div>                            
+                                                    </div><!-- /.form-group -->                                            
+                                                </div>
+                                            </div>
+                                        </section><!-- /#summary -->
+                                         <section ng-controller="StructureController"><!--Atributos Classificacão-->
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <section>
+                                                        <header><h2>Classificação</h2></header>
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <div class="form-group" >
+                                                                    <select bootselectpicker required data-array="purposes" name="purpose" ng-init="listPurpose()" ng-change="listCategory(element.idPurpose)" ng-model="element.idPurpose" ng-options="purpose.idPurpose as purpose.description for purpose in purposes">
+                                                                        <option value="">Propósito</option>                                      
+                                                                    </select>                                        
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <div class="form-group" >
+                                                                    <select  bootselectpicker required data-array="categories" name="category" ng-change="listType(element.idHierarchyStructureParent)" ng-model="element.idHierarchyStructureParent" ng-options="category.idHierarchyStructure as category.description for category in categories"  >
+                                                                        <option value="">Categoria</option>                                       
+                                                                    </select>                                        
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-12 col-sm-12">
+                                                                <div class="form-group" >
+                                                                    <select  name="type" required bootselectpicker data-array="types" ng-model="element.idHierarchyStructure" ng-options="type.idHierarchyStructure as type.description for type in types" >
+                                                                        <option value="">Tipo</option>                                       
+                                                                    </select>                                        
+                                                                </div>
+                                                            </div>                                                
+                                                        </div>
+                                                    </section>
+                                                </div>
+                                            </div>
+                                        </section>                                        
+                                    </div><!-- /.col-md-6 -->  
+                                    <div class="col-md-6 col-sm-6">
+                                        <section >
+                                            <header><h2>Atributos Básicos</h2></header>
+                                            <div class="row" ng-repeat="item in basicAttributes">
+                                                <div class="col-md-6 col-sm-6" ng-repeat="i in item">
+                                                    <div class="form-group">
+                                                        <label>{{ i.name }}</label>
+                                                        <input 
+                                                            meio-mask    
+                                                            type="text" 
+                                                            class="form-control" 
+                                                            ng-model="i.value" 
+                                                            mask="{{ i.editMask}}" 
+                                                            mask-restrict='reject' 
+                                                            limit='true' 
+                                                            ng-attr-ng-minlength="i.minValue"
+                                                            ng-attr-ng-maxlength="i.maxValue"
+                                                            ng-required="i.required"
+                                                            >
+                                                    </div>
+                                                </div>
+                                            </div>                                            
+                                        </section>                                        
+                                    </div>                                    
+                                </div><!-- /.block -->
+                            </div><!-- /.row -->
+                        </section>
+                        
+                        <section class="block">
+                            <section>
+                                <header><h2>Infraestrutura</h2></header>    
+                                <div class="form-group">
+                                    <ul class="submit-features">
+                                        <li ng-repeat="item in infrastructureAttributes"><div class="checkbox"><label><input type="checkbox" ng-model="item.checked" icheck>{{ item.name}}</label></div></li>
+                                    </ul>
+                                <div>
+                            </section>
+                        </section>
+
+                        <section class="block" id="gallery" >
+                            <header><h2>Galeria de Imagens</h2></header>                                                               
+                            <div class="row drop-box">
+                                <div class="col-md-18 col-sm-18">
+                                    <button           
+                                        ng-model-options="{allowInvalid: false}"                                        
+                                        ngf-max-files="10"                              
+                                        multiple
+                                        ng-model="element.files"
+                                        ngf-model-invalid="element.errFiles"
+                                        ngf-select=""
+                                        accept="image/*" 
+                                        ngf-max-height="1000" 
+                                        ngf-drop-available="dropAvailable"                                                
+                                        ngf-max-size="1MB"
+                                        class="btn btn-default large"> 
+                                        [Clique para selecionar as imagens]
+                                    </button>
+                                </div>
+                                <hr/>
+                                <div class="row" ng-show="element.agregatedImages && element.agregatedImages.length" ng-repeat="row in element.agregatedImages">
+                                    <div class="col-md-4 col-sm-4 gallery-item" ng-repeat="image in row" ng-class="(element.defaultPicturePath == image.value) ? 'gallery-item-image gallery-item-active' : 'gallery-item-image'">
+                                        <div>
+                                            <img alt="" src="{{ config.adminSite + image.value }}" height="70%" width="70%">
+                                        </div>
+                                        <div class="info">
+                                            <button type="button" class="btn btn-default small" ng-click="$event.preventDefault(); setDefaultImage(image.idElement, image.idElementAttribute)" title="Definir como imagem principal">
+                                                <i class="glyphicon glyphicon-star"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-danger  small" ng-click="$event.preventDefault(); deleteImage(image.idElement, image.idElementAttribute)" title="Excluir imagem">
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>                                   
+                                </div>
+
+                                <div class="col-md-18 col-sm-18" ng-show="element.files && element.files.length">
+                                    <hr/>
+                                    <div class="col-md-3 col-sm-3" ng-repeat="f in element.files" >
+                                        <div class="property">
+                                            <div class="property-image">
+                                                <img alt="" ngf-src="f">
+                                            </div>                      
+                                            <div class="info">
+                                                <span class="progress" ng-show="f.progress >= 0">
+                                                    <div style="width:{{f.progress}}%"  ng-bind="f.progress + '%'"></div>
+                                                </span>
+                                                <!--span>
+                                                    {{f.name}} {{f.$errorParam}} {{f.result}}
+                                                </span-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>  
+                                <div class="row" ng-show="element.errFiles && element.errFiles.length">
+                                    <div class="col-md-18 col-sm-18"  style="text-align:left;">
+                                        <ul>
+                                            <li ng-repeat="f in element.errFiles">
+                                                <span class="label label-danger" >{{f.name}} {{f.$error}} {{f.$errorParam}}</span>
+                                            <li>
+                                        </ul>                                    
+                                    </div>                                                 
+                                </div>    
+                            </div>           
+                            <div class="row" ng-show="element.agregatedImages && element.agregatedImages.length">
+                                <button type="button" class="btn btn-danger" ng-click="$event.preventDefault(); deleteImage(element.idElement, null)">
+                                    Excluir Todas<i class="glyphicon glyphicon-trash"></i>
+                                </button>
+                            </div>
+                        </section>
+                        <hr />
+                    </section>
+                </div><!-- /.col-md-9 -->
+                <div class="col-md-3 col-sm-3">
+                    <aside class="submit-step">
+                        <figure class="step-number">1</figure>
+                        <div class="description">
+                            <h4>Insira informações sobre o teu imóvel</h4>
+                            <p>Procure inserir com o maior detalhamento possível, venda o teu peixe!</p>
+                        </div> 
+                    </aside><!-- /.submit-step -->
+                </div><!-- /.col-md-3 -->
+            </div>
+        </div><!-- /.row -->
+        <div class="row">
+            <div class="block">
+                <div class="col-md-9 col-sm-9">
+                    <div class="center">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default large" >Salvar</button>
+                            <a class="btn btn-danger large" href="#/my-properties" ui-sref="my-properties" ng-show="element.idElement != null">Cancelar</a>
+
+                            <ul>
+                              <li ng-repeat="(key, errors) in form.$error track by $index"> <strong>{{ key }}</strong> errors
+                                <ul>
+                                  <li ng-repeat="e in errors">{{ e.$name }} has an error: <strong>{{ key }}</strong>.</li>
+                                </ul>
+                              </li>
+                            </ul>                            
+                        </div><!-- /.form-group -->
+                        <figure class="note block">Clicando no botão “Salvar” você estará de acordo com os <a href="terms-conditions.html">Termos e condições</a> do site</figure>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <aside class="submit-step">
+                        <figure class="step-number">2</figure>
+                        <div class="description">
+                            <h4>Revisar o cadastro</h4>
+                            <p>Reveja cuidadosamente o cadastro e clique no botão Salvar</p>
+                        </div>
+                    </aside><!-- /.submit-step -->
+                </div><!-- /.col-md-3 -->
+            </div>
+        </div>
+    </form><!-- /#form-submit -->
+</div><!-- /.container -->

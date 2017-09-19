@@ -1,0 +1,70 @@
+﻿@using SpongeSolutions.ServicoDireto.Model;
+@using SpongeSolutions.Core.Translation;
+@model IList<ElementExtended>
+@{
+    Layout = null;
+}
+<script type="text/javascript">
+    $(function () {
+        $("#foo2").carouFredSel({
+            circular: false,
+            infinite: false,
+            auto: false,
+            prev: {
+                button: "#prev2",
+                key: "left"
+            },
+            next: {
+                button: "#next2",
+                key: "right"
+            },
+            pagination: "#pager2"
+        });
+
+    });
+</script>
+
+<ul id="foo2">
+    @for (int i = 0; i < Model.Count(); i++)
+        {
+            var item = Model[i];
+            if(i % 2 ==0)
+            {
+                Html.Raw("<li>");      
+            }
+            <a href="javascript:location.href='@Url.Action("details", "element", new { id = item.IDElement })'">
+                <div class="span-5 category-item">
+                    <div class="image">
+                        <img src="@item.DefaultPicturePath"  alt="@item.Name"/>
+                    </div>
+                    <div class="content">
+                        <div class="name">@item.Name</div>
+                        <div class="attributes">
+                            @foreach (var attribute in item.BasicAttributes)
+                            {
+                                if (!string.IsNullOrEmpty(attribute.Value))
+                                {
+                                <div>
+                                    <label>@attribute.Name :</label>
+                                    @if (!string.IsNullOrEmpty(attribute.DisplayMask))
+                                    { 
+                                        @( (!string.IsNullOrEmpty(attribute.Value)) ? String.Format(attribute.DisplayMask, Convert.ToDecimal(attribute.Value)) : "-")
+                                    }
+                                    else
+                                    {                    
+                                        @attribute.Value
+                                    }
+                                </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+            if (i % 2 == 0)
+            {
+                Html.Raw("</li>");
+            }           
+        }
+</ul>

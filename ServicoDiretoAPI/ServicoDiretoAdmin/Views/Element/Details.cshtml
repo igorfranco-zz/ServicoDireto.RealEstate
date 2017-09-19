@@ -1,0 +1,172 @@
+﻿@using SpongeSolutions.ServicoDireto.Model;
+@using SpongeSolutions.Core.Helpers;
+@model SpongeSolutions.ServicoDireto.Model.ElementExtended
+@{
+    ViewBag.Title = "Detalhes do Imóvel - " + this.Model.Name;
+    Layout = (!this.ViewBag.WindowMode) ? "~/Views/Shared/_LayoutSite.cshtml" : null;
+    var basicAttributes = (IList<SpongeSolutions.ServicoDireto.Model.AttributeExtended>)this.ViewBag.BasicAttributes;
+    var attributeType = (IList<AttributeType>)ViewBag.AttributeType;
+    var customer = (Customer)ViewBag.Customer;
+    string[] uploadedFiles = ViewBag.UploadedFiles;
+    
+    }
+<script type="text/javascript">
+    $(function () {
+        $(".gallery a[rel^='prettyPhoto']").prettyPhoto({ animation_speed: 'normal', theme: 'light_rounded', slideshow: 3000, autoplay_slideshow: false });
+        Filter.SetValues();
+        //Carregando os 50 primeiros similares e próximos
+        NBN.REST.Execute('/element.aspx/similar', { id: @this.Model.IDElement, filterSource: JSON.stringify(Filter) }, function (data) {
+            $("#similar").html(data);
+        }, 'POST');
+    });
+
+    function Back() {
+        DoFilter();
+    }
+
+</script>
+<div class="span-23">
+    <!--Topo-->
+    <div class="prefix-1 span-19">
+        <div id="breadcrumb">
+            @SpongeSolutions.ServicoDireto.Internationalization.Label.YouAreIn:
+            <a href="#">@this.Model.HierarchyPath</a>&nbsp;» <a href="#">@this.Model.CityName</a>&nbsp;»
+            <a href="#">@this.Model.StateProvinceName</a>&nbsp;» <a href="#">@this.Model.CountryName</a>
+        </div>
+    </div>
+    @if(this.ViewBag.WindowMode)
+    {
+        <div class="prefix-1 span-1 back">
+            <a href="#" onclick="Javacript:Back();">@SpongeSolutions.ServicoDireto.Internationalization.Label.Back</a>
+        </div>
+    }
+    <!--Centro-->
+    <div class="span-23">
+        <br />
+        <div class="span-7">
+            <div class="span-7">
+                <ul class="gallery clearfix">
+                    @{
+                        foreach (var fileName in uploadedFiles)
+                        {
+                        <li>
+                            <div class="span-3">
+                                <a href="@(ViewBag.ImageBasePath + "/" + fileName)" rel="prettyPhoto[gallery2]" title="">
+                                    <img src="@(ViewBag.ImageBasePath + "/thumb/" + fileName)"/>
+                                </a>
+                            </div>
+                        </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="span-14 allline">
+            <div class="span-14">
+                <div>
+                    <ul class="toolbox">
+                        <li class="printer"><a href="javascript:window.print();">@SpongeSolutions.ServicoDireto.Internationalization.Label.Print</a></li>
+                        @if (HttpContext.Current.User.Identity.IsAuthenticated == true)
+                        {
+                            <li class="favorite"><a href="javascript:AddAsFavorite(@this.Model.IDElement);">@SpongeSolutions.ServicoDireto.Internationalization.Label.Favorite</a></li>
+                        }
+                        @*<li class="addroute">Rota</li>*@
+                        <li class="map"><a href="#map-anchor">Mapa</a> </li>
+                        @if (HttpContext.Current.User.Identity.IsAuthenticated == true && this.Model.IDCustomer == SpongeSolutions.ServicoDireto.Model.AccountSystem.CustomProfile.GetProfile().Preferences.IDCustomer)
+                        {
+                            <li class="edit">
+                                @Html.ActionLink("Editar", "Create", new { id = this.Model.IDElement.Value })
+                            </li>
+                        }
+                        @*<li class="none">
+                            <script src="http://connect.facebook.net/pt_BR/all.js#appId=170058629731006&amp;xfbml=1"></script>
+                            <div id="fb-root"></div>
+                            <fb:like href="@string.Concat(SpongeSolutions.ServicoDireto.Admin.SiteContext.SitePath, Url.Action("Details", "Element", new { id = this.Model.IDElement.Value }))" send="false" layout="button_count" width="450" show_faces="false" font=""></fb:like>
+                        </li>*@
+                    </ul>
+                </div>
+                <hr />
+                <div>
+                    <h5>@this.Model.HierarchyPath</h5>
+                    <div>
+                        @this.Model.Name
+                    </div>
+                    <div>
+                        @this.Model.Description
+                    </div>
+                </div>
+                <div>
+                    <ul class="attribute-list">
+                        @foreach (var item in basicAttributes)
+                        {
+                            if (item.Value != null && item.Value.Length > 0 && item.Value != "0" && item.Value != "0.00" && item.Value != "0,00")
+                            {
+                                if (item.DisplayMask == null)
+                                {
+                                    item.DisplayMask = "{0}";
+                                }
+                                if (item.Value.IsFloat())
+                                { 
+                            <li>
+                                <label>@item.Name:
+                                </label>@String.Format(item.DisplayMask, item.Value.Replace(".", "").AsFloat())</li>
+                                }
+                                else
+                                { 
+                            <li>
+                                <label>@item.Name:
+                                </label>@String.Format(item.DisplayMask, item.Value)</li>
+                                }
+                            }
+                        }
+                    </ul>
+                </div>
+                <hr />
+                <div class="allline alternating">
+                    <span>@SpongeSolutions.ServicoDireto.Internationalization.Label.Address: @this.Model.Address, @this.Model.CityName, @this.Model.StateProvinceName,
+                        @this.Model.CountryName<br />
+                        <a href="#map-anchor">@SpongeSolutions.ServicoDireto.Internationalization.Label.Look_On_Map</a> </span>
+                </div>
+                
+                <div class="span-14">
+                    <h5>@SpongeSolutions.ServicoDireto.Internationalization.Label.Customer_Information</h5>
+                    <div class="span-3"><img src="@Url.Content((Model != null && !string.IsNullOrEmpty(customer.Logo) ? String.Format("{0}/{1}/Thumb/{2}", SpongeSolutions.ServicoDireto.Admin.SiteContext.UploadPath, customer.IDCustomer, customer.Logo) : SpongeSolutions.ServicoDireto.Admin.SiteContext.LayoutPath + "/_images/blank.png"))" alt="[Imagem Logo]" id="imgCompany"/></div>
+                    <div class="span-10"><label>@SpongeSolutions.ServicoDireto.Internationalization.Label.Name :&nbsp;</label>@customer.Name</div>
+                    <div class="span-10"><label>@SpongeSolutions.ServicoDireto.Internationalization.Label.Email :&nbsp;</label>@customer.Email</div>
+                    <div class="span-10"><label>@SpongeSolutions.ServicoDireto.Internationalization.Label.Phone1:&nbsp;</label>@customer.Phone1</div>
+                    <div class="span-10"><label>@SpongeSolutions.ServicoDireto.Internationalization.Label.Phone2:&nbsp;</label>@customer.Phone2</div>
+                </div>
+            </div>
+            <hr />
+            <div class="span-14">
+                @foreach (var item in attributeType)
+                {
+                    var attributes = SpongeSolutions.ServicoDireto.Services.ServiceContext.AttributeService.List(item.Acronym, Model.IDElement.Value);
+                    if (attributes.Count > 0)
+                    {                       
+                        <div class="span-14">
+                            <h5>@item.Description</h5>  
+                            <ul class="attribute">
+                                @foreach (var attribute in attributes)
+                                {
+                                    <li>
+                                        @if (!String.IsNullOrEmpty(attribute.Value) && attribute.Value != "0")
+                                        {
+                                            @String.Format("{0} ({1})", attribute.Name, attribute.Value);
+                                        }
+                                        else
+                                        { 
+                                            @attribute.Name;
+                                        }
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!--Lateral-->
+<div class="span-5" id="similar"></div>

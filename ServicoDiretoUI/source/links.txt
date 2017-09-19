@@ -1,0 +1,20 @@
+
+http://stackoverflow.com/questions/21736824/angularjs-rootscope-in-directive-link-function
+http://stackoverflow.com/questions/23506382/how-do-i-bind-to-a-custom-event-in-an-angularjs-directive
+
+ quick and easy way to reverse the order
+    ng-repeat="reader in book.reader | orderBy: '-created_at' | limitTo: 1">
+http://stackoverflow.com/questions/16261348/descending-order-by-date-filter-in-angularjs
+
+comunicacao entre controllers 
+http://stackoverflow.com/questions/19468334/call-a-method-of-a-controller-from-another-controller-using-scope-in-angularjs
+
+http://voryx.net/using-angularjs-filter-inside-the-controller/
+
+autehntica
+http://bitoftech.net/2014/06/01/token-based-authentication-asp-net-web-api-2-owin-asp-net-identity/
+http://bitoftech.net/category/single-page-applications/
+
+
+installing gulp
+http://ruleoftech.com/2015/setting-up-bower-and-gulp-in-windows

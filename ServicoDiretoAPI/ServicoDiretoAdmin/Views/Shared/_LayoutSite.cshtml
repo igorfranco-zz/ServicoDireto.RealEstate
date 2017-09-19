@@ -1,0 +1,629 @@
+﻿@{
+    ViewBag.Title = SpongeSolutions.ServicoDireto.Admin.SiteContext.SiteName;
+    var purposes = (SelectList)ViewBag.Purposes;
+    var filters = (IList<SpongeSolutions.ServicoDireto.Model.FilterExtended>)ViewBag.Filters;
+    var countries = (SelectList)ViewBag.Countries;
+    var states = (SelectList)ViewBag.States;
+    var cities = (SelectList)ViewBag.Cities;
+    var hierarchyStructureCategory = (SelectList)ViewBag.Categories;
+    var hierarchyStructureType = (SelectList)ViewBag.Types;    
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <title>@ViewBag.Title</title>
+    @Html.Partial("~/Views/Shared/Partial/_PartialSiteInclude.cshtml")
+    <script type="text/javascript">
+    var ImobeNet =
+    {
+        Map: null,
+        ActiveCircle: null,
+        ActivePoint: null,
+        GetAddressByPosition :function(latitude, logitude)
+        {
+            var geocoder = new google.maps.Geocoder();
+            var result = "";
+            geocoder.geocode({ 'address': latitude + "," + logitude }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results.length > 0) {
+                        $("#text-search").val( results[0].formatted_address);
+                    }
+                }
+                else {
+                    alert("@Html.Raw(SpongeSolutions.ServicoDireto.Internationalization.Label.Address_Not_Found)");
+                }
+                return result;
+            });            
+        },
+        DoListFilter:function(latitude, longitude, address)
+        {            
+            $("#text-search").val(address);
+            $("#LatitudeBase").val(latitude);
+            $("#LongitudeBase").val(longitude);
+            Filter.SetValues();
+            var params = { filterSource: JSON.stringify(Filter) };
+            NBN.REST.Execute('/element.aspx/list', params,
+            function (data) {
+                $(".result-container").html(data);
+            }, 'POST');            
+        },
+        GetPositionByAddress: function (address) 
+        {            
+            ImobeNet.DoListFilter('-51.11000000', '-51.22000000', '')
+                                                     
+
+            Filter.SetValues();
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results.length > 0) {
+                        var locationSummary = $("<div>");
+                        $(locationSummary).html("");
+                        var locationList = $("<ul>");
+                        if (results.length > 1) {
+                            for (var i = 0; i <= results.length - 1; i++) {
+                                var locationItem = $("<li>");
+                                var locationLink = $("<a>");
+                                $(locationLink).html(results[i].formatted_address);
+                                if(Filter.ActiveView == @Convert.ToInt16(SpongeSolutions.ServicoDireto.Model.InfraStructure.Enums.ViewType.Map))
+                                    $(locationLink).attr("href", "javascript:ImobeNet.Initialize(" + results[i].geometry.location.lat() + "," + results[i].geometry.location.lng() + ",'" + results[i].formatted_address + "')");
+                                else
+                                {
+                                    $(locationLink).attr("href", "javascript:ImobeNet.DoListFilter(" + results[i].geometry.location.lat() + "," + results[i].geometry.location.lng() + ",'" + results[i].formatted_address + "')");
+                                }
+                                $(locationItem).append(locationLink);
+                                $(locationList).append(locationItem);
+                            }
+                            $(locationSummary).append(locationList);
+                            NBN.Helper.ShowModalWindowJqueryUI($(locationSummary).html(), "@SpongeSolutions.ServicoDireto.Internationalization.Label.Location_Options", { height: 150, width: 500 });
+                        }
+                        else {
+                            if(Filter.ActiveView == @Convert.ToInt16(SpongeSolutions.ServicoDireto.Model.InfraStructure.Enums.ViewType.Map))
+                            {
+                                ImobeNet.Initialize(results[0].geometry.location.lat(), 
+                                                    results[0].geometry.location.lng(), 
+                                                    results[0].formatted_address);
+                            }
+                            else
+                            {
+                                ImobeNet.DoListFilter(results[0].geometry.location.lat(), 
+                                                      results[0].geometry.location.lng(), 
+                                                      results[0].formatted_address);
+                            }
+                        }
+                    }
+                }
+                else {
+                    alert("@SpongeSolutions.ServicoDireto.Internationalization.Label.Address_Not_Found");
+                }
+            });
+        },
+        //Cria um novo objeto no mapa
+        CreateMarker: function (latitude, longitude, title, image) {
+            var exists = false;
+            var position = new google.maps.LatLng(latitude, longitude);
+            var marker = new google.maps.Marker({
+                position: position,
+                map: ImobeNet.Map,
+                icon: image,
+                title: title
+            });
+
+            google.maps.event.addListener(marker, 'click', function () {
+                //BUSCAR A LISTAGEM DE OBJETOS PRÓXIMO AO QUE FOI SELECIONADO
+                var idElement = marker.title.substr(0, marker.title.indexOf("-"));
+                NBN.REST.Execute('/element.aspx/near', {id:idElement, filterSource: JSON.stringify(Filter)}, function (data) {
+                    NBN.Helper.ShowModalWindowJqueryUI(data, '', { width: 900, heigth: 300 }, false, true);
+                }, 'POST');
+            });
+            return marker;
+        },
+        //Busca as ofertas imoveis a partir de um ponto base e raio, marcando no mapa
+        MarkObjectPosition: function (latitude, longitude) {
+            Filter.SetValues();
+            var params = { filterSource: JSON.stringify(Filter) };
+            NBN.REST.Execute('/element.aspx/mapitem', params,
+            function (data) {
+                data = JSON.parse(data);
+                if (data.ResponseData.Status == 200) //Sucesso
+                {
+                    $(".result-summarize").removeClass("loading-big");  
+                    var results = data.ResponseData.Result[0];
+                    if (results && results.length > 0) {
+                        for (var i = 0; i < results.length; i++) {
+                            $(".result-summarize").text("@SpongeSolutions.ServicoDireto.Internationalization.Label.Found [" + results.length + "] @Html.Raw(SpongeSolutions.ServicoDireto.Internationalization.Label.Properties)");                                                     
+                            marker = ImobeNet.CreateMarker(results[i].Latitude, results[i].Longitude, results[i].Title, results[i].Icon);
+                        }
+                    }
+                    else {
+                        $(".result-summarize").text("@Html.Raw(SpongeSolutions.ServicoDireto.Internationalization.Label.Record_Not_Found)");
+                    }
+                }
+                else
+                    alert("@Html.Raw(SpongeSolutions.ServicoDireto.Internationalization.Label.Contact_Administrator):\n" + data.ResponseData.Details);
+
+            }, 'POST');            
+        },
+        Initialize: function (latitude, longitude, address) {
+            
+            $("#text-search").val(address);
+            $("#LatitudeBase").val(latitude);
+            $("#LongitudeBase").val(longitude);
+            ImobeNet.ActivePoint = new google.maps.LatLng(latitude, longitude);            
+            //Inicializando o mapa
+            var options = { zoom: 13, center: ImobeNet.ActivePoint, mapTypeId: google.maps.MapTypeId.ROADMAP }
+            if( $("#result-summarize").length == 0 )
+            {
+                var resultSummarize = $("<div>").attr("id","result-summarize").attr("class","result-summarize loading-big notice span-24").html('');
+                var resultContainer = $("<div>").attr("id","map-container").attr("class","map-container ui-corner-all").html('yyyy')
+                $("#result-container").html("");
+                $("#result-container").append(resultSummarize);
+                $("#result-container").append(resultContainer);
+            }
+
+            ImobeNet.Map = new google.maps.Map(document.getElementById("map-container"), options);
+
+            //Criando a indicação do ponto base
+            var marker = ImobeNet.CreateMarker(ImobeNet.ActivePoint.lat(),
+                                               ImobeNet.ActivePoint.lng(), 
+                                               "Ponto Inicial - Lat: " + ImobeNet.ActivePoint.lat() + " Long:" + ImobeNet.ActivePoint.lng(), 
+                                               "@String.Format("{0}/_images/markers/NeedleLeftYellow2.png", SpongeSolutions.ServicoDireto.Admin.SiteContext.LayoutPath)");
+            marker.draggable = true;
+            //Deleta todos os markers adicionados
+            google.maps.event.addListener(marker, 'dragstart', function () {
+//                Render.RemoveAllListItem();
+//                ImobeNet.RemoveDirections();
+//                ImobeNet.DeleteOverlays();
+            });
+
+            //Buscar os objetos a partir da nova localizacao
+            google.maps.event.addListener(marker, 'dragend', function () {
+                //ImobeNet.MarkObjectPosition(marker.position.lat(), marker.position.lng(), ImobeNet.Map);
+                ImobeNet.ActivePoint = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
+                ImobeNet.Map.setCenter(ImobeNet.ActivePoint);
+                $("#LatitudeBase").val(marker.position.lat());
+                $("#LongitudeBase").val(marker.position.lng());
+//                ImobeNet.Directions.Origin = ImobeNet.ActivePoint;
+//                ImobeNet.Directions.CreateRoute();
+            });
+
+            if (Filter.Radius != 0) {
+                // Add a Circle overlay to the map. 
+                ImobeNet.ActiveCircle = new google.maps.Circle({
+                    map: ImobeNet.Map,
+                    fillColor: "blue",
+                    strokeWeight: 1,
+                    strokeColor: "blue",
+                    radius: Filter.Radius * 1000
+                });
+                marker.setOptions({ zIndex: 1000 });
+                ImobeNet.ActiveCircle.bindTo('center', marker, 'position');
+                google.maps.event.addListener(ImobeNet.ActiveCircle, 'click', function () {
+                    marker.setOptions({ zIndex: 1000 });
+                });
+            }
+            //Busca os objetos iniciais a partir de um ponto base
+            ImobeNet.MarkObjectPosition(ImobeNet.ActivePoint.lat(), ImobeNet.ActivePoint.lng());
+        },
+        //Tentar Retornar o posicionamento ativo do cliente
+        SetClientPosition: function () {
+                var browserSupportFlag = new Boolean();
+                var initialLocation;
+                // Try W3C Geolocation (Preferred)
+                if (navigator.geolocation) {
+                    browserSupportFlag = true;
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        $("#LatitudeBase").val(position.coords.latitude);
+                        $("#LongitudeBase").val(position.coords.longitude);
+                        ImobeNet.GetAddressByPosition(position.coords.latitude, position.coords.longitude);
+                    }, function () {
+                        //ImobeNet.HandleNoGeolocation(browserSupportFlag);
+                        //ImobeNet.LoadMap();
+                    });
+                    // Try Google Gears Geolocation
+                } else if (google.gears) {
+                    browserSupportFlag = true;
+                    var geo = google.gears.factory.create('beta.geolocation');
+                    geo.getCurrentPosition(function (position) {
+                        $("#LatitudeBase").val(position.latitude);
+                        $("#LongitudeBase").val(position.longitude);
+                        ImobeNet.GetAddressByPosition(position.latitude, position.longitude);
+                    }, function () {
+                        //ImobeNet.LoadMap();
+                    });
+                    // Browser doesn't support Geolocation
+                } else {
+                    browserSupportFlag = false;
+                    //ImobeNet.HandleNoGeolocation(browserSupportFlag);
+                }
+                if (!browserSupportFlag) {
+                    if (google.loader.ClientLocation != null) {
+                        $("#text-search").val(google.loader.ClientLocation.address.city + ' - ' + google.loader.ClientLocation.address.region + ',' + google.loader.ClientLocation.address.country);
+                    }
+                }
+            }
+    }
+
+
+    var Filter =
+        {
+            IDCustomer : "0",
+            ActiveView : 0,
+            BaseAddress: "",
+            FilterAttribute: [],
+            IDCity: "",
+            IDCountry: "",
+            IDHierarchyStructure: "",
+            IDHierarchyStructureParent: "",
+            IDPurpose: "",
+            IDStateProvince: "",
+            LatitudeBase: "",
+            LongitudeBase: "",
+            OrderBy: "",
+            Radius: "0",
+            SetValues: function () {
+                @*Filter.IDCustomer = "@((Session["IDCustomer"] == null) ? "0" : Session["IDCustomer"].ToString())";*@
+                Filter.ActiveView = $("#viewtype:checked").val();
+                Filter.BaseAddress = $("#text-search").val();
+                Filter.IDCity = $("#IDCity").val();
+                Filter.IDCountry = $("#IDCountry").val();
+                Filter.IDHierarchyStructure = $("#IDHierarchyStructure").val();
+                Filter.IDHierarchyStructureParent = $("#IDHierarchyStructureParent").val();
+                Filter.IDPurpose = NBN.Helper.GetSelectedValuesAsArray("IDPurpose");
+                Filter.IDStateProvince = $("#IDStateProvince").val();
+                Filter.LatitudeBase = $("#LatitudeBase").val(),
+                Filter.LongitudeBase = $("#LongitudeBase").val(),
+                Filter.OrderBy = "1";
+                Filter.Radius = $("#Radius").val();
+                if (Filter.IDCity.length != 0 || Filter.IDStateProvince.length != 0 || Filter.IDCountry.length != 0)
+                    Filter.Radius = "0";
+
+                Filter.FilterAttribute = [];
+                $("input[id*='IDAttribute']").each(function () {
+                    Filter.FilterAttribute.push(JSON.parse($(this).val()));
+                });
+            }
+        };
+
+        $(function () {
+            $(document).tooltip();
+            $("#button-search").button();
+            $("#text-search").val($("#text-search").attr("title"));
+            $(".result-container").width("100%");
+            $("input[id*='IDPurpose']").each(function () {
+                $(this).click(function () {
+                    FillChildControl_IDHierarchyStructureParent({ idPurpose: NBN.Helper.GetSelectedValuesAsArray("IDPurpose") });
+                });
+            });
+
+            $('.loading-main').ajaxStart(function () {
+                $(this).show();
+            }).ajaxStop(function () {
+                $(this).hide();
+            });
+
+            $("#text-search").click(function () {
+                if ($(this).attr("title") == $(this).val())
+                    $(this).val("");
+            });
+
+            $("#text-search").focusout(function () {
+                if ($(this).val().length == 0) {
+                    $(this).val($(this).attr("title"));
+                }
+            });
+
+            $("#advanced-search").click(function () {
+                var options =
+                {
+                    closeOnEscape: true,
+                    stack: true,
+                    height: 430,
+                    width: 500,
+                    bgiframe: true,
+                    modal: true,
+                    resizable: true
+                }
+                $(".filter-container").show();
+                $("#advanced-filter-container").dialog(options);
+            })
+
+            $("#close-advanced-search").click(function () {
+                $(".filter-container").hide();
+                $(".result-container").width("100%");
+            })
+
+            $("#button-search, #advanced-button-search").click(function () {
+                DoFilter();
+            });
+
+            $("#slider-range-radius").slider({
+                min: 0,
+                max: 100,
+                step: 1,
+                slide: function (event, ui) {
+                    $("#Radius").val(ui.value);
+                    if (ui.value == 0) 
+                        $("#span-radius").html("@SpongeSolutions.ServicoDireto.Internationalization.Label.Indifferent");                                            
+                    else
+                        $("#span-radius").html(ui.value + " KM");                    
+                }
+            });
+        });
+
+        function AddAsFavorite(_idElement)
+        {
+            NBN.REST.Execute('/element.aspx/addasfavorite', {idElement: _idElement}, function (data) {
+                data = JSON.parse(data);
+                if (data.ResponseData.Status == 200) //Sucesso
+                {
+                    var result = data.ResponseData.Result[0];
+                    if (result.Completed)
+                        $(".favorite").removeClass("favorite").addClass("default");
+                }
+                
+            }, 'POST');
+        }
+
+        function ShowDetails(_id)
+        {
+            NBN.REST.Execute('/element.aspx/details', {id:_id, windowMode:true}, function (data) {
+                $(".result-container").html(data);
+            }, 'POST');
+        }
+        
+        function ShowLoading() {
+            var loading = $("<div>").attr("class", "loading-big");
+            $(".result-container").html(loading);
+        }
+
+        function DoFilter() {
+           //ShowLoading();
+            var searchText = $("#text-search").val();
+            ImobeNet.GetPositionByAddress(searchText);
+        }
+
+        function CreateAttributeParameter(idAttribute, initialValue, finalValue) {
+            return "{\"IDAttribute\" : \"" + idAttribute + "\", \"InitialValue\":\"" + initialValue + "\", \"FinalValue\":\"" + finalValue + "\"}";
+        }
+
+        function FillChildControl_IDHierarchyStructureParent(params) {
+            if (params != null) {
+                NBN.REST.Execute('/hierarchystructure.aspx/listbypurpose', params, function (data) {
+                    //alert(data);
+                    data = JSON.parse(data);
+                    if (data.ResponseData.Status == 200) //Sucesso
+                    {
+                        NBN.Helper.FillDropDown('IDHierarchyStructureParent', data, { Text: '@SpongeSolutions.ServicoDireto.Internationalization.Label.Select_Category', Value: '' })
+                        NBN.Helper.FillDropDown('IDHierarchyStructure', {}, { Text: '@SpongeSolutions.ServicoDireto.Internationalization.Label.Select_Type', Value: '' })
+                    }
+                    else
+                        NBN.Helper.ShowModalWindowJqueryUI(data.ResponseData.Details, '', { width: 300, heigth: 200 }, false, true);
+                }, 'POST');
+            }
+            else {
+                $('#IDHierarchyStructureParent').html('');
+            }
+        }
+    </script>
+</head>
+<body>
+
+    @*<map name="planetmap" id="planetmap">
+        <area shape="rect" coords="0,0,82,126" href="@Html.Action("index", "home")" alt="Home" />
+    </map>*@
+
+    @*hscroll: *@<input type="hidden" name="hscroll" id="hscroll" value="" />
+    @*vscroll: *@<input type="hidden" name="vscroll" id="vscroll" value="" />
+    @*windowStack: *@<input type="hidden" name="windowStack" id="windowStack" value="" />
+    <input type="hidden" name="LatitudeBase" id="LatitudeBase" value="" />
+    <input type="hidden" name="LongitudeBase" id="LongitudeBase" value=" " />
+    
+    <div class="upper-top span-25">
+        <ul class="profile-toolbar">            
+        @if (HttpContext.Current.User.Identity.IsAuthenticated)
+        {
+            //var customer = SpongeSolutions.ServicoDireto.Services.ServiceContext.CustomerService.GetById(SpongeSolutions.ServicoDireto.Admin.SiteContext.GetActiveProfile.Preferences.IDCustomer);
+            @*<li><a class="home"    href="@Url.Action("index", "home", new { siteName = customer.SiteName })">@SpongeSolutions.ServicoDireto.Internationalization.Label.MyMainPage</a> </li>*@            
+            <li><a class="profile" href="@Url.Action("index", "customer")" >@SpongeSolutions.ServicoDireto.Internationalization.Label.Profile [@SpongeSolutions.ServicoDireto.Admin.SiteContext.ActiveUserName]</a> </li>
+            <li><a class="help"    href="@Url.Action("help", "manager")" >@SpongeSolutions.ServicoDireto.Internationalization.Label.Help</a> </li>
+            <li><a class="exit"    href="@Url.Action("logoff", "account")" >@SpongeSolutions.ServicoDireto.Internationalization.Label.Exit</a> </li>
+        }
+        else
+        {
+            <li><a class="recover"            href="@Url.Action("logon", "account")">@SpongeSolutions.ServicoDireto.Internationalization.Label.Login</a></li>
+            <li><a class="new-account"      href="@Url.Action("create", "account")">@SpongeSolutions.ServicoDireto.Internationalization.Label.Register</a></li>
+            <li><a class="forgot-password"  href="@Url.Action("forgotpassword", "account")">@SpongeSolutions.ServicoDireto.Internationalization.Label.Forgot_My_Password</a></li>
+            <li><a class="recover-username" href="@Url.Action("recover", "account")">@SpongeSolutions.ServicoDireto.Internationalization.Label.Forgot_My_Username</a></li>
+        }            
+        </ul>
+    </div>
+
+    <div class="top-container">
+        <div class="loading-main" style="display: none;">
+        </div>
+        <div class="logo">
+        </div>
+        <div class="search-container">
+            <div class="span-15">
+                <input class="search-text ui-corner-all" type="text" id="text-search" title="Rua Tenente Ary Tarrago, 430 - Jardim Itú Sabará, Porto Alegre - RS, 91225-000, Brasil" />
+                <input value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Search" type="button" class="search-button ui-corner-all" id="button-search"/>                
+                <div>
+                    <label for="viewtype_1">@SpongeSolutions.ServicoDireto.Internationalization.Label.List:</label>
+                    <input type="radio" id="viewtype" name="viewtype" value="@Convert.ToInt16(SpongeSolutions.ServicoDireto.Model.InfraStructure.Enums.ViewType.List)" checked class="radion-selector listview"/>
+
+                    <label for="viewtype_2">@SpongeSolutions.ServicoDireto.Internationalization.Label.Map:</label>
+                    <input type="radio" id="viewtype" name="viewtype" value="@Convert.ToInt16(SpongeSolutions.ServicoDireto.Model.InfraStructure.Enums.ViewType.Map)" class="radion-selector mapview"/>
+                </div>
+                <div class="span-13">
+                    <a href="#" id="advanced-search">@SpongeSolutions.ServicoDireto.Internationalization.Label.AdvancedSearch</a>
+                </div>
+            </div>
+            @*@if ( Session["IDCustomer"] != null && (int)Session["IDCustomer"] != 0 )
+            {
+                var customer = SpongeSolutions.ServicoDireto.Services.ServiceContext.CustomerService.GetById((int)Session["IDCustomer"]);
+                <div class="span-10 customer-info">
+                    <div class="span-3"><img src="@Url.Content((customer != null && !string.IsNullOrEmpty(customer.Logo) ? String.Format("{0}/{1}/Thumb/{2}", SpongeSolutions.ServicoDireto.Admin.SiteContext.UploadPath, customer.IDCustomer, customer.Logo) : SpongeSolutions.ServicoDireto.Admin.SiteContext.LayoutPath + "/_images/blank.png"))" alt="[Imagem Logo]" id="imgCompany"/></div>                    
+                    <div class="prefix-1 span-6">
+                        <label>@customer.Name</label>
+                        <div>@customer.Address, @customer.AddressNumber, @customer.AddressComplement - @customer.IDCountry [@customer.StateName]</div>
+                        <div>@customer.Email</div>
+                        <div>@customer.Phone1</div>
+                        <div>@customer.Phone2</div>
+                    </div>
+                </div>
+            }*@            
+        </div>
+    </div>
+    <div class="container" >
+        <div id="advanced-filter-container">
+            <div class="filter-container span-12" style="display: none;">           
+                <div class="">
+                    <div class=" span-6"> @*Container Localizacao*@
+                        <div class="filter-element">
+                    @Html.Label(SpongeSolutions.ServicoDireto.Internationalization.Label.IDCountry):<br />
+                    @Html.SpongeDropDownList("IDCountry",
+                                                    countries,
+                                                    "stateprovince",
+                                                    "listbycountry",
+                                                    SpongeSolutions.ServicoDireto.Internationalization.Label.Select_StateProvince,
+                                                    "IDStateProvince",
+                                                    "{ idCountry: $('#IDCountry').val()}",
+                                                    SpongeSolutions.ServicoDireto.Internationalization.Label.Select_Country
+                                                 )
+                </div>
+                        <div class="filter-element">
+                    @Html.Label(SpongeSolutions.ServicoDireto.Internationalization.Label.IDStateProvince):<br />
+                    @Html.SpongeDropDownList("IDStateProvince",
+                                                    states,
+                                                    "city",
+                                                    "listbystateprovince",
+                                                    SpongeSolutions.ServicoDireto.Internationalization.Label.Select_City,
+                                                    "IDCity",
+                                                    "{ idStateProvince: $('#IDStateProvince').val(), idCountry: $('#IDCountry').val()}",
+                                                    SpongeSolutions.ServicoDireto.Internationalization.Label.Select_StateProvince
+                                                )
+                </div>
+                        <div class="filter-element">
+                        @Html.Label(SpongeSolutions.ServicoDireto.Internationalization.Label.IDCity):<br />
+                        @Html.DropDownList("IDCity", cities, SpongeSolutions.ServicoDireto.Internationalization.Label.Select_City, null)
+                    </div>
+                        <br />
+                    </div>
+                    <div class="span-6"> @*Container Propósito*@
+                        <div class="filter-element">
+                    @Html.Label(SpongeSolutions.ServicoDireto.Internationalization.Label.IDPurpose):<br />
+                    @Html.CheckBoxList("IDPurpose", purposes, ExtensionFactory.RepeatDirection.GroupHorizontal)
+                </div>
+                        <br /><br /><br />
+                        <div class="filter-element">
+                    @Html.Label(SpongeSolutions.ServicoDireto.Internationalization.Label.IDHierarchyStructureParent):<br />
+                    @Html.SpongeDropDownList("IDHierarchyStructureParent",
+                                    hierarchyStructureCategory,
+                                    "hierarchystructure",
+                                    "listbycategory",
+                                    SpongeSolutions.ServicoDireto.Internationalization.Label.Select_Type,
+                                    "IDHierarchyStructure",
+                                    "{ idPurpose: NBN.Helper.GetSelectedValuesAsArray('IDPurpose'), idHierarchyStructureParent: $('#IDHierarchyStructureParent').val()}",
+                                    SpongeSolutions.ServicoDireto.Internationalization.Label.Select_Category
+                                    )
+                </div>
+                        <div class="filter-element">
+                    @Html.Label(SpongeSolutions.ServicoDireto.Internationalization.Label.IDHierarchyStructure):<br />
+                    @Html.DropDownList("IDHierarchyStructure", hierarchyStructureType, SpongeSolutions.ServicoDireto.Internationalization.Label.Select_Type, null)
+                </div>                
+                        <br />
+                    </div>
+                </div>
+                <div>
+                    <div class="filter-element">
+                <label for="Radius">@Html.Label(SpongeSolutions.ServicoDireto.Internationalization.Label.Radius):</label><br />
+                <span id="span-radius">@SpongeSolutions.ServicoDireto.Internationalization.Label.Indifferent</span>
+                <input type="hidden" id="Radius" name="Radius" />
+                <div id="slider-range-radius">
+                </div>
+            </div>
+                    @foreach (var item in filters)
+                    {
+                        <div class="filter-element">
+                    <label for="@string.Concat("amount", item.IDAttribute)">@item.AttributeName:</label><br />
+                    <span id="@string.Concat("amount", item.IDAttribute)" ></span>
+                    <input type="hidden"  id="@string.Concat("IDAttribute_", item.IDAttribute)"/>
+                    <div id="@string.Concat("slider-range", item.IDAttribute)" displaymask="@(((item.DisplayMask != null) ? String.Format(item.DisplayMask, 0) : "0").ToString().Replace("0,00", "#").Replace("0.00", "#").Replace("0", "#"))">
+                    </div>
+                </div>    
+                        <script type="text/javascript">                                               
+                        $(function () {
+                            $("#@string.Concat("slider-range", item.IDAttribute)").slider({
+                                range: true,
+                                min: @item.InitialValue,
+                                max: @item.FinalValue,
+                                values: [@item.DefaultValue, @item.FinalValue ],
+                                slide: function (event, ui) {
+                                    if(ui.values[0] != 0 || ui.values[1] != @item.FinalValue)
+                                    {
+                                        var displaymask = $(this).attr('displaymask');
+                                        $("#@string.Concat("amount", item.IDAttribute)").text( displaymask.replace('#', ui.values[0]) + " - " + displaymask.replace('#', ui.values[1]));
+                                        $("#@string.Concat("IDAttribute_", item.IDAttribute)").val(CreateAttributeParameter(@item.IDAttribute, ui.values[0], ui.values[1]))
+                                        
+                                        
+                                    }
+                                    else if(ui.values[1] == @item.FinalValue)
+                                    {
+                                        $("#@string.Concat("amount", item.IDAttribute)").text("@SpongeSolutions.ServicoDireto.Internationalization.Label.Indifferent");
+                                        $("#@string.Concat("IDAttribute_", item.IDAttribute)").val(CreateAttributeParameter(@item.IDAttribute, @item.InitialValue, @item.FinalValue))
+                                    }
+                                }
+                            });
+
+                            if($("#@string.Concat("slider-range", item.IDAttribute)").slider("values", 0) != 0)
+                            {
+                                var displaymask = $("#@string.Concat("slider-range", item.IDAttribute)").attr('displaymask');
+                                var init = $("#@string.Concat("slider-range", item.IDAttribute)").slider("values", 0);
+                                var end = $("#@string.Concat("slider-range", item.IDAttribute)").slider("values", 1);
+                                $("#@string.Concat("amount", item.IDAttribute)").text( displaymask.replace('#', init) + " - " + displaymask.replace('#', end));
+                                $("#@string.Concat("IDAttribute_", item.IDAttribute)").val(CreateAttributeParameter(@item.IDAttribute, init, end))
+                            }
+                            else
+                            {
+                                $("#@string.Concat("IDAttribute_", item.IDAttribute)").val(CreateAttributeParameter(@item.IDAttribute, @item.InitialValue, @item.FinalValue))
+                                $("#@string.Concat("amount", item.IDAttribute)").text("@SpongeSolutions.ServicoDireto.Internationalization.Label.Indifferent");
+                            }
+                        });
+                </script>            
+                    }
+                </div>
+                <div class="toolbar span-12">
+                    <ul>
+                        <li>
+                            <input type="button" id="advanced-button-search" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Apply" class="save" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="result-container span-25" id="result-container">
+            @RenderBody()
+        </div>
+@*        <div class="footer"> 
+            <p>
+                <a href="#">RSS Feed</a> | 
+                <a href="#">Contact</a> | 
+                <a href="#">Accessibility</a> | 
+                <a href="#">Products</a> | 
+                <a href="#">Disclaimer</a> | 
+                <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> and <a href="http://validator.w3.org/check?uri=referer">XHTML</a>
+                <br>
+                &copy; Copyright 2006 Internet Services, Design: Luka Cvrk - <a title="What's your solution?" href="http://www.solucija.com/">Solucija</a><br>
+      
+                <!--This theme is free for distriubtion,  so long as  link to openwebdesing.org and florida-villa.com  stay on the theme-->
+                Courtesy  <a target="_blank" href="http://www.openwebdesign.org">Open Web Design</a>
+                <a target="_blank" href="http://www.dubaiapartments.biz">
+                    <img width="5" height="5" border="0" src="spacer.gif">
+                </a>
+                Thanks to <a target="_blank" href="http://www.florida-villa.com">Florida Vacation Homes</a> 
+            </p>
+        </div>
+*@    </div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+﻿@using SpongeSolutions.ServicoDireto.BusinessEntities.MetaClasses;
+@model RegisterModel
+@{
+    ViewBag.Title = @SpongeSolutions.ServicoDireto.Internationalization.Message.Resources.Account_Manage_Title;
+    Layout = "~/Views/Shared/_LayoutFull.cshtml";
+}
+<div class="container">
+    <div class="form-header process">
+        <h3>@SpongeSolutions.ServicoDireto.Internationalization.Message.Resources.Account_Upload_File_Title</h3>
+        <p>@SpongeSolutions.ServicoDireto.Internationalization.Message.Resources.Account_Upload_File_Help</p>
+    </div>
+    @if (this.TempData["Message"] != null)
+    {
+        <div class="success">@this.TempData["Message"]</div>
+    }
+    <div id="dialog" title="Upload files">
+        @using (Html.BeginForm("DoUploadTranslationFile", "account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {<br />
+            <div class="span-21">
+                @Html.Label(SpongeSolutions.ServicoDireto.Internationalization.Message.Resources.General_Select_Translation_File)
+                :<br />
+                <input type="file" id="fileUpload" name="fileUpload" size="23" />
+            </div>
+            
+            <div class="span-22 toolbar">
+                <ul>
+                    <li>
+                        <input type="submit" value="@SpongeSolutions.ServicoDireto.Internationalization.Message.Resources.General_Send" class="up"  />
+                    </li>
+                    <li>
+                        <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Message.Resources.General_Cancel" class="cancel" onclick="location.href='@Url.Action("/index", "home")'"/>
+                    </li>
+                </ul>
+            </div>            
+        }
+    </div>
+</div>

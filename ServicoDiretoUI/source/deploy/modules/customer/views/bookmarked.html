@@ -1,0 +1,78 @@
+
+    <!-- Breadcrumb -->
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li><a href="/profile" ui-sref="profile">Conta</a></li>
+            <li class="active">Imóveis Favoritos</li>
+        </ol>
+    </div>
+    <!-- end Breadcrumb -->
+
+    <div class="container">
+        <div class="row">
+        <!-- sidebar -->
+        <div class="col-md-3 col-sm-2">
+            <section id="sidebar">
+                <header><h3>Conta</h3></header>
+                <aside>
+                    <ul class="sidebar-navigation">
+                        <li><a href="#/profile" ui-sref="profile"><i class="fa fa-user"></i><span>Perfil</span></a></li>
+                        <li><a href="#/my-properties" ui-sref="my-properties"><i class="fa fa-home"></i><span>Meus imóveis</span></a></li>
+                        <li><a href="#/submit" ui-sref="submit"><i class="fa fa-plus"></i><span>Novo imóvel</span></a></li>
+                        <li class="active"><a href="#/bookmarked" ui-sref="bookmarked"><i class="fa fa-heart"></i><span>Favoritos</span></a></li>
+                    </ul>
+                </aside>
+            </section><!-- /#sidebar -->
+        </div><!-- /.col-md-3 -->
+        <!-- end Sidebar -->
+            <!-- My Properties -->
+            <div class="col-md-9 col-sm-10">
+                <section id="bookmarked-properties">
+                    <header><h1>Imóveis Favoritos</h1></header>
+                    <div class="grid">
+                        <div class="property masonry" ng-repeat="item in bookmarkedElements" bookmark-loaded>
+                            <div class="inner">
+                                <a href="#/property-detail/{{ item.idElement }}" ui-sref="property-detail({ idElement: item.idElement })">
+                                    <div class="property-image">
+                                        <div class="overlay">
+                                            <div class="info">
+                                                <div class="tag price">{{ item.price }}</div>
+
+                                            </div>
+                                        </div>
+                                        <img alt="" src="{{ config.adminSite + '/' + item.defaultPicturePath}}">
+                                    </div>
+                                </a>
+                                <aside>
+                                    <header>
+                                        <a href="#/property-detail/{{ item.idElement }}" ui-sref="property-detail({ idElement: item.idElement })">
+                                            <h3>{{ item.name }}</h3>
+                                        </a>
+                                        <figure>{{ item.cityName + ', ' + item.stateProvinceName + ', ' + item.countryName }}</figure>
+                                    </header>
+                                    <p>{{ item.description | limitTo : 25}} ...</p>
+                                    <dl>
+                                        <dt>Propósito:</dt>
+                                        <dd>{{ item.purposeName }}</dd>
+                                        <dt>Area:</dt>
+                                        <dd>{{ item.totalArea }} m<sup>2</sup></dd>
+                                        <dt>Quartos:</dt>
+                                        <dd>{{ item.beds }}</dd>
+                                        <dt>Banheiros:</dt>
+                                        <dd>{{ item.bathrooms }}</dd>
+                                        <dt>Garagens:</dt>
+                                        <dd>{{ item.garages }}</dd>                                        
+                                    </dl>
+                                    <a href="#/property-detail/{{ item.idElement }}" ui-sref="property-detail({ idElement: item.idElement })" class="link-arrow"> Detalhe</a>
+                                </aside>
+                            </div>
+                        </div><!-- /.property -->
+
+                    </div><!-- /js-masonry-->
+                    
+                </section><!-- /#my-properties -->
+            </div><!-- /.col-md-9 -->
+            <!-- end My Properties -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->

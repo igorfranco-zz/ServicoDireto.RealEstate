@@ -1,0 +1,80 @@
+﻿@using SpongeSolutions.Core.Helpers;
+@using SpongeSolutions.ServicoDireto.Model;
+@model IList<SpongeSolutions.ServicoDireto.Model.ElementExtended>
+@{
+    ViewBag.Title = SpongeSolutions.ServicoDireto.Internationalization.Label.Element_Index_Title;
+    Layout = (!this.ViewBag.WindowMode) ? "~/Views/Shared/_LayoutFull.cshtml" : null;
+}
+<script language="javascript" type="text/javascript">
+    $(function () {
+        NBN.Helper.EnableContextFilterMenu();
+    });
+
+    function InactiveRecords() {
+        if (confirm("@Html.Raw(SpongeSolutions.ServicoDireto.Internationalization.Message.Confirm_Deactivation)")) {
+            Manager.Services.DeactivateElement({ ids: NBN.Helper.GetSelectedValuesAsArray('chkIDElement') }, function (data) {
+                data = JSON.parse(data);
+                if (data.ResponseData.Status == 200) //Sucesso
+                {
+                    var result = data.ResponseData.Result[0];
+                    if (result.Inactivated)
+                        window.location.reload(true);
+                }
+                else {
+                    NBN.Helper.ShowModalWindowJqueryUI(data.ResponseData.Details, "@SpongeSolutions.ServicoDireto.Internationalization.Message.Error_Deactivation", { width: 300, heigth: 200 });
+                }
+            });
+        }
+    }
+
+	function DeleteRecords() {
+    if (confirm("@Html.Raw(SpongeSolutions.ServicoDireto.Internationalization.Message.Confirm_Deletion)")) {
+        Manager.Services.DeleteElement({ ids: NBN.Helper.GetSelectedValuesAsArray('chkIDElement') }, function (data) {
+            data = JSON.parse(data);
+            if (data.ResponseData.Status == 200) //Sucesso
+            {
+                var result = data.ResponseData.Result[0];
+                if (result.Deleted)
+                    window.location.reload(true);
+            }
+            else {
+                NBN.Helper.ShowModalWindowJqueryUI(data.ResponseData.Details, "@SpongeSolutions.ServicoDireto.Internationalization.Message.Error_Deactivation", { width: 300, heigth: 200 });
+            }
+        });
+    }
+}
+
+
+</script>
+<div class="@(((!this.ViewBag.WindowMode) ? "container" : ""))">
+@*    @if(!this.ViewBag.WindowMode)
+    {
+        <div class="form-header recipe">
+            <h3>@SpongeSolutions.ServicoDireto.Internationalization.Label.Element_Index_Title</h3>
+            <p>@SpongeSolutions.ServicoDireto.Internationalization.Label.Element_Index_Help</p>
+        </div>
+    }*@
+    @if (this.ViewBag.Message != null)
+    {
+        <div>@this.ViewBag.Message</div>
+    }
+    <fieldset>
+        @using (Html.BeginForm())
+        {
+            <div id="gridResult" class="span-25">
+                @Html.Grid(Model, "IDElement", SpongeSolutions.ServicoDireto.Internationalization.Label.Element_Index_Title, rowPerPage: SpongeSolutions.ServicoDireto.Admin.SiteContext.MaximumRows, canPage: true, activePage: int.Parse((Request.QueryString["page"] == null) ? "1" : Request.QueryString["page"]), isWindowMode: false, rowCount: (int)this.ViewBag.RowCount)
+            </div>
+
+            <div class="span-20 toolbar">
+                <ul>
+                    <li>
+                        <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.New" class="add" onclick="location.href='@Url.Action("create")'" />
+                    </li>
+                    <li>
+                        <input type="button" value="@SpongeSolutions.ServicoDireto.Internationalization.Label.Inactivate" class="delete" onclick="javascript:InactiveRecords();" />
+                    </li>
+                </ul>
+            </div>
+        }
+    </fieldset>
+</div>

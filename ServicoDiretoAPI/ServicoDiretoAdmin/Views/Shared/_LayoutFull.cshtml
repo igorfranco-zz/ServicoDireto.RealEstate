@@ -1,0 +1,41 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>@ViewBag.Title - v.@SpongeSolutions.ServicoDireto.Admin.SiteContext.Assembly.Version</title>
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    @Html.Partial("~/Views/Shared/Partial/_PartialInclude.cshtml")
+    <script type="text/javascript">
+        $(function () {
+            $('.loading-main').ajaxStart(function () {
+                $(this).show();
+            }).ajaxStop(function () {
+                $(this).hide();
+            });
+//            TODO: REVER DropDown.Load('@System.Threading.Thread.CurrentThread.CurrentUICulture.Name');
+        });
+    </script>
+</head>
+<body>
+     <div class="contextMenu hide" id="selectMenu">
+        <ul>
+            <li id="checkSelectFilter">
+                <input type="checkbox" name="chkSelectFilter" value="" onclick="javascript:NBN.Helper.CheckAllByClass(this.checked, 'checkable')" />
+                @SpongeSolutions.ServicoDireto.Internationalization.Label.SelectAll</li>
+        </ul>
+    </div>
+    <div class="container fill ui-corner-all" id="containerBody">
+        @Html.Partial("~/Views/Shared/Partial/_PartialHeader.cshtml")
+        @Html.Partial("~/Views/Shared/Partial/_PartialMenu.cshtml")
+        <br />
+        <div class="body border-bottom prefix-1 ">
+            @RenderBody()
+        </div>
+    </div>
+    @Html.Partial("~/Views/Shared/Partial/_PartialFooter.cshtml")
+    @*hscroll: *@<input type="hidden" name="hscroll" id="hscroll" value="" />
+    @*vscroll: *@<input type="hidden" name="vscroll" id="vscroll" value="" />
+    @*windowStack: *@<input type="hidden" name="windowStack" id="windowStack" value="" />
+</body>
+</html>

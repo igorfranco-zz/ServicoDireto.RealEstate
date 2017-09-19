@@ -1,0 +1,47 @@
+﻿@model SpongeSolutions.ServicoDireto.Model.ElementExtended
+@{
+    ViewBag.Title = "ListItem";
+    Layout = null; //"~/Views/Shared/_LayoutBasicSite.cshtml";
+    var basicAttributes = (IList<SpongeSolutions.ServicoDireto.Model.Attribute>)ViewBag.BasicAttributes;    
+}
+<div class="span-22 list-item allline">
+    <div class="span-3">
+        <img src="@Model.DefaultPicturePath"  alt="@Model.Name"/><br />
+        <img src="@String.Format("{0}{1}", SpongeSolutions.ServicoDireto.Admin.SiteContext.LayoutPath, Model.IconPath)" alt=""/>
+    </div>
+    <div class="span-19">
+        <div class="header">
+            <a href="javascript:ShowDetails(@Model.IDElement.Value);">@String.Format("{0} / {1} / {2}", Model.PurposeName, Model.CategoryName, Model.TypeName)</a>
+        </div>
+        <div class="address">
+            [@Model.CountryName, @Model.StateProvinceName,  @Model.CityName 
+                @if (Model.ShowAddress)
+                {   
+                    @(", " + Model.Address)
+                }
+            ]&nbsp;&nbsp;&nbsp;&nbsp; - 
+            @Model.CustomerName
+         </div>
+        <div class="name">@Model.Name</div>
+        <div class="description">@Model.Description</div>
+        <hr />
+        <div class="attributes">
+            @foreach (var item in Model.BasicAttributes)
+            {            
+                <div class="span-6">
+                    <div class="span-3">
+                        <label>@item.Name :</label>
+                    </div>
+                    @if (!string.IsNullOrEmpty(item.DisplayMask))
+                    { 
+                        @( (!string.IsNullOrEmpty(item.Value)) ? String.Format(item.DisplayMask, Convert.ToDecimal(item.Value)) : "-")
+                    }
+                    else
+                    {                    
+                        @item.Value
+                    }
+                </div>            
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<!-- Breadcrumb -->
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li class="active">Recuperação de {{ data.recoveryName }}</li>
+    </ol>
+</div>
+<!-- end Breadcrumb -->
+
+<div class="container">
+    <header><h1>Recuperação de {{ data.recoveryName }}</h1></header>
+    <div class="row">
+        <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+            <form role="form" id="form-recovery" novalidate="novalidate" ng-submit="requestRecovery()" autocomplete="off">            
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input 
+                        id="email"
+                        name="email"
+                        type="email" 
+                        class="form-control" 
+                        ng-model="data.email"
+                        ng-maxlength="512"
+                        ng-required="data.recovery == 2"
+                        >
+                </div><!-- /.form-group -->             
+                <div class="form-group" ng-show="data.recovery == 1">
+                    <label for="userName">Ou</label>
+                </div>    
+                <div class="form-group" ng-show="data.recovery == 1">
+                    <label for="userName">Usuário:</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="userName" 
+                        ng-model="data.userName"
+                        ng-minlength="6"
+                        ng-maxlength="512">
+                </div><!-- /.form-group -->                
+
+                <div class="form-group clearfix">
+                    <button type="submit" class="btn pull-right btn-default" id="account-submit">Recuperar {{ data.recoveryName }} </button>
+                </div><!-- /.form-group -->
+            </form>
+
+            <hr>
+            <div class="center" ng-show="data.recovery == 2"><a href="#recovery/1" ui-sref="recovery({ recoveryType: 1 })">Não lembro da minha senha</a></div>
+            <div class="center" ng-show="data.recovery == 1"><a href="#recover/2" ui-sref="recovery({ recoveryType: 2 })">Não lembro do meu usuário</a></div>            
+        </div>
+    </div><!-- /.row -->
+</div><!-- /.container -->

@@ -1,0 +1,32 @@
+
+<form class="css-form" name="myForm"  >
+
+    <span ng-hide="error.status == null">{{error.status + ' - '+ error.data.Message}}</span>
+        <br>
+        
+
+        <label>IDCulture: <input ng-model="culture.IDCulture" required/> </label><br /> 
+        <label>IDIcon: <input ng-model="culture.IDIcon" /> </label><br /> 
+        <label>Name: <input ng-model="culture.Name" required/> </label><br /> 
+        <label>Status: <input ng-model="culture.Status" /> </label><br /> 
+
+        <label for="exampleInput">CreateDate: </label>
+
+        <input ng-model="culture.CreateDate" required />
+        <div role="alert">
+            <span class="error" ng-show="myForm.input.$error.required"> Required!</span>
+            <span class="error" ng-show="myForm.input.$error.datetimelocal">Not a valid date!</span>
+        </div>
+        <br /> 
+
+        <label>ModifyDate: <input ng-model="culture.ModifyDate" /> </label><br /> 
+        <label>CreatedBy: <input ng-model="culture.CreatedBy" /> </label><br /> 
+        <label>ModifiedBy: <input ng-model="culture.ModifiedBy" /> </label><br /> 
+
+       <input type="submit" ng-click="save()" value="Save New" />
+    
+<!--        <select name="repeatSelect" id="repeatSelect"  ng-model="data.selectedOption" ng-change="getCulture(data.selectedOption)">
+          <option ng-repeat="culture in cultures" value="{{culture.IDCulture}}">{{culture.Name}}</option>
+        </select>-->
+
+</form>

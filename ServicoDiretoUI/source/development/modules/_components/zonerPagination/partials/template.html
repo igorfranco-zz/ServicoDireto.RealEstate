@@ -1,0 +1,12 @@
+
+<ul class="pagination" ng-hide="pages.length <= 1">    	
+	<li ng-show="showBefore" >
+		<a href="" ng-click="changePageIndex(pageIndex - totalPagesToShow)">&lt;&lt;</a>
+	</li>
+	<li ng-repeat="page in pages" ng-class="pageIndex == page.index ? 'active' : ''"  >
+		<a href="" ng-click="changePageIndex(page.index)">{{ page.index + 1 }}</a>
+	</li>
+	<li ng-show="showAfter" >
+		<a href="" ng-click="changePageIndex(pageIndex + totalPagesToShow)">&gt;&gt;</a>
+	</li>	
+</ul>

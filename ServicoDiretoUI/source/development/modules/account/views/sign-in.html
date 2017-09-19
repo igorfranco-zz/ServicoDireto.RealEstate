@@ -1,0 +1,47 @@
+<!-- Breadcrumb -->
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li class="active">Autenticação</li>
+    </ol>
+</div>
+<!-- end Breadcrumb -->
+
+<div class="container">
+    <header><h1>Autenticação</h1></header>
+    <div class="row">
+        <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+            <form role="form" id="form-create-account" novalidate="novalidate" ng-submit="doLogin()" autocomplete="off">
+                <div class="form-group">
+                    <label for="userName">Usuário:</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="userName" 
+                        ng-model="account.userName"
+                        ng-minlength="6"
+                        ng-maxlength="512"                        
+                        required>
+                </div><!-- /.form-group -->
+                <div class="form-group">
+                    <label for="password">Senha:</label>
+                    <input 
+                        type="password" 
+                        class="form-control" 
+                        id="password" 
+                        required
+                        ng-model="account.password"
+                        ng-minlength="6"
+                        ng-maxlength="100"                        
+                        >
+                </div><!-- /.form-group -->
+                <div class="form-group clearfix">
+                    <button type="submit" class="btn pull-right btn-default" id="account-submit">Entrar</button>
+                </div><!-- /.form-group -->
+            </form>
+            <hr>
+            <div class="center"><a href="#recovery/1" ui-sref="recovery({ recoveryType: 1 })">Não lembro da minha senha</a></div>
+            <div class="center"><a href="#recover/2" ui-sref="recovery({ recoveryType: 2 })">Não lembro do meu usuário</a></div>
+        </div>
+    </div><!-- /.row -->
+</div><!-- /.container -->

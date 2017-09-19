@@ -1,0 +1,335 @@
+<!-- Breadcrumb -->
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li><a href="/profile" ui-sref="profile">Conta</a></li>
+        <li class="active">Perfil</li>
+    </ol>
+</div>
+<!-- end Breadcrumb -->
+<div class="container">
+    <div class="row">
+    <!-- sidebar -->
+    <div class="col-md-3 col-sm-2">
+        <section id="sidebar">
+            <header><h3>Conta</h3></header>
+            <aside>
+                <ul class="sidebar-navigation">
+                    <li class="active"><a href="#/profile" ui-sref="profile"><i class="fa fa-user"></i><span>Perfil</span></a></li>
+                    <li><a href="#/my-properties" ui-sref="my-properties"><i class="fa fa-home"></i><span>Meus imóveis</span></a></li>
+                    <li><a href="#/submit" ui-sref="submit"><i class="fa fa-plus"></i><span>Novo imóvel</span></a></li>
+                    <li><a href="#/bookmarked" ui-sref="bookmarked"><i class="fa fa-heart"></i><span>Favoritos</span></a></li>
+                </ul>
+            </aside>
+        </section><!-- /#sidebar -->
+    </div><!-- /.col-md-3 -->
+    <!-- end Sidebar -->
+        <!-- My Properties -->
+        <div class="col-md-9 col-sm-10">
+            <section id="profile">
+                <header><h1>Perfil</h1></header>
+                <div class="account-profile">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4">
+                            <input 
+                                z-file-input-avatar 
+                                type="file" 
+                                class="file" 
+                                multiple="false"        
+                                accept="image/jpeg,image/png"
+                                ngf-select="uploadFiles($files, $invalidFiles)" 
+                                multiple 
+                                ng-model="customer.logo"
+                                accept="image/*" 
+                                ngf-max-height="1000"
+                                ngf-max-size="1MB"
+                            >
+                        </div>
+                        <div class="col-md-8 col-sm-8">
+                            <form role="form" id="form-account-profile" method="post" novalidate="novalidate" ng-submit="saveCustomer()" autocomplete="on" >
+                                <section id="contact">
+                                    <header><h2>Dados pessoais</h2></header>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12">                      
+                                            <div class="form-group">
+                                                <label for="name">Nome:</label>
+                                                <input 
+                                                    type="text" 
+                                                    class="form-control" 
+                                                    id="name"
+                                                    name="name"
+                                                    required 
+                                                    ng-model="customer.name"
+                                                    ng-minlength="6"
+                                                    ng-maxlength="300"
+                                                    >
+                                            </div><!-- /.form-group -->
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6">                      
+                                            <div class="form-group">
+                                                <label for="creci">CRECI:</label>
+                                                <input 
+                                                    type="text" 
+                                                    class="form-control" 
+                                                    id="creci"
+                                                    name="creci"
+                                                    ng-model="customer.creci"
+                                                    ng-maxlength="20"
+                                                    mask-restrict='reject' 
+                                                    limit='true'>
+                                            </div><!-- /.form-group -->
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">                      
+                                            <div class="form-group">
+                                                <label for="cpf_cpnj">CPF/CNPJ:</label>
+                                                <input 
+                                                    type="text" 
+                                                    class="form-control" 
+                                                    id="cpf_cpnj"
+                                                    name="cpf_cpnj"
+                                                    required 
+                                                    ng-model="customer.cpF_CNPJ"
+                                                    ng-maxlength="20"
+                                                    mask-restrict='reject' 
+                                                    limit='true'>
+                                            </div><!-- /.form-group -->
+                                        </div>
+                                    </div>                                    
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-4">
+                                            <div class="form-group">
+                                                <label for="phone1">Telefone 1:</label>
+                                                <input 
+                                                    required
+                                                    type="text" 
+                                                    class="form-control" 
+                                                    id="phone1" 
+                                                    name="phone1" 
+                                                    ng-model="customer.phone1"
+                                                    ng-maxlength="20"
+                                                    mask="(99)99999?-9999" 
+                                                    mask-restrict='reject' 
+                                                    limit='true'
+                                                    >
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">     
+                                            <div class="form-group">
+                                                <label for="phone2">Telefone 2:</label>
+                                                <input 
+                                                    type="text" 
+                                                    class="form-control" 
+                                                    id="phone2" 
+                                                    name="phone2" 
+                                                    ng-model="customer.phone2"
+                                                    ng-maxlength="20"
+                                                    mask="(99)99999?-9999" 
+                                                    mask-restrict='reject' 
+                                                    limit='true'
+                                                    >
+                                            </div>
+                                        </div>                                        
+                                        <div class="col-md-4 col-sm-4">
+                                            <div class="form-group">
+                                                <label for="cellphone">Celular:</label>
+                                                <input 
+                                                    type="text" 
+                                                    class="form-control" 
+                                                    id="cellphone" 
+                                                    name="cellphone" 
+                                                    ng-model="customer.cellPhone"
+                                                    ng-maxlength="20"
+                                                    mask="(99)99999?-9999" 
+                                                    mask-restrict='reject' 
+                                                    limit='true'
+                                                    >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8 col-sm-8">                      
+                                            <div class="form-group">
+                                                <label for="email">E-mail:</label>
+                                                <input 
+                                                    type="email" 
+                                                    class="form-control" 
+                                                    id="email"
+                                                    name="email"
+                                                    required 
+                                                    ng-model="customer.email"
+                                                    ng-minlength="6"
+                                                    ng-maxlength="400"
+                                                    >
+                                            </div><!-- /.form-group -->
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">                      
+                                            <div class="form-group">        
+                                            <label for="skypeName">Skype:</label>
+                                                <input 
+                                                    type="text" 
+                                                    class="form-control" 
+                                                    id="skypeName"
+                                                    name="skypeName"
+                                                    ng-model="customer.skypeName"
+                                                    ng-maxlength="50"
+                                                    >                                                                            
+                                            </div>
+                                        </div>    
+                                    </div>
+                                </section>
+
+                                <section id="location" ng-controller="LocationController">
+                                    <header><h2>Localização</h2></header>
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6">                                            
+                                            <div class="form-group" >
+                                                <select bootselectpicker required data-array="countries" name="country"  ng-init="listCountry()" ng-model="customer.idCountry" ng-change="listStateProvince(customer.idCountry)" ng-options="country.idCountry as country.name for country in countries">
+                                                    <option value="">País</option>                                       
+                                                </select>
+                                            </div><!-- /.form-group -->
+                                        </div>
+
+                                        <div class="col-md-6 col-sm-6">                                            
+                                            <div class="form-group" >
+                                                <select bootselectpicker data-array="stateProvinces" name="stateProvince" ng-model="customer.idStateProvince" ng-change="listCity(customer.idCountry, customer.idStateProvince)" ng-options="stateProvince.idStateProvince  as stateProvince.name for stateProvince in stateProvinces">
+                                                    <option value="">Estado</option>
+                                                </select>
+                                            </div><!-- /.form-group -->
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="form-group" >
+                                                <select bootselectpicker data-array="cities" name="city" ng-model="customer.idCity"  ng-options="city.idCity as city.name for city in cities">
+                                                    <option value="">Cidade</option>
+                                                </select>
+                                            </div><!-- /.form-group -->
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="form-group">
+                                                <label for="phone1">Endereço:</label>
+                                                <input 
+                                                    type="text" 
+                                                    class="form-control" 
+                                                    id="address" 
+                                                    name="address" 
+                                                    ng-model="customer.address"
+                                                    ng-maxlength="250">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 col-sm-2">     
+                                            <div class="form-group">
+                                                <label for="addressNumber">Número:</label>
+                                                <input 
+                                                    type="text" 
+                                                    class="form-control" 
+                                                    id="addressNumber" 
+                                                    name="addressNumber" 
+                                                    required
+                                                    ng-model="customer.addressNumber"
+                                                    ng-maxlength="15"
+                                                    mask="99?9?9?9?9?" 
+                                                    mask-restrict='reject' 
+                                                    limit='true'>
+                                            </div>
+                                        </div>                                        
+                                        <div class="col-md-4 col-sm-4">
+                                            <div class="form-group">
+                                                <label for="addressComplement">Complemento:</label>
+                                                <input 
+                                                    type="text" 
+                                                    class="form-control" 
+                                                    id="addressComplement" 
+                                                    name="addressComplement" 
+                                                    ng-model="customer.addressComplement"
+                                                    ng-maxlength="50">
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" icheck ng-model="customer.AllowShowAddress">Exibir endereço
+                                                    <i class="fa fa-question-circle tool-tip" z-tooltip data-toggle="tooltip" data-placement="right" title="Permitir que os usuários visualizem o endereço."></i>
+                                                </label>
+                                            </div>                                                                        
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <section id="about-me">
+                                    <header><h2>Comentários</h2></header>
+                                    <div class="form-group">
+                                        <textarea 
+                                            class="form-control" 
+                                            rows="5" 
+                                            ng-model="customer.comments"
+                                            ng-maxlength="3000">
+                                        </textarea>
+                                    </div><!-- /.form-group -->
+                                </section>
+
+                                <section id="social">
+                                    <header><h2>Redes sociais</h2></header>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-twitter"></i></span>
+                                            <input 
+                                                type="text" 
+                                                class="form-control" 
+                                                ng-model="customer.twitter"
+                                                ng-maxlength="250">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-facebook"></i></span>
+                                            <input 
+                                                type="text"
+                                                class="form-control" 
+                                                ng-model="customer.facebook"
+                                                ng-maxlength="250">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-pinterest"></i></span>
+                                            <input 
+                                                type="text" 
+                                                class="form-control" 
+                                                ng-model="customer.pinterest"
+                                                ng-maxlength="250">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-linkedin"></i></span>
+                                            <input 
+                                                type="text" 
+                                                class="form-control" 
+                                                ng-model="customer.linkedin"
+                                                ng-maxlength="250">
+                                        </div>
+                                    </div>                                    
+
+                                    <div class="form-group clearfix">
+                                        <button type="submit" class="btn pull-right btn-default" id="account-submit">Salvar Alterações</button>
+                                    </div><!-- /.form-group -->
+
+                                </section>
+                            </form><!-- /#form-contact -->
+                            <ng-include src="'modules/account/partials/partial-change-password.html'" ></ng-include>
+                        </div><!-- /.col-md-9 -->
+                    </div><!-- /.row -->
+                </div><!-- /.account-profile -->
+            </section><!-- /#profile -->
+        </div><!-- /.col-md-9 -->
+        <!-- end My Properties -->
+    </div><!-- /.row -->
+</div><!-- /.container -->
