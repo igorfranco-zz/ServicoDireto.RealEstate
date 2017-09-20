@@ -1,4 +1,4 @@
-
+    
 http://stackoverflow.com/questions/21736824/angularjs-rootscope-in-directive-link-function
 http://stackoverflow.com/questions/23506382/how-do-i-bind-to-a-custom-event-in-an-angularjs-directive
 
