@@ -10,7 +10,7 @@
 		var opts = createOpts(config);
 		request(opts, function optionalCallback(err, response, body) 
 		{
-			if (err) {
+			if (err) { 
 				//return
 				console.error(' failed:', err);
 				console.log("_______retry gettotalpages");
