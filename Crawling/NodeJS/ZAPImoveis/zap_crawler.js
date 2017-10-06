@@ -28,7 +28,6 @@
 	{
 		console.log("******************************** Processando página: " + config.Pagina + ' de ' + config.TotalPaginas + '********************************');			
 		var opts = createOpts(config);
-		//console.log(opts.form);
 		request(opts, function optionalCallback(err, response, body) 
 		{
 			if (err) {
@@ -41,28 +40,14 @@
 			try 
 			{
 				var records = JSON.parse(body); 	
+				//processando cada item buscando dados detalhados.
 				zap_mongo.InsertUpdate(records.Resultado.Resultado, function(result){
-					console.log(result);
-					callback({status:'success'});
+					callback( { status:'success' } );
 				});				
 			} catch (error) {
-				callback({status:'error'}, error);
+				callback({ status: 'error' }, error);
 			}
-		});				
-		
-		/*
-		var opts = createOpts(config);
-		request(opts, function optionalCallback(err, response, body) 
-		{
-			if (err) {
-				return console.error('failed:', err);
-			}
-			var record = JSON.parse(body); 
-			execute(config, function(record){
-				callback(record);
-			});
-		});
-		*/			
+		});						
 	}
 //
 	var downloadPictures = function(element, callback){
@@ -93,8 +78,6 @@
 		var opts = 
 		{
 			url: 'https://www.zapimoveis.com.br/Busca/RetornarBuscaAssincrona/',
-			//proxy: "http://127.0.0.1:8888", // Note the fully-qualified path to Fiddler proxy. No "https" is required, even for https connections to outside.
-			//proxy:'http://94.177.180.226:80',//OK
 			method: 'POST',
 			headers: {
 				'Accept': '*/*',
@@ -114,3 +97,39 @@
 
 		return opts;
 	};
+
+	exports.ImportItem = function (baseUrl, callback) 
+	{
+		var opts = {
+			url: baseUrl,
+			method: 'GET',
+			headers: {
+				'Accept': '*/*',
+				'X-Requested-With': 'XMLHttpRequest',
+				'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+				'Host': 'www.zapimoveis.com.br'
+			}	
+		};
+
+		request(opts, function optionalCallback(err, response, body) 
+		{
+			if (err) { 
+				//return
+				console.error(' failed:', err);
+				console.log("_______retry ImportItem");
+			}
+			else
+			{
+				const $ = cheerio.load(result.body); 
+				callback({ 
+					id: $("#ofertaId ").data("value"),
+					url: baseUrl, 
+					body: body, 
+					description: $("#descricaoOferta p").html(),
+					realstate_base: $("#caracteristicaOferta p").eq(0).html(),
+					realstate_info: $("#caracteristicaOferta p").eq(1).html(), //Caracter&#xED;sticas do Im&#xF3;vel
+					realtate_areas: $("#caracteristicaOferta p").eq(2).html() //Caracter&#xED;sticas das &#xC1;reas Comuns
+				} );
+			}
+		});			
+	}

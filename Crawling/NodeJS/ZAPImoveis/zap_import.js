@@ -1,15 +1,3 @@
-//lancamento: 'tipoOferta:CampanhaImovel
-//pathName:/lancamentos/imoveis/brasil/
-
-//aluguel: tipoOferta:Imovel
-//pathName:/aluguel/imoveis/
-
-//venda: tipoOferta:1
-//pathName:venda/imoveis/
-//
-//com contatos
-//db.getCollection('ZAP').count( {"ContatoCampanha":{$ne:null}})
-//logar o processo e retomar de sua parada caso haja erro
 var datetime = require('node-datetime');
 var zap_crawler = require('./zap_crawler');
 var zap_tools  = require('./zap_tools');

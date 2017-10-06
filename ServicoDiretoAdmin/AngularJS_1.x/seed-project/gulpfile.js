@@ -45,7 +45,7 @@ gulp.task('build', function(){
     return es.merge(gulp.src(source.js.src) , getTemplateStream())
          .pipe(ngAnnotate())
          .pipe(uglify())
-         .pipe(replace('http://localhost:8082', 'http://api.servicodireto.com'))
+         .pipe(replace('http://192.168.1.101/servicodireto/api', 'http://api.servicodireto.com'))
         .pipe(concat('app.js'))
         .pipe(gulp.dest(destinations.js));
 });

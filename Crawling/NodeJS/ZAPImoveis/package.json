@@ -1,0 +1,25 @@
+{
+  "name": "zapimoveis",
+  "version": "1.0.0",
+  "description": "",
+  "main": "zap_crawler.js",
+  "dependencies": {
+    "ajv": "^5.2.3",
+    "cheerio": "^1.0.0-rc.2",
+    "gulp": "^3.9.1",
+    "jQuery": "^1.7.4",
+    "jquery": "^3.2.1",
+    "jsdom": "^11.3.0",
+    "mkdirp": "^0.5.1",
+    "mongodb": "^2.2.30",
+    "mongoose": "^4.12.0",
+    "node-datetime": "^2.0.0",
+    "request": "^2.81.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

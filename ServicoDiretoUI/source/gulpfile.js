@@ -63,11 +63,11 @@ gulp.task('build', function()
          .pipe(ngAnnotate())
          .pipe(uglify())
          .pipe(concat('app_compiled.js'))        
-         .pipe(replace('http://localhost:8082', 'http://api.servicodireto.com'))
+         .pipe(replace('http://192.168.1.101/servicodireto', 'http://api.servicodireto.com'))
          .pipe(replace('/bower_components', 'components'))
          .pipe(gulp.dest(destinations.deploy));
 });
-
+ 
 gulp.task('js', function(){
     return es.merge(gulp.src(source.js.src) , getTemplateStream())
         .pipe(concat('dev_app_compiled.js'))
@@ -79,9 +79,8 @@ gulp.task('watch',['browser-sync'], function(){
     gulp.watch(source.js.tpl, ['js'], reload);
 });
 
-
-// Watch files for changes
 /*
+// Watch files for changes
 gulp.task('watch', ['browser-sync'], function() {
     // Watch HTML files
     gulp.watch(src.html, reload);    

@@ -42,12 +42,12 @@ var mainApp = angular
         companyName : "Serviço Direto",
         appName :"Serviço Direto | Imóveis | Apartamentos, Casas e Imóveis à Venda e para Alugar",
         appVersion : 1.0,
-        apiUrl: 'http://localhost:8082/api',
+        apiUrl: 'http://192.168.1.101/servicodireto/api',
         phone: "+55 (51) 994643433",
         address1:"Rua Saara, 10 apto 102",
         address2: "Porto Alegre, RS Brasil",
         email:"contato@servicodireto.com.br",
-        adminSite : "http://localhost:8082",
+        adminSite : "http://192.168.1.101/servicodireto/",
         layoutSite : "http://localhost:8989",
         carouselInterval : 5000
     })

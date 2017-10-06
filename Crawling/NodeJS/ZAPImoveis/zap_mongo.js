@@ -1,8 +1,21 @@
+var apiUrl = "http://192.168.1.102/servicodireto";
+var mongoUrl = 'mongodb://192.168.1.102:27017/crawler';
+
 var MongoClient = require('mongodb').MongoClient;
+var ObjectID = require('mongodb').ObjectID;
+
 var assert = require('assert')
 var request = require('request')
 var datetime = require('node-datetime');
-var conn = MongoClient.connect('mongodb://localhost:27017/crawler'); // returns a Promise
+var conn = MongoClient.connect(mongoUrl); // returns a Promise
+var _countProc = 0;
+const TOTAL_BLOCK = 20 ;
+const COLLECTION_NAME = "zap_4";
+
+var http = require('http') // Do the same with the 'https' module if you do https requests
+
+var httpAgent = new http.Agent()
+httpAgent.maxSockets = 15
 
 var execution = 
 {
@@ -19,11 +32,75 @@ var executionItem =
     Config: null,
 }
 
-exports.ExportToDB = function(callback){
-    conn.then(db => db.collection('zap').find({ dt_proceeded: { $exists: false }}).limit(500).toArray(function(err, result) {	
-        result.forEach(function(element) {
-            console.log("-----Processando " + element.CodigoOfertaZAP);
+exports.SaveRecord = function(record)
+{
+    //
+    var opts = 
+    {
+        url: apiUrl + '/api/apielement/Import',
+        method: 'POST',
+        json: record,
+        pool: httpAgent,
+        headers: {
+            "content-type": "application/json",
+        }
+    };
+    //
+    request(opts, function optionalCallback(err, response, record)
+    {
+        if (err) {
+            console.error(err);
+        }
+        else
+        {
+            try {
+                console.log(_countProc + "__processado: " + record.idMongo);
+                conn.then(db => db.collection(COLLECTION_NAME)
+                    .findOneAndUpdate({ _id: new ObjectID(record.idMongo) }, 
+                                      { $set: { "_proceeded" : 1 } }, 
+                                      {}, 
+                                      (err, doc, raw) => {
+                                        _countProc++;
+
+                                        if(_countProc == TOTAL_BLOCK)
+                                        {
+                                            _countProc = 0;
+                                            console.log("----------------------------------------------------- executing new block ----------------------------------------------------- ")
+                                            exports.ExportToDB();
+                                        }
+                                        if(err != null)
+                                            console.error(' failed:', err);
+                                        else
+                                            console.log("executed OK: " + record.idMongo);
+                                    }));         
+            }
+            catch(e){
+                console.log(e);
+            }
+        }
+    });	
+}
+
+exports.GetOnlyNumber = function(value)
+{  
+    var numberPattern = /\d+/g;     
+    if(value == null)
+        value = '';
+
+    var result =  value.match( numberPattern );
+    if (result != null && result.length > 0)
+        return result.join('');
+    else 
+        return null;
+}
+
+//criar orm para record
+exports.ExportToDB = function(){
+        console.log(TOTAL_BLOCK);    
+        conn.then(db => db.collection(COLLECTION_NAME).find({ _proceeded: { $exists: false }}).limit( TOTAL_BLOCK ).toArray(function(err, result) {	        result.forEach(function(element) {
+            console.log("-----Processando " + element._id);
             var record = {
+                idMongo: element._id,
                 id : /*"ZAP_" + */element.CodigoOfertaZAP,
                 defaultPicture : element.UrlFotoDestaqueTamanhoP,
                 url : element.UrlFicha,
@@ -50,28 +127,28 @@ exports.ExportToDB = function(callback){
                 },
                 attributes: 
                 [
-                    { name:"Preco", value:element.PrecoVendaMaximo },                    
-                    { name:"PrecoVendaMaximo", value:element.PrecoVendaMaximo },
-                    { name:"PrecoVendaMinimo", value:element.PrecoVendaMinimo },
+                    { name:"Preco", value: exports.GetOnlyNumber(element.Valor), group: "BASIC" },                    
+                    { name:"PrecoVendaMaximo", value: (element.PrecoVendaMaximo), group: "BASIC"  },
+                    { name:"PrecoVendaMinimo", value: (element.PrecoVendaMinimo), group: "BASIC"  },
 
-                    { name:"QuantidadeQuartos", value:element.QuantidadeQuartos },
-                    { name:"QuantidadeQuartosMinima", value:element.QuantidadeQuartosMinima },
-                    { name:"QuantidadeQuartosMaxima", value:element.QuantidadeQuartosMaxima },
+                    { name:"QuantidadeQuartos", value:element.QuantidadeQuartos , group: "BASIC" },
+                    { name:"QuantidadeQuartosMinima", value:element.QuantidadeQuartosMinima, group: "BASIC"  },
+                    { name:"QuantidadeQuartosMaxima", value:element.QuantidadeQuartosMaxima, group: "BASIC"  },
 
-                    { name:"QuantidadeVagas", value:element.QuantidadeVagas },
-                    { name:"QuantidadeVagasMinima", value:element.QuantidadeVagasMinima },
-                    { name:"QuantidadeVagasMaxima", value:element.QuantidadeVagasMaxima },
+                    { name:"QuantidadeVagas", value:element.QuantidadeVagas, group: "BASIC"  },
+                    { name:"QuantidadeVagasMinima", value:element.QuantidadeVagasMinima, group: "BASIC"  },
+                    { name:"QuantidadeVagasMaxima", value:element.QuantidadeVagasMaxima, group: "BASIC"  },
 
-                    { name:"QuantidadeSuites", value:element.QuantidadeSuites },
-                    { name:"QuantidadeSuitesMinima", value:element.QuantidadeSuitesMinima },
-                    { name:"QuantidadeSuitesMaxima", value:element.QuantidadeSuitesMaxima },
+                    { name:"QuantidadeSuites", value:element.QuantidadeSuites, group: "BASIC"  },
+                    { name:"QuantidadeSuitesMinima", value:element.QuantidadeSuitesMinima, group: "BASIC"  },
+                    { name:"QuantidadeSuitesMaxima", value:element.QuantidadeSuitesMaxima, group: "BASIC"  },
 
-                    { name:"Area", value:element.Area },
-                    { name:"AreaMinima", value:element.AreaMinima },
-                    { name:"AreaMaxima", value:element.AreaMaxima },
+                    { name:"Area", value:element.Area, group: "BASIC"  },
+                    { name:"AreaMinima", value:element.AreaMinima, group: "BASIC"  },
+                    { name:"AreaMaxima", value:element.AreaMaxima, group: "BASIC"  },
 
-                    { name:"PrecoCondominio", value:element.PrecoCondominio },
-                    { name:"ValorIPTU", value:element.ValorIPTU }
+                    { name:"PrecoCondominio", value:element.PrecoCondominio, group: "BASIC"  },
+                    { name:"ValorIPTU", value:element.ValorIPTU, group: "BASIC"  }
                 ],
                 images: []
             };
@@ -87,38 +164,10 @@ exports.ExportToDB = function(callback){
                         isMain: image.Principal,
                     });
             }, this);
-            //
-             var opts = 
-            {
-                url: 'http://localhost:8082/api/apielement/Import',
-                method: 'POST',
-                json: record,
-                headers: {
-                    "content-type": "application/json",
-                }
-            };
-            //
-            request(opts, function optionalCallback(err, response, record)
-            {
-                if (err) {
-                    console.error(err);
-                }
-                else
-                {
-                    //console.log(record);
-                    try {
-                        conn.then(db => db.collection('zap')
-                            .findOneAndUpdate({ CodigoOfertaZAP: record.id }, {$set: { "dt_proceeded" : datetime.create() }}));                        
-                    }
-                    catch(e){
-                        console.log(e);
-                    }
-
-                    callback(record);
-                }
-            });				  
+            
+            exports.SaveRecord(record);
+            			  
         }, this);
-        //console.log(result)
     }));   
 }
 
@@ -153,11 +202,17 @@ exports.InsertUpdateExecution = function (record, callback)
 //
 exports.InsertUpdate = function (records, callback) 
 {
-    conn.then(db => db.collection('zap').insertMany(records, function(err) {	
+    conn.then(db => db.collection(COLLECTION_NAME).insertMany(records, function(err) {	
         callback({ status:'inserted', count: records.length});
     }));	    
 };
+
+exports.InsertUpdateSingle = function (record, callback) 
+{
+    conn.then(db => db.collection(COLLECTION_NAME).insert(records, function(err) {	
+        callback({ status:'inserted single', count: record.CodigoOfertaZAP});
+    }));	    
+};
 //
-exports.ExportToDB((result)=>{
-    console.log(result) ;
-});
+//exports.ExportToDB();
+  
