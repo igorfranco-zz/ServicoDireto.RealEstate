@@ -1,55 +1,40 @@
-var apiUrl = "http://192.168.1.102/servicodireto";
-var mongoUrl = 'mongodb://192.168.1.102:27017/crawler';
+var apiUrl = "http://192.168.1.101/servicodireto";
+var mongoUrl = 'mongodb://192.168.1.101:27017/crawler';
 
 var MongoClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
-
+var tools  = require('./zap_tools');
+var crawler  = require('./zap_crawler');
 var assert = require('assert')
 var request = require('request')
 var datetime = require('node-datetime');
 var conn = MongoClient.connect(mongoUrl); // returns a Promise
 var _countProc = 0;
-const TOTAL_BLOCK = 20 ;
-const COLLECTION_NAME = "zap_4";
 
-var http = require('http') // Do the same with the 'https' module if you do https requests
+const TOTAL_BLOCK = 1 ;
+const COLLECTION_NAME = "zap";
 
-var httpAgent = new http.Agent()
-httpAgent.maxSockets = 15
-
-var execution = 
-{
-    IDCustomer: 'ZAP',
-    ExecutionDate:'',
-    TotalPages: 0,
-    BlockSize: 0
-}
-
-var executionItem = 
-{
-    IDCustomer: 'ZAP',
-    RetryCounter: 0,     
-    Config: null,
-}
-
-exports.SaveRecord = function(record)
+/**
+ * Salvar registro como processado
+ */
+exports.SaveRecord = function(item, callback)
 {
     //
     var opts = 
     {
         url: apiUrl + '/api/apielement/Import',
         method: 'POST',
-        json: record,
-        pool: httpAgent,
+        json: item,
+        //pool: httpAgent,
         headers: {
             "content-type": "application/json",
         }
     };
     //
-    request(opts, function optionalCallback(err, response, record)
+    request(opts, function(err, response, record)
     {
         if (err) {
-            console.error(err);
+            callback({status: 'error'}, err);
         }
         else
         {
@@ -58,45 +43,34 @@ exports.SaveRecord = function(record)
                 conn.then(db => db.collection(COLLECTION_NAME)
                     .findOneAndUpdate({ _id: new ObjectID(record.idMongo) }, 
                                       { $set: { "_proceeded" : 1 } }, 
-                                      {}, 
+                                      {},
                                       (err, doc, raw) => {
                                         _countProc++;
 
                                         if(_countProc == TOTAL_BLOCK)
                                         {
                                             _countProc = 0;
-                                            console.log("----------------------------------------------------- executing new block ----------------------------------------------------- ")
-                                            exports.ExportToDB();
+                                            //console.log("----------------------------------------------------- executing new block ----------------------------------------------------- ")
+                                            //exports.ExportToDB();
+                                            callback({status: 'success_block'} );
                                         }
                                         if(err != null)
-                                            console.error(' failed:', err);
+                                            callback({status: 'error'}, err);
                                         else
-                                            console.log("executed OK: " + record.idMongo);
+                                            callback({status: 'success_item', id: record.idMongo} );
                                     }));         
             }
             catch(e){
-                console.log(e);
+                callback({status: 'error'}, e);
             }
         }
     });	
 }
 
-exports.GetOnlyNumber = function(value)
-{  
-    var numberPattern = /\d+/g;     
-    if(value == null)
-        value = '';
-
-    var result =  value.match( numberPattern );
-    if (result != null && result.length > 0)
-        return result.join('');
-    else 
-        return null;
-}
-
-//criar orm para record
-exports.ExportToDB = function(){
-        console.log(TOTAL_BLOCK);    
+/**
+ * Buscar registro nao processado e importa para plataforma
+ */
+exports.GetUnproceededAndSaveToDB = function( callback ){
         conn.then(db => db.collection(COLLECTION_NAME).find({ _proceeded: { $exists: false }}).limit( TOTAL_BLOCK ).toArray(function(err, result) {	        result.forEach(function(element) {
             console.log("-----Processando " + element._id);
             var record = {
@@ -127,7 +101,7 @@ exports.ExportToDB = function(){
                 },
                 attributes: 
                 [
-                    { name:"Preco", value: exports.GetOnlyNumber(element.Valor), group: "BASIC" },                    
+                    { name:"Preco", value: tools.GetOnlyNumber(element.Valor), group: "BASIC" },                    
                     { name:"PrecoVendaMaximo", value: (element.PrecoVendaMaximo), group: "BASIC"  },
                     { name:"PrecoVendaMinimo", value: (element.PrecoVendaMinimo), group: "BASIC"  },
 
@@ -165,12 +139,37 @@ exports.ExportToDB = function(){
                     });
             }, this);
             
-            exports.SaveRecord(record);
-            			  
+            //buscar os detalhes do imovel
+            crawler.GetPageItemContent(record.url, (result, err) => {
+                if(err != null)
+                {
+                    console.log("Sem detalhes, salvando registro")
+                    //salva igual porem sem detalhes
+                    exports.SaveRecord(record);
+                }
+                else
+                {
+                    console.log("Com detalhes, salvando registro")
+
+                    if(result.description!=null)
+                        record.description = result.description; 
+
+                    if(result.realstate_info != null)    
+                        tools.GetAttributes(result.realstate_info, 'IE', record.attributes);
+
+                    if(result.realstate_areas != null)
+                        tools.GetAttributes(result.realstate_areas, 'IE', record.attributes);
+
+                    exports.SaveRecord(record);
+                }    
+            })            			  
         }, this);
     }));   
 }
 
+/**
+ * Insere um rgistro de execucao
+ */
 exports.InsertUpdateExecution = function (record, callback) 
 {
     conn.then(db => db.collection('execution').count({ IDCustomer: record.IDCustomer }, function(err, result) {	
@@ -199,20 +198,23 @@ exports.InsertUpdateExecution = function (record, callback)
         }    
     }));
 }
-//
-exports.InsertUpdate = function (records, callback) 
+
+/**
+ * Insere uma colecao de itens
+ */
+exports.InsertCollection = function (records, callback) 
 {
     conn.then(db => db.collection(COLLECTION_NAME).insertMany(records, function(err) {	
         callback({ status:'inserted', count: records.length});
     }));	    
-};
+}
 
+/**
+ * Insere e atualiza um registro exclusivamente
+ */
 exports.InsertUpdateSingle = function (record, callback) 
 {
     conn.then(db => db.collection(COLLECTION_NAME).insert(records, function(err) {	
         callback({ status:'inserted single', count: record.CodigoOfertaZAP});
     }));	    
-};
-//
-//exports.ExportToDB();
-  
+}

@@ -1,78 +1,15 @@
-//	process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'; // Ignore 'UNABLE_TO_VERIFY_LEAF_SIGNATURE' authorization error
+
+	/**
+	 * Buscar o corpo das paginas e processar
+	 */
 	var request = require('request');
 	var zap_mongo = require('./zap_mongo');
 	var zap_tools = require('./zap_tools');
-	var fs = require('fs');
-	var mkdirp = require('mkdirp');
-//     
-	exports.GetTotalPages = function (config, callback) 
-	{
-		var opts = createOpts(config);
-		request(opts, function optionalCallback(err, response, body) 
-		{
-			if (err) { 
-				//return
-				console.error(' failed:', err);
-				console.log("_______retry gettotalpages");
-				exports.GetTotalPages(config, callback);
-			}
-			else
-			{
-				var record = JSON.parse(body); 
-				callback(record.Resultado.QuantidadePaginas);
-			}
-		});			
-	}
-//
-	exports.Import = function (config, callback) 
-	{
-		console.log("******************************** Processando página: " + config.Pagina + ' de ' + config.TotalPaginas + '********************************');			
-		var opts = createOpts(config);
-		request(opts, function optionalCallback(err, response, body) 
-		{
-			if (err) {
-				//return
-				console.error(' failed:', err);
-				console.log("_______retry execute");
-				callback({status:'error'}, err);
-			}
-			
-			try 
-			{
-				var records = JSON.parse(body); 	
-				//processando cada item buscando dados detalhados.
-				zap_mongo.InsertUpdate(records.Resultado.Resultado, function(result){
-					callback( { status:'success' } );
-				});				
-			} catch (error) {
-				callback({ status: 'error' }, error);
-			}
-		});						
-	}
-//
-	var downloadPictures = function(element, callback){
-		var basePath = './zap/' + element.CodigoOfertaZAP;
-		/*
-		mkdirp(basePath, function (err) {
-			if (err) {
-				console.error(err)
-			}
-			else 
-			{
-				for (var index = 0; index < element.Fotos.length; index++) {
-					var photo = element.Fotos[index];
-					var path = basePath + '\\' + element.CodigoOfertaZAP + '.jpg';
-					zap_tools.Download(photo.UrlImagem, path, function(){
-						console.log('Image OK: ' + path);
-						callback({status:'concluded', element:element, path: path});
-					});
-				}		
-			}
-		});		
-		*/
-	};
-
-	//
+	var cheerio = require('cheerio');
+	
+	/**
+	 * criadas configuracoes de request de acordo com o informado
+	 */
 	var createOpts = function(config)
 	{
 		var opts = 
@@ -98,9 +35,61 @@
 		return opts;
 	};
 
-	exports.ImportItem = function (baseUrl, callback) 
+	/**
+	 * Busca o total de paginas a serem processadas
+	 */
+	exports.GetTotalPages = function (config, callback) 
 	{
-		var opts = {
+		var opts = createOpts(config);
+		request(opts, function optionalCallback(err, response, body) 
+		{
+			if (err) { 
+				//return
+				console.error(' failed:', err);
+				console.log("_______retry gettotalpages");
+				exports.GetTotalPages(config, callback);
+			}
+			else
+			{
+				var record = JSON.parse(body); 
+				callback(record.Resultado.QuantidadePaginas);
+			}
+		});			
+	}
+	/**
+	 * Busca o conteudo da pagina principal, conforme o config informado
+	 */
+	exports.GetPageContent = function (config, callback) 
+	{
+		console.log("******************************** Processando página: " + config.Pagina + ' de ' + config.TotalPaginas + '********************************');			
+		var opts = createOpts(config);
+		request(opts, function optionalCallback(err, response, body) 
+		{
+			if (err) {
+				console.error(' failed:', err);
+				console.log("_______retry execute");
+				callback({ status:'error' }, err);
+			}
+			
+			try 
+			{
+				var records = JSON.parse(body); 
+				zap_mongo.InsertCollection(records.Resultado.Resultado, function(result){
+					callback( { status: 'success', config: config  } );
+				});	
+			} catch (error) {
+				callback({ status: 'error' }, error);
+			}
+		});						
+	}
+	/**
+	 * Busca o detalhe do imovel
+	 */
+	exports.GetPageItemContent = function (baseUrl, callback) 
+	{
+		console.log("Buscando detalhes: " + baseUrl);
+		var opts = 
+		{
 			url: baseUrl,
 			method: 'GET',
 			headers: {
@@ -110,26 +99,34 @@
 				'Host': 'www.zapimoveis.com.br'
 			}	
 		};
-
-		request(opts, function optionalCallback(err, response, body) 
+		request(opts, function(err, response, body) 
 		{
 			if (err) { 
-				//return
 				console.error(' failed:', err);
 				console.log("_______retry ImportItem");
+				callback({ status: 'error' }, err);
 			}
 			else
 			{
-				const $ = cheerio.load(result.body); 
-				callback({ 
+				const $ = cheerio.load(response.body); 
+				$("strong").remove();
+				
+				callback({ 	
 					id: $("#ofertaId ").data("value"),
 					url: baseUrl, 
-					body: body, 
 					description: $("#descricaoOferta p").html(),
 					realstate_base: $("#caracteristicaOferta p").eq(0).html(),
 					realstate_info: $("#caracteristicaOferta p").eq(1).html(), //Caracter&#xED;sticas do Im&#xF3;vel
-					realtate_areas: $("#caracteristicaOferta p").eq(2).html() //Caracter&#xED;sticas das &#xC1;reas Comuns
+					realstate_areas: ($("#caracteristicaOferta p").eq(2).html() + $(".content-ficha .outras-infos p").html()) //Caracter&#xED;sticas das &#xC1;reas Comuns
 				} );
 			}
 		});			
 	}
+/*
+exports.GetPageItemContent('https://www.zapimoveis.com.br/superdestaque/venda+apartamento+3-quartos+humaita+porto-alegre+rs+67m2+RS219000/ID-13976443/', function(response, err){
+		console.log(getAttributes(response.realstate_base, 'BASIC'));		
+		console.log(getAttributes(response.realstate_areas, 'IE'));
+		console.log(getAttributes(response.realstate_info, 'IE'));
+		
+	});
+*/	

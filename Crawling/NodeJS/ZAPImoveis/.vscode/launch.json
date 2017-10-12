@@ -12,7 +12,7 @@
             //"program": "${workspaceRoot}/zap_import.js",
 
              "args": [
-                "1", "70000"
+                "1", "10000"
              ]
            
         }
