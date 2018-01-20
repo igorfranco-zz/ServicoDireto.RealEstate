@@ -21,10 +21,12 @@
     "gulp-uglify": "^1.5.4",
     "gulp-util": "^2.2.20",
     "gulp-webserver": "^0.8.1",
+    "gulp-zip": "^4.0.0",
     "main-bower-files": "^2.11.0",
     "ng-slider": "^2.2.6"
   },
   "dependencies": {
-    "gulp-install": "^0.6.0"
+    "gulp-install": "^0.6.0",
+    "vinyl-ftp": "^0.6.0"
   }
 }

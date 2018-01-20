@@ -103,7 +103,7 @@
                     <figure class="type" title=""><img src="{{ tv.iconPath }}"></figure>
                     <a href="#/property-detail/{{ tv.idElement }}" ui-sref="property-detail({ idElement: tv.idElement })">
                         <div class="property-image">
-                            <img alt="" src="{{ config.adminSite + tv.defaultPicturePath }}">
+                            <img alt="" src="{{ (tv.defaultPicturePath.includes('http')) ? tv.defaultPicturePath : config.adminSite + tv.defaultPicturePath }}">
                         </div>
                         <div class="overlay">
                             <div class="info">

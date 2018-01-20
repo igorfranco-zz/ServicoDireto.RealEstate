@@ -25,11 +25,7 @@
                             <!--property-carousel data-items='element.images' element='element'/-->
                             <uib-carousel active="4" no-wrap="false" interval="config.carouselInterval">
                               <uib-slide ng-repeat="item in element.images" index="item.index">
-                                <img ng-src="{{ config.adminSite + item.image.value}}" style="margin:auto;">
-                                <!--div class="carousel-caption">
-                                  <h4>Slide {{slide.id}}</h4>
-                                  <p>{{slide.text}}</p>
-                                </div-->
+                                <img ng-src="{{ item.image.value.includes('http') ? item.image.value : config.adminSite + item.image.value }}" style="margin:auto;">
                               </uib-slide>
                             </uib-carousel>                            
                         </section>

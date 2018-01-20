@@ -5,6 +5,9 @@ var templateCache = require('gulp-angular-templatecache');
 var ngAnnotate = require('gulp-ng-annotate');
 var replace = require('gulp-replace');
 var uglify = require('gulp-uglify');
+var gutil = require('gulp-util');
+var ftp = require('vinyl-ftp');
+const zip = require('gulp-zip');
 var browserSync     = require('browser-sync').create();
 var fs = require('fs');
 var _ = require('lodash');
@@ -41,7 +44,7 @@ var destinations = {
     dev_build: 'development'
 };
 
-gulp.task('build', function()
+gulp.task('deploy', function()
 {
     gulp.src(['bower_components/bootstrap/**/*']).pipe(gulp.dest(destinations.deploy + '/components/bootstrap'));
     gulp.src(['bower_components/bootstrap-fileinput/**/*']).pipe(gulp.dest(destinations.deploy + '/components/bootstrap-fileinput'));
@@ -63,11 +66,16 @@ gulp.task('build', function()
          .pipe(ngAnnotate())
          .pipe(uglify())
          .pipe(concat('app_compiled.js'))        
-         .pipe(replace('http://192.168.1.101/servicodireto', 'http://api.servicodireto.com'))
-         .pipe(replace('/bower_components', 'components'))
+         .pipe(replace('http://10.1.1.194/servicodireto', 'http://api.servicodireto.com/api'))
+         .pipe(replace('/bower_components', 'components'))    
          .pipe(gulp.dest(destinations.deploy));
 });
  
+gulp.task('zip', () =>
+    gulp.src(destinations.deploy + '/**/*')
+        .pipe(zip('archive.zip'))
+        .pipe(gulp.dest(destinations.deploy)));
+
 gulp.task('js', function(){
     return es.merge(gulp.src(source.js.src) , getTemplateStream())
         .pipe(concat('dev_app_compiled.js'))
@@ -148,7 +156,41 @@ gulp.task('browser-sync', function() {
     });
 });
 
-gulp.task('prod', ['vendor', 'build' ]);
+// Static server
+gulp.task('browser-sync-prod', function() {
+    browserSync.init({
+        port:8000,
+        server: 
+        {
+            directory: false,
+            baseDir: "./deploy",
+            routes: {
+              "/bower_components": "./bower_components/"
+            }
+        }
+    });
+});
+
+gulp.task( 'ftp', function () { 
+    var conn = ftp.create( {
+        host:     'ftp.site4now.net',
+        user:     'igorfranco-001',
+        password: 'inter007',
+        parallel: 10,
+        log:      gutil.log
+    } );
+ //
+    var globs = [ destinations.deploy + '/archive.zip' ];
+ 
+    // using base = '.' will transfer everything to /public_html correctly 
+    // turn off buffering in gulp.src for best performance 
+    return gulp.src( globs, { base: '.', buffer: false } )
+        .pipe( conn.newer( '/ui' ) ) // only upload newer files 
+        .pipe( conn.dest( '/ui' ) );
+ 
+} );
+
+gulp.task('prod', ['vendor', 'js', 'deploy']);
 gulp.task('dev', ['vendor', 'js', 'watch', 'browser-sync']);
 gulp.task('default', ['dev']);
 

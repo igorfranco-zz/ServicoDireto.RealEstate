@@ -91,7 +91,7 @@
                                 <td class="image">
                                     <figure class="ribbon" ng-if="element.isPromoted == true">Destaque!</figure>
                                     <a href="#/submit/{{ item.idElement }}" ui-sref="submit({ idElement: item.idElement })" >
-                                        <img alt="" src="{{ config.adminSite + '/' + item.defaultPicturePath }}">
+                                        <img alt="" src="{{   item.defaultPicturePath.includes('http') ? item.defaultPicturePath : config.adminSite + '/' + item.defaultPicturePath }}">
                                     </a>                                    
                                 </td>
                                 <td><div class="inner">

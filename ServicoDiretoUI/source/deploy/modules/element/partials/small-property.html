@@ -2,7 +2,7 @@
 <div class="property small" ng-repeat="item in array | limitTo:limit">
     <a href="#/property-detail/{{ item.idElement }}" ui-sref="property-detail({ idElement: item.idElement })">    
         <div class="property-image">
-            <img alt="" src="{{ config.adminSite + '/' + item.defaultPicturePath }}">
+            <img alt="" src="{{ item.defaultPicturePath.includes('http') ? item.defaultPicturePath : config.adminSite + '/' + item.defaultPicturePath }}">
         </div>
     </a>
     <div class="info">

@@ -6,6 +6,7 @@
 	var zap_mongo = require('./zap_mongo');
 	var zap_tools = require('./zap_tools');
 	var cheerio = require('cheerio');
+	var process = require('process'); 
 	
 	/**
 	 * criadas configuracoes de request de acordo com o informado
@@ -68,17 +69,17 @@
 			if (err) {
 				console.error(' failed:', err);
 				console.log("_______retry execute");
-				callback({ status:'error' }, err);
+				callback({ status:'error', pid: process.pid }, err);
 			}
 			
 			try 
 			{
 				var records = JSON.parse(body); 
 				zap_mongo.InsertCollection(records.Resultado.Resultado, function(result){
-					callback( { status: 'success', config: config  } );
+					callback( { status: 'success', config: config , pid: process.pid  } );
 				});	
 			} catch (error) {
-				callback({ status: 'error' }, error);
+				callback({ status: 'error' , pid: process.pid }, error);
 			}
 		});						
 	}
@@ -87,7 +88,6 @@
 	 */
 	exports.GetPageItemContent = function (baseUrl, callback) 
 	{
-		console.log("Buscando detalhes: " + baseUrl);
 		var opts = 
 		{
 			url: baseUrl,
@@ -104,7 +104,7 @@
 			if (err) { 
 				console.error(' failed:', err);
 				console.log("_______retry ImportItem");
-				callback({ status: 'error' }, err);
+				callback({ status: 'error' , pid: process.pid }, err);
 			}
 			else
 			{
@@ -122,11 +122,3 @@
 			}
 		});			
 	}
-/*
-exports.GetPageItemContent('https://www.zapimoveis.com.br/superdestaque/venda+apartamento+3-quartos+humaita+porto-alegre+rs+67m2+RS219000/ID-13976443/', function(response, err){
-		console.log(getAttributes(response.realstate_base, 'BASIC'));		
-		console.log(getAttributes(response.realstate_areas, 'IE'));
-		console.log(getAttributes(response.realstate_info, 'IE'));
-		
-	});
-*/	

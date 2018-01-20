@@ -2,6 +2,10 @@ var datetime = require('node-datetime');
 var crawler = require('./zap_crawler');
 var tools  = require('./zap_tools');
 var mongo  = require('./zap_mongo');
+const cluster = require('cluster');
+const http = require('http');
+const numCPUs = require('os').cpus().length;
+process.env.UV_THREADPOOL_SIZE = 4;
 
 const BLOCK_SIZE = 10000;
 var args = process.argv.slice(2);
@@ -33,14 +37,22 @@ var _processPage = function(pageIndex, config, callback){
         }
     });    
 };    
+//
+var _importToDB = function(){
+    console.log("******************************* importacao");
+    mongo.GetUnproceededAndSaveToDB(function(result, err){
+        if(err!=null)
+            console.log(err);
+        console.log(result);
+
+        if(result.status == 'success_block')
+            _importToDB();
+    });
+};
 
 //mode: import, crawler_page, crawler_range
 
 var def_args = { mode: 'import' };
-//if(args.length > 0)
- //   def_args = JSON.parse(args[0]);
-
-//
 if(def_args.mode == 'crawler_page')
 {
     _config.Pagina = def_args.start;
@@ -77,11 +89,5 @@ else if(def_args.mode == 'crawler_range')
 }
 else if(def_args.mode == 'import')
 {
-    console.log("----> importacao");
-    mongo.GetUnproceededAndSaveToDB(function(result, err){
-        if(err!=null)
-            console.log(err);
-            
-        console.log(result)
-    });
+    _importToDB();
 }

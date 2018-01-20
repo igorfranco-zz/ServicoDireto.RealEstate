@@ -1,7 +1,7 @@
 <div class="property" >
     <a href="#/property-detail/{{ element.idElement }}" ui-sref="property-detail({ idElement: element.idElement })">
         <div class="property-image">
-            <img alt="" src="{{ (element.defaultPicturePath == null) ? 'assets/img/properties/property-06.jpg' : config.adminSite + '/' + element.defaultPicturePath}}">
+            <img alt="{{ element.defaultPicturePath.includes('http') }}" src="{{ element.defaultPicturePath.includes('http') ? element.defaultPicturePath : config.adminSite + '/' + element.defaultPicturePath }}">
         </div>
         <div class="overlay">
             <div class="info">

@@ -1,0 +1,8 @@
+[ODBC]
+DRIVER=SQL Server
+UID=sa
+DATABASE=ServicoDiretoV2
+WSID=WIN_DEV1
+APP=Enterprise Architect 9
+SERVER=(local)
+Description=servicodireto

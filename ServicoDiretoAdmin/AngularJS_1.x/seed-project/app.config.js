@@ -265,7 +265,7 @@ if (appConfig.voice_command) {
 }
 
 appConfig.apiRootUrl = 'api'; //remover depois
-appConfig.apiUrl = 'http://192.168.1.101/servicodireto/api';
+appConfig.apiUrl = 'http://10.1.1.194/servicodireto/api';
 
 window.appConfig = appConfig;
 
