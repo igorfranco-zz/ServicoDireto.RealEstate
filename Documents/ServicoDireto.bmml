@@ -1,173 +1,184 @@
-<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1275" measuredH="711" mockupW="977" mockupH="611">
+<mockup version="1.0" skin="wireframe" fontFace="Balsamiq Sans" measuredW="1440" measuredH="1222" mockupW="1413" mockupH="1190">
   <controls>
-    <control controlID="568" controlTypeID="com.balsamiq.mockups::iPhone" x="644" y="128" w="282" h="573" measuredW="282" measuredH="573" zOrder="3" locked="false" isInGroup="-1">
+    <control controlID="2358" controlTypeID="__group__" x="111" y="163" w="282" h="601" measuredW="282" measuredH="601" zOrder="0" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="__group__" x="0" y="0" w="282" h="601" measuredW="282" measuredH="601" zOrder="0" locked="false" isInGroup="2358">
+          <groupChildrenDescriptors>
+            <control controlID="0" controlTypeID="com.balsamiq.mockups::iPhone" x="0" y="28" w="-1" h="-1" measuredW="282" measuredH="573" zOrder="0" locked="false" isInGroup="0">
+              <controlProperties>
+                <model>IPhone5</model>
+              </controlProperties>
+            </control>
+            <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="121" y="0" w="-1" h="-1" measuredW="40" measuredH="21" zOrder="1" locked="false" isInGroup="0">
+              <controlProperties>
+                <text>Splash</text>
+              </controlProperties>
+            </control>
+          </groupChildrenDescriptors>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Image" x="30" y="141" w="218" h="173" measuredW="77" measuredH="79" zOrder="1" locked="false" isInGroup="2358">
+          <controlProperties>
+            <text>CompanyLogo</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Paragraph" x="30" y="409" w="222" h="41" measuredW="200" measuredH="80" zOrder="2" locked="false" isInGroup="2358">
+          <controlProperties>
+            <text>Tap%20%22Agree%20and%20Continue%22%20to%20accept%20the%20ServicoDireto</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::IconLabel" x="49" y="484" w="184" h="-1" measuredW="145" measuredH="24" zOrder="3" locked="false" isInGroup="2358">
+          <controlProperties>
+            <borderStyle>none</borderStyle>
+            <icon>GtIcon%7Csmall</icon>
+            <labelPosition>left</labelPosition>
+            <text>Agree%20and%20Continue</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="2359" controlTypeID="com.balsamiq.mockups::iPhone" x="460" y="191" w="-1" h="-1" measuredW="282" measuredH="573" zOrder="1" locked="false" isInGroup="-1">
       <controlProperties>
         <model>IPhone5</model>
       </controlProperties>
     </control>
-    <control controlID="569" controlTypeID="com.balsamiq.mockups::Label" x="734" y="100" w="89" h="-1" measuredW="65" measuredH="21" zOrder="4" locked="false" isInGroup="-1">
+    <control controlID="2360" controlTypeID="com.balsamiq.mockups::Label" x="556" y="163" w="-1" h="-1" measuredW="77" measuredH="21" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Phone%20Check</text>
+      </controlProperties>
+    </control>
+    <control controlID="2361" controlTypeID="com.balsamiq.mockups::Paragraph" x="490" y="329" w="222" h="80" measuredW="200" measuredH="80" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>ServicoDireto%20will%20send%20a%20SMS%20message%20to%20verify%20your%20phone%20number.%20Entry%20your%20country%20code%20and%20phone%20number.</text>
+      </controlProperties>
+    </control>
+    <control controlID="2362" controlTypeID="com.balsamiq.mockups::TextInput" x="487" y="293" w="225" h="-1" measuredW="162" measuredH="24" zOrder="4" locked="false" isInGroup="-1">
       <controlProperties>
         <align>center</align>
-        <text>MainProfile</text>
+        <backgroundAlpha>0.5</backgroundAlpha>
+        <borderColor>0</borderColor>
+        <color>13421772</color>
+        <text>Verify%20your%20phone%20number</text>
       </controlProperties>
     </control>
-    <control controlID="581" controlTypeID="com.balsamiq.mockups::Image" x="673" y="230" w="221" h="79" measuredW="77" measuredH="79" zOrder="5" locked="false" isInGroup="-1">
+    <control controlID="2363" controlTypeID="com.balsamiq.mockups::ComboBox" x="490" y="394" w="222" h="-1" measuredW="78" measuredH="24" zOrder="5" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Photo/Logo</text>
+        <text>Country</text>
       </controlProperties>
     </control>
-    <control controlID="582" controlTypeID="__group__" x="298" y="100" w="282" h="601" measuredW="282" measuredH="601" zOrder="0" locked="false" isInGroup="-1">
-      <groupChildrenDescriptors>
-        <control controlID="0" controlTypeID="com.balsamiq.mockups::iPhone" x="0" y="28" w="-1" h="-1" measuredW="282" measuredH="573" zOrder="0" locked="false" isInGroup="582">
-          <controlProperties>
-            <model>IPhone5</model>
-          </controlProperties>
-        </control>
-        <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="121" y="0" w="-1" h="-1" measuredW="40" measuredH="21" zOrder="1" locked="false" isInGroup="582">
-          <controlProperties>
-            <text>Splash</text>
-          </controlProperties>
-        </control>
-      </groupChildrenDescriptors>
-    </control>
-    <control controlID="583" controlTypeID="com.balsamiq.mockups::Image" x="328" y="241" w="218" h="307" measuredW="77" measuredH="79" zOrder="1" locked="false" isInGroup="-1">
+    <control controlID="2364" controlTypeID="com.balsamiq.mockups::TextInput" x="490" y="428" w="60" h="-1" measuredW="38" measuredH="24" zOrder="6" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>CompanyLogo</text>
+        <text>DDD</text>
       </controlProperties>
     </control>
-    <control controlID="584" controlTypeID="com.balsamiq.mockups::Image" x="328" y="556" w="218" h="62" measuredW="77" measuredH="79" zOrder="2" locked="false" isInGroup="-1">
+    <control controlID="2365" controlTypeID="com.balsamiq.mockups::TextInput" x="556" y="428" w="156" h="-1" measuredW="97" measuredH="24" zOrder="7" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>AvantikaLogo</text>
+        <text>Phone%20Number</text>
       </controlProperties>
     </control>
-    <control controlID="595" controlTypeID="com.balsamiq.mockups::TextInput" x="673" y="315" w="221" h="-1" measuredW="40" measuredH="27" zOrder="6" locked="false" isInGroup="-1">
+    <control controlID="2366" controlTypeID="com.balsamiq.mockups::PointyButton" x="535" y="644" w="139" h="-1" measuredW="72" measuredH="27" zOrder="8" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Title</text>
+        <direction>right</direction>
+        <text>Continue</text>
       </controlProperties>
     </control>
-    <control controlID="596" controlTypeID="com.balsamiq.mockups::TextInput" x="673" y="348" w="221" h="-1" measuredW="81" measuredH="27" zOrder="7" locked="false" isInGroup="-1">
+    <control controlID="2367" controlTypeID="com.balsamiq.mockups::Label" x="905" y="163" w="-1" h="-1" measuredW="83" measuredH="21" zOrder="9" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Description</text>
+        <text>WaintingCode</text>
       </controlProperties>
     </control>
-    <control controlID="599" controlTypeID="com.balsamiq.mockups::HRule" x="673" y="384" w="221" h="-1" measuredW="100" measuredH="10" zOrder="8" locked="false" isInGroup="-1"/>
-    <control controlID="600" controlTypeID="com.balsamiq.mockups::Label" x="673" y="394" w="-1" h="-1" measuredW="88" measuredH="21" zOrder="9" locked="false" isInGroup="-1">
+    <control controlID="2368" controlTypeID="com.balsamiq.mockups::iPhone" x="809" y="191" w="-1" h="-1" measuredW="282" measuredH="573" zOrder="10" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Meus%20Servicos</text>
-      </controlProperties>
-    </control>
-    <control controlID="601" controlTypeID="com.balsamiq.mockups::TextInput" x="673" y="415" w="221" h="-1" measuredW="82" measuredH="27" zOrder="10" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>ServiceList</text>
-      </controlProperties>
-    </control>
-    <control controlID="602" controlTypeID="com.balsamiq.mockups::TextInput" x="736" y="282" w="99" h="-1" measuredW="49" measuredH="27" zOrder="11" locked="false" isInGroup="-1">
-      <controlProperties>
-        <align>center</align>
-        <text>Name</text>
-      </controlProperties>
-    </control>
-    <control controlID="633" controlTypeID="__group__" x="673" y="548" w="224" h="71" measuredW="224" measuredH="71" zOrder="12" locked="false" isInGroup="-1">
-      <groupChildrenDescriptors>
-        <control controlID="0" controlTypeID="com.balsamiq.mockups::IconLabel" x="0" y="8" w="-1" h="-1" measuredW="48" measuredH="63" zOrder="0" locked="false" isInGroup="633">
-          <controlProperties>
-            <icon>ContactIcon%7Clarge</icon>
-            <text>Profile</text>
-          </controlProperties>
-        </control>
-        <control controlID="1" controlTypeID="com.balsamiq.mockups::IconLabel" x="58" y="8" w="-1" h="-1" measuredW="48" measuredH="63" zOrder="1" locked="false" isInGroup="633">
-          <controlProperties>
-            <icon>EmailIcon%7Clarge</icon>
-            <text>Contact</text>
-          </controlProperties>
-        </control>
-        <control controlID="2" controlTypeID="com.balsamiq.mockups::IconLabel" x="116" y="8" w="-1" h="-1" measuredW="49" measuredH="63" zOrder="2" locked="false" isInGroup="633">
-          <controlProperties>
-            <icon>WorldIcon%7Clarge</icon>
-            <text>Address</text>
-          </controlProperties>
-        </control>
-        <control controlID="3" controlTypeID="com.balsamiq.mockups::IconLabel" x="173" y="8" w="-1" h="-1" measuredW="51" measuredH="63" zOrder="3" locked="false" isInGroup="633">
-          <controlProperties>
-            <icon>ContactIcon%7Clarge</icon>
-            <text>Personal</text>
-          </controlProperties>
-        </control>
-        <control controlID="4" controlTypeID="com.balsamiq.mockups::HRule" x="0" y="0" w="224" h="-1" measuredW="100" measuredH="10" zOrder="4" locked="false" isInGroup="633"/>
-      </groupChildrenDescriptors>
-    </control>
-    <control controlID="636" controlTypeID="com.balsamiq.mockups::iPhone" x="993" y="138" w="282" h="573" measuredW="282" measuredH="573" zOrder="13" locked="false" isInGroup="-1">
-      <controlProperties>
-        <bgPattern>allWhite</bgPattern>
         <model>IPhone5</model>
       </controlProperties>
     </control>
-    <control controlID="637" controlTypeID="com.balsamiq.mockups::Image" x="1022" y="238" w="221" h="79" measuredW="77" measuredH="79" zOrder="14" locked="false" isInGroup="-1">
+    <control controlID="2369" controlTypeID="com.balsamiq.mockups::Paragraph" x="839" y="329" w="222" h="41" measuredW="200" measuredH="80" zOrder="11" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Photo/Logo</text>
+        <text>Wainting%20to%20automatically%20detect%20a%20SMS%20sent%20to%20DDD%20Phone%20Number</text>
       </controlProperties>
     </control>
-    <control controlID="638" controlTypeID="com.balsamiq.mockups::TextInput" x="1022" y="321" w="221" h="-1" measuredW="69" measuredH="27" zOrder="15" locked="false" isInGroup="-1">
-      <controlProperties>
-        <align>left</align>
-        <text>Category</text>
-      </controlProperties>
-    </control>
-    <control controlID="639" controlTypeID="__group__" x="1022" y="564" w="224" h="63" measuredW="224" measuredH="63" zOrder="16" locked="false" isInGroup="-1">
-      <groupChildrenDescriptors>
-        <control controlID="0" controlTypeID="com.balsamiq.mockups::IconLabel" x="0" y="0" w="-1" h="-1" measuredW="48" measuredH="63" zOrder="0" locked="false" isInGroup="639">
-          <controlProperties>
-            <borderStyle>square</borderStyle>
-            <icon>ContactIcon%7Clarge</icon>
-            <text>Profile</text>
-          </controlProperties>
-        </control>
-        <control controlID="1" controlTypeID="com.balsamiq.mockups::IconLabel" x="58" y="0" w="-1" h="-1" measuredW="48" measuredH="63" zOrder="1" locked="false" isInGroup="639">
-          <controlProperties>
-            <icon>EmailIcon%7Clarge</icon>
-            <text>Contact</text>
-          </controlProperties>
-        </control>
-        <control controlID="2" controlTypeID="com.balsamiq.mockups::IconLabel" x="116" y="0" w="-1" h="-1" measuredW="49" measuredH="63" zOrder="2" locked="false" isInGroup="639">
-          <controlProperties>
-            <icon>WorldIcon%7Clarge</icon>
-            <text>Address</text>
-          </controlProperties>
-        </control>
-        <control controlID="3" controlTypeID="com.balsamiq.mockups::IconLabel" x="173" y="0" w="-1" h="-1" measuredW="51" measuredH="63" zOrder="3" locked="false" isInGroup="639">
-          <controlProperties>
-            <icon>ContactIcon%7Clarge</icon>
-            <text>Personal</text>
-          </controlProperties>
-        </control>
-      </groupChildrenDescriptors>
-    </control>
-    <control controlID="640" controlTypeID="com.balsamiq.mockups::HRule" x="1022" y="556" w="224" h="-1" measuredW="100" measuredH="10" zOrder="17" locked="false" isInGroup="-1"/>
-    <control controlID="641" controlTypeID="com.balsamiq.mockups::Label" x="1089" y="105" w="89" h="-1" measuredW="71" measuredH="21" zOrder="18" locked="false" isInGroup="-1">
+    <control controlID="2370" controlTypeID="com.balsamiq.mockups::TextInput" x="836" y="293" w="225" h="-1" measuredW="172" measuredH="24" zOrder="12" locked="false" isInGroup="-1">
       <controlProperties>
         <align>center</align>
-        <text>ProfileDetail</text>
+        <backgroundAlpha>0.5</backgroundAlpha>
+        <borderColor>0</borderColor>
+        <color>13421772</color>
+        <text>Verify%20DDD%20-%20phone%20number</text>
       </controlProperties>
     </control>
-    <control controlID="642" controlTypeID="com.balsamiq.mockups::TextInput" x="1022" y="357" w="221" h="-1" measuredW="92" measuredH="27" zOrder="19" locked="false" isInGroup="-1">
+    <control controlID="2371" controlTypeID="com.balsamiq.mockups::TextInput" x="872" y="425" w="156" h="-1" measuredW="73" measuredH="24" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>SMS%20Code</text>
+      </controlProperties>
+    </control>
+    <control controlID="2372" controlTypeID="com.balsamiq.mockups::Paragraph" x="839" y="457" w="222" h="28" measuredW="200" measuredH="80" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <text>Enter%206-digit%20code</text>
+      </controlProperties>
+    </control>
+    <control controlID="2373" controlTypeID="com.balsamiq.mockups::PointyButton" x="889" y="644" w="139" h="-1" measuredW="123" measuredH="27" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>center</direction>
+        <icon>EmailIcon%7Csmall</icon>
+        <menuIcon>false</menuIcon>
+        <text>Resend%20SMS</text>
+      </controlProperties>
+    </control>
+    <control controlID="2374" controlTypeID="com.balsamiq.mockups::Label" x="1254" y="163" w="-1" h="-1" measuredW="100" measuredH="21" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>GreetingsChoice</text>
+      </controlProperties>
+    </control>
+    <control controlID="2375" controlTypeID="com.balsamiq.mockups::iPhone" x="1158" y="191" w="-1" h="-1" measuredW="282" measuredH="573" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <model>IPhone5</model>
+      </controlProperties>
+    </control>
+    <control controlID="2376" controlTypeID="com.balsamiq.mockups::MultilineButton" x="1193" y="304" w="212" h="90" measuredW="92" measuredH="81" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>welcome%0ADo%20you%20want%20hire%20a%20professional%20or%20register%20your%20service%3F</text>
+      </controlProperties>
+    </control>
+    <control controlID="2377" controlTypeID="com.balsamiq.mockups::Button" x="1218" y="460" w="173" h="34" measuredW="132" measuredH="24" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Hire%20a%20Professional</text>
+      </controlProperties>
+    </control>
+    <control controlID="2378" controlTypeID="com.balsamiq.mockups::Button" x="1218" y="509" w="173" h="34" measuredW="148" measuredH="24" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Register%20my%20services</text>
+      </controlProperties>
+    </control>
+    <control controlID="2379" controlTypeID="com.balsamiq.mockups::Link" x="1245" y="558" w="-1" h="-1" measuredW="108" measuredH="19" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>already%20registered</text>
+      </controlProperties>
+    </control>
+    <control controlID="2380" controlTypeID="com.balsamiq.mockups::CallOut" x="1378" y="448" w="-1" h="-1" measuredW="39" measuredH="39" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>A</text>
+      </controlProperties>
+    </control>
+    <control controlID="2381" controlTypeID="com.balsamiq.mockups::CallOut" x="1375" y="507" w="-1" h="-1" measuredW="39" measuredH="39" zOrder="23" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>B</text>
+      </controlProperties>
+    </control>
+    <control controlID="2382" controlTypeID="com.balsamiq.mockups::CallOut" x="1375" y="558" w="-1" h="-1" measuredW="39" measuredH="39" zOrder="24" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>C</text>
+      </controlProperties>
+    </control>
+    <control controlID="2383" controlTypeID="com.balsamiq.mockups::Label" x="84" y="32" w="-1" h="-1" measuredW="1018" measuredH="80" zOrder="25" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>72</size>
+        <text>Authentication%20for%20Mobile%20Steps</text>
+      </controlProperties>
+    </control>
+    <control controlID="2384" controlTypeID="com.balsamiq.mockups::StickyNote" x="27" y="854" w="464" h="368" measuredW="109" measuredH="123" zOrder="26" locked="false" isInGroup="-1">
       <controlProperties>
         <align>left</align>
-        <text>SubCategory</text>
-      </controlProperties>
-    </control>
-    <control controlID="643" controlTypeID="com.balsamiq.mockups::TextInput" x="1022" y="392" w="221" h="-1" measuredW="40" measuredH="27" zOrder="20" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>Title</text>
-      </controlProperties>
-    </control>
-    <control controlID="644" controlTypeID="com.balsamiq.mockups::TextInput" x="1022" y="425" w="221" h="-1" measuredW="81" measuredH="27" zOrder="21" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>Description</text>
-      </controlProperties>
-    </control>
-    <control controlID="645" controlTypeID="com.balsamiq.mockups::Button" x="1048" y="521" w="173" h="27" measuredW="105" measuredH="27" zOrder="22" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>SaveChanges</text>
+        <text>TODO%27S%3A%0A%20%0AColocar%20Talk%20With%20us%0AIndica%E7%E3o%20para%20amigos%0ACriar%20sistemas%20de%20recomenda%E7%F5es%0AComprovo%E7%E3o%20de%20documenta%E7%E3o%20%0A%20%20%20%20-%20Foto%20ao%20lado%20do%20doc%0A%20%20%20%20-%20Fotos%20de%20todos%20comprovantes%0A-%20Criacao%20de%20sistema%20de%20pagamantos%20de%20moedas/pacotes%3A%0A%09Criar%20moeda%20local%20por%20pacote%0AGanhar%20moedas%20mantendo%20um%20perfil%20completo%20e%20ganhar%20estrelas/moedas%20e%20visibilidade%20pelo%20desempenho%20alcan%E7ado%2C%20pelas%20comprova%E7%F5es%2C%20pelas%20recomenda%E7%F5es%20e%20indica%E7%F5es%20da%20plataforma.%0A%20%0AO%20modo%20de%20comunicacao%20deve%20ser%20pela%20plataforma%20para%20aceita%E7%E3o%20de%20orcamento.</text>
       </controlProperties>
     </control>
   </controls>
